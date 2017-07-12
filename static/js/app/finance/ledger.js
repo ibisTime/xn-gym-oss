@@ -68,8 +68,8 @@ $(function() {
         }
     });
 
-    $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
-    $('#backBtn').on('click', function() {
-        goBack();
-    });
+    // $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    // $('#backBtn').on('click', function() {
+    //     goBack();
+    // });
 });

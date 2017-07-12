@@ -1,16 +1,17 @@
 $(function() {
 
+
     var columns = [{
         field: '',
         title: '',
         checkbox: true
     }, {
-        title: '参数名',
-        field: 'ckey',
+        field: 'word',
+        title: '关键字',
         search: true
     }, {
-        title: '参数值',
-        field: 'cvalue',
+        field: 'updater',
+        title: '最近修改人'
     }, {
         field: 'updateDatetime',
         title: '最近修改时间',
@@ -19,12 +20,11 @@ $(function() {
         field: 'remark',
         title: '备注'
     }];
+
+
     buildList({
         columns: columns,
-        pageCode: "802025",
-        searchParams: {
-            type: "0", //'2,3'
-            companyCode: OSS.company
-        }
+        pageCode: "",
+        deleteCode: "",
     });
 });

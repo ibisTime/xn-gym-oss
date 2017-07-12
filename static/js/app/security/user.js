@@ -19,13 +19,13 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('user_status',"807706"),
+        formatter: Dict.getNameForList('user_status', "807706"),
         type: 'select',
         key: 'user_status'
     }, {
         field: 'idKind',
         title: '证件类型',
-        formatter: Dict.getNameForList('id_kind',"807706"),
+        formatter: Dict.getNameForList('id_kind', "807706"),
         type: 'select',
         key: 'id_kind',
     }, {
@@ -44,7 +44,7 @@ $(function() {
     }, {
         field: 'updateDatetime',
         title: '更新时间',
-		formatter: dateTimeFormat
+        formatter: dateTimeFormat
     }, {
         field: 'remark',
         title: '备注'
@@ -66,7 +66,7 @@ $(function() {
         }
         window.location.href = "user_role.html?userId=" + selRecords[0].userId + "&loginName=" + encodeURI(encodeURI(selRecords[0].loginName)) + "&kind=" + selRecords[0].kind;
     });
-     $('#edit2Btn').click(function() {
+    $('#edit2Btn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
@@ -74,70 +74,16 @@ $(function() {
         }
         window.location.href = "user_role.html?userId=" + selRecords[0].userId + "&loginName=" + encodeURI(encodeURI(selRecords[0].loginName)) + "&kind=" + selRecords[0].kind;
     });
-    
+
     $('#resetBtn').click(function() {
-		var selRecords = $('#tableList').bootstrapTable('getSelections');
-		if(selRecords.length <= 0){
-			toastr.info("请选择记录");
-			return;
-		}
-		location.href = "user_pwd_reset.html?userId=" + selRecords[0].userId + '&loginName=' + selRecords[0].loginName;
-	});
-
-    $('#lockingBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        var status = selRecords[0].status,
-            toStatus = 2;
-        reqApi({
-            code: '805052',
-            json: {
-                userId: selRecords[0].userId,
-                toStatus: toStatus
-            }
-        }).then(function() {
-            sucList();
-        });
+        location.href = "user_pwd_reset.html?userId=" + selRecords[0].userId + '&loginName=' + selRecords[0].loginName;
     });
 
-    $('#unLockBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        var status = selRecords[0].status,
-            toStatus = 0;
-//      status == 0 ? toStatus = 2 : toStatus = 0;
-        reqApi({
-            code: '805052',
-            json: {
-                userId: selRecords[0].userId,
-                toStatus: toStatus
-            }
-        }).then(function() {
-            sucList();
-        });
-    });
 
-    $('#activeBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        reqApi({
-            code: '805052',
-            json: {
-                userId: selRecords[0].userId,
-                toStatus: '0'
-            }
-        }).then(function() {
-            sucList();
-        });
-    });
 
 });

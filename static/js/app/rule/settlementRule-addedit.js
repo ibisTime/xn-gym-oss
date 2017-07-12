@@ -23,7 +23,7 @@ $(function() {
         columns: columns,
         pageCode: "802025",
         searchParams: {
-            type: "0", //'2,3'
+            // type: "2,3",
             companyCode: OSS.company
         }
     });
