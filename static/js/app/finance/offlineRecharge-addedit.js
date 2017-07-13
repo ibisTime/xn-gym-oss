@@ -53,8 +53,4 @@ $(function() {
     };
 
     buildDetail(options);
-
-
-
-
 });

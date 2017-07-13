@@ -4,7 +4,7 @@ $(function() {
 
     var fields = [{
         field: "status",
-        required: 'true',
+        required: true,
         value: 1,
         hidden: true
     }, {
@@ -14,27 +14,27 @@ $(function() {
     }, {
         field: "type",
         value: 4, //4开机爆图
-        required: 'true',
+        required: true,
         hidden: true
     }, {
         field: "belong",
         title: '属于',
         value: 1,
-        required: 'true',
+        required: true,
         hidden: true
     }, {
         field: "parentCode",
         value: 0,
-        required: 'true',
+        required: true,
         hidden: true
     }, {
         field: "contentType",
-        required: 'true',
+        required: true,
         value: 1,
         hidden: true
     }, {
         field: "isCompanyEdit",
-        required: 'true',
+        required: true,
         value: 0,
         hidden: true
     }, {

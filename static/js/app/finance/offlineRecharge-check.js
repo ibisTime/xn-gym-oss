@@ -10,7 +10,7 @@ $(function() {
         required: true,
         readonly: false
     };
-    var payList = [approveNoteField]
+    var payList = [approveNoteField];
 
 
     var buttons = [{
@@ -59,11 +59,6 @@ $(function() {
             field: 'payNote',
             maxlength: 250
         };
-        // approveCodeField = {
-        //     title: '支付渠道号',
-        //     field: 'payCode',
-        //     maxlength: 250,
-        // };
         buttons = "";
         payList = [{
             field: 'payUser',
@@ -99,7 +94,6 @@ $(function() {
             title: '币种',
             type: 'select',
             key: 'currency',
-            // keyCode: "802006",
             formatter: Dict.getNameForList("currency", '802006'),
             search: true
         },
@@ -114,11 +108,7 @@ $(function() {
         },
         {
             field: 'payCardInfo',
-            title: '开户行',
-            // type: "select",
-            // listCode: "802116",
-            // keyName: 'bankCode',
-            // valueName: 'bankName',
+            title: '开户行'
         }, {
             field: 'payCardNo',
             title: '银行卡号',

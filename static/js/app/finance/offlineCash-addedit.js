@@ -1,6 +1,5 @@
 $(function() {
     var code = getQueryString('code');
-    var view = !!getQueryString('v');
     var userId = getQueryString('userId') || '';
 
     var fields = [{
@@ -41,7 +40,7 @@ $(function() {
         field: 'payCardNo',
         title: '银行卡号',
         required: true,
-        bankCard: true,
+        bankCard: true
     }];
 
     var options = {
@@ -49,7 +48,6 @@ $(function() {
         code: code,
         addCode: '802751',
         detailCode: '802756',
-        view: view,
         beforeSubmit: function(data) {
             data.applyUser = getUserId();
             return data;

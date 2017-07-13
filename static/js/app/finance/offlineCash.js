@@ -1,13 +1,11 @@
 $(function() {
-    var isQuery = !!getQueryString('q');
-
     var columns = [{
         field: '',
         title: '',
         checkbox: true
     }, {
         field: 'code',
-        title: '编号',
+        title: '编号'
     }, {
         field: 'accountName',
         title: '户名',
@@ -21,7 +19,7 @@ $(function() {
         title: '开户行'
     }, {
         field: 'payCardNo',
-        title: '银行卡号',
+        title: '银行卡号'
     }, {
         field: 'applyUser',
         title: '申请人',
@@ -102,17 +100,13 @@ $(function() {
 
             window.location.href = "offlineCash_huilu.html?code=" + selRecords[0].code;
         } else {
-
             var dataCode = []
-
             for (var i = 0; i < selRecords.length; i++) {
                 dataCode.push(selRecords[i].code)
-
                 if (selRecords[i].status != 3) {
                     toastr.info(selRecords[i].code + "状态不能回录!");
                     return;
                 }
-
             }
 
             var dw = dialog({
@@ -193,7 +187,7 @@ $(function() {
             return;
         }
         if (selRecords.length == 1 && selRecords[0].status == 1) {
-            window.location.href = "lineUnder_check.html?Code=" + selRecords[0].code;
+            window.location.href = "offlineCash_check.html?Code=" + selRecords[0].code;
         } else {
             var dataCode = []
             for (var i = 0; i < selRecords.length; i++) {

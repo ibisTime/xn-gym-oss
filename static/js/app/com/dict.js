@@ -48,15 +48,6 @@ Dict.getName = function(type, key) {
 
 }
 
-Dict.getName1 = function(type, key, value) {
-    var arr = Dict.getName(type),
-        result = [];
-    for (var i = 0; i < arr.length; i++) {
-        result.push({ "value": arr[i][key || "dkey"], "text": arr[i][value || "dvalue"] });
-    }
-    return result;
-};
-
 Dict.getName2 = function(type, code, key) {
     var res;
     reqApi({
@@ -87,25 +78,4 @@ Dict.getNameForList = function(type, code) {
         }
     });
     return res;
-}
-Dict.getNameForList1 = function(type, code, key1) {
-    var k;
-    reqApi({
-        code: code || '807706',
-        cache: true,
-        sync: true,
-        json: {
-            parentKey: type
-        }
-    }).then(function(data) {
-        if (key1 != undefined) {
-            k = Dict.findName(data, key1);
-            return k;
-        } else {
-            k = '-';
-            return k;
-        }
-    });
-    return k;
-
 }

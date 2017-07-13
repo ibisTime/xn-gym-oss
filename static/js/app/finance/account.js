@@ -1,5 +1,4 @@
 $(function() {
-    var view = 1;
     var accountNumberCNY;
     var accountNumberJF;
     var accountNumberTG;
@@ -34,10 +33,8 @@ $(function() {
     $("#accoutGrantBtn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberTG;
     })
-    $("#accouBtn").click(
-        function() {
-            window.location.href = 'account_enchashment.html?accountNumber=' + accountNumberTG;
-        }
-    );
+    $("#accouBtn").click(function() {
+        window.location.href = 'account_enchashment.html?accountNumber=' + accountNumberTG;
+    });
 
 });

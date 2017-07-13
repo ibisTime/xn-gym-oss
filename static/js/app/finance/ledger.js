@@ -2,10 +2,6 @@ $(function() {
     var currency = getQueryString('currency') || "";
     var accountNumber = getQueryString('accountNumber') || "";
 
-
-
-
-
     var columns = [{
         field: '',
         title: '',
@@ -68,8 +64,8 @@ $(function() {
         }
     });
 
-    // $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
-    // $('#backBtn').on('click', function() {
-    //     goBack();
-    // });
+    $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    $('#backBtn').on('click', function() {
+        goBack();
+    });
 });

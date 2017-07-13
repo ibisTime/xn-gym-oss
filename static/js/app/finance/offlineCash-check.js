@@ -1,6 +1,5 @@
 $(function() {
     var code = getQueryString('code');
-    var view = !!getQueryString('v');
     var isDetail = !!getQueryString('detail');
 
     var approveNoteField = {

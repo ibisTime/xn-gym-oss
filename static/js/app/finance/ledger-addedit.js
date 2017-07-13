@@ -80,21 +80,41 @@ $(function() {
     }, {
         field: 'checkUser',
         title: '对账人',
-        readonly: view
+        readonly: view,
+        afterSet: founction(v, data) {
+            if (v == null || v == "undefined" || v == "") {
+                $("#checkUser").parent().css('display', 'none')
+            }
+        }
     }, {
         field: 'checkDatetime',
         title: '对账时间',
         formatter: dateTimeFormat,
-        readonly: view
+        readonly: view,
+        afterSet: founction(v, data) {
+            if (v == null || v == "undefined" || v == "") {
+                $("#checkDatetime").parent().css('display', 'none')
+            }
+        }
     }, {
         field: 'adjustUser',
         title: '调账人',
-        readonly: view
+        readonly: view,
+        afterSet: founction(v, data) {
+            if (v == null || v == "undefined" || v == "") {
+                $("#adjustUser").parent().css('display', 'none')
+            }
+        }
     }, {
         field: 'adjustDatetime',
         title: '调账时间',
         formatter: dateTimeFormat,
-        readonly: view
+        readonly: view,
+        afterSet: founction(v, data) {
+            if (v == null || v == "undefined" || v == "") {
+                $("#adjustUser").parent().css('display', 'none')
+            }
+        }
     }, {
         title: '备注',
         field: 'remark',

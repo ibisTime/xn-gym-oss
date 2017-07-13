@@ -1,8 +1,6 @@
 $(function() {
     var code = getQueryString('code');
-    var view = !!getQueryString('v');
     var accountNumber = getQueryString('accountNumber');
-
 
     var fields = [{
         field: 'accountNumber',
@@ -25,10 +23,6 @@ $(function() {
     }, {
         field: 'payCardInfo',
         title: '开户行',
-        // type: "select",
-        // listCode: "802116",
-        // keyName: 'bankCode',
-        // valueName: 'bankName',
         required: true,
         maxlength: 255
     }, {
@@ -39,7 +33,6 @@ $(function() {
     }, {
         field: 'applyNote',
         title: '备注',
-        // required: true,
         maxlength: 255,
         type: "textarea",
         normalArea: true
@@ -47,10 +40,7 @@ $(function() {
 
     var options = {
         fields: fields,
-        // code: code,
         addCode: '802754',
-        // detailCode: '802756',
-        view: view,
         beforeSubmit: function(data) {
             data.applyUser = getUserId();
             return data;
