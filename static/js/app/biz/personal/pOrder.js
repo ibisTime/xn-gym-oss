@@ -6,14 +6,16 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'name',
+        field: 'applyUser',
+        title: '下单人',
+        search: true
+    }, {
+        field: 'courseName',
         title: '课程名称',
+        search: true
     }, {
-        field: '',
-        title: '人数'
-    }, {
-        field: '',
-        title: '金额',
+        field: 'price ',
+        title: '价格',
         formatter: moneyFormat
     }, {
         field: '',
@@ -25,28 +27,19 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: '',
-        keyCode: '',
-        formatter: Dict.getNameForList(' ', '802006'),
+        key: 'pOrder_status',
+        formatter: Dict.getNameForList('pOrder_status'),
         search: true
+    }, {
+        title: "下单说明",
+        field: 'applyNote'
     }];
     buildList({
         columns: columns,
-        pageCode: '',
+        pageCode: '622130',
         searchParams: {
             companyCode: OSS.company
         }
-    });
-    $("#cancelBtn").click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        if (selRecords[0].status == 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-    });
+    });;
 
 });

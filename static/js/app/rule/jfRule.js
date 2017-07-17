@@ -18,12 +18,12 @@ $(function() {
     }, {
         field: 'remark',
         title: '备注'
-    }];
+    }, ];
     buildList({
         columns: columns,
         pageCode: "802025",
         searchParams: {
-            // type: "2,3",
+            type: "2",
             companyCode: OSS.company
         }
     });

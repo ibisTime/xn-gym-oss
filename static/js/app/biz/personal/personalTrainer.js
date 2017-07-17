@@ -6,48 +6,49 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'name',
-        title: '课程名称',
+        field: 'nickname',
+        title: '私教名称',
     }, {
-        field: '',
-        title: '人数'
+        field: 'age',
+        title: '年龄'
     }, {
-        field: '',
-        title: '金额',
-        formatter: moneyFormat
+        field: 'duration',
+        title: '工作年限'
     }, {
-        field: '',
-        title: '开课时间'
+        field: 'strengths',
+        title: '特长'
     }, {
-        field: '',
-        title: '任课教练',
+        field: 'label',
+        title: '标签',
+        type: "select",
+        key: "",
+        formatter: Dict.getNameForList()
     }, {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: '',
-        keyCode: '',
-        formatter: Dict.getNameForList(' ', '802006'),
+        key: 'pCourse_status',
+        formatter: Dict.getNameForList('pCourse_status'),
         search: true
     }];
     buildList({
         columns: columns,
-        pageCode: '',
-        singleSelect: false,
+        pageCode: '622095',
         searchParams: {
             companyCode: OSS.company
         }
     });
-    $("#cancelBtn").click(function() {
+    $("#checkBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        if (selRecords[0].status == 0) {
-            toastr.info("请选择记录");
+        if (selRecords[0].status != 0) {
+            toastr.info("不是待审批的状态");
             return;
         }
+        window.location.href = 'personalTrainer_check.html?code=' + selRecords[0].code;
     });
 
 });

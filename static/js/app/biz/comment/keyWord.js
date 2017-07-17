@@ -24,7 +24,7 @@ $(function() {
 
     buildList({
         columns: columns,
-        pageCode: "",
-        deleteCode: "",
+        pageCode: "622005",
+        deleteCode: "622001",
     });
 });

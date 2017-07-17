@@ -13,16 +13,12 @@ $(function() {
         title: '手机号',
         readonly: true
     }, {
-        field: 'activityTitle',
-        title: '活动标题',
-        readonly: true
-    }, {
-        field: 'totalNum',
-        title: '参与人数',
+        field: 'coachUser',
+        title: '任课教练',
         readonly: true
     }, {
         field: 'totalAmount',
-        title: '订单总额',
+        title: '支付金额',
         formatter: moneyFormat,
         readonly: true
     }, {
@@ -34,20 +30,20 @@ $(function() {
         key: 'acOrder_status'
     }, {
         field: 'payDatetime',
-        title: '下单时间',
+        title: '支付时间',
         formatter: dateTimeFormat,
         readonly: true
     }, {
-        title: '备注',
-        field: 'remark',
-        maxlength: 250,
+        title: '下单备注',
+        field: 'applyNote',
+        maxlength: 255,
         readonly: true
     }];
-
-    buildDetail({
+    var options = {
         fields: fields,
         code: code,
         detailCode: '622042'
-    });
+    };
+    buildDetail(options);
 
 });

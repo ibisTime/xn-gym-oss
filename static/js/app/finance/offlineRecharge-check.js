@@ -96,8 +96,7 @@ $(function() {
             key: 'currency',
             formatter: Dict.getNameForList("currency", '802006'),
             search: true
-        },
-        {
+        }, {
             field: 'channelType',
             title: '支付渠道',
             type: 'select',
@@ -105,8 +104,7 @@ $(function() {
             keyCode: '802006',
             formatter: Dict.getNameForList('channel_type', '802006'),
             search: true
-        },
-        {
+        }, {
             field: 'payCardInfo',
             title: '开户行'
         }, {

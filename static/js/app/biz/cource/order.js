@@ -1,54 +1,46 @@
 $(function() {
+
+
     var columns = [{
         field: '',
         title: '',
         checkbox: true
-    }, {
-        field: 'code',
-        title: '订单号'
     }, {
         field: 'applyUser',
         title: '下单人',
         search: true
     }, {
         field: 'mobile',
-        title: '手机号'
-    }, {
-        field: 'activityTitle',
-        title: '活动标题',
+        title: '联系方式',
+        mobile: true,
         search: true
     }, {
-        field: 'totalNum',
-        title: '参与人数'
+        field: 'coachUser',
+        title: '任课教练',
     }, {
-        field: 'totalAmount',
-        title: '订单总额',
+        field: 'amount',
+        title: '金额',
         formatter: moneyFormat
+    }, {
+        field: 'applyBeginDatetime',
+        title: '下单时间',
+        title1: "下单时间",
+        type1: "datetime",
+        field1: "applyBeginDatetime",
+        type1: "datetime",
+        field1: "applyEndDatetime",
+        search: true
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('acOrder_status'),
-        search: true,
         type: 'select',
-        key: 'acOrder_status'
-    }, {
-        field: 'payDatetime',
-        title: '下单时间',
-        formatter: dateTimeFormat,
-        type1: 'date',
-        title1: '下单时间',
-        field1: 'applyBeginDatetime',
-        field2: 'applyEndDatetime',
+        key: 'acOrder_status',
+        formatter: Dict.getNameForList('acOrder_status'),
         search: true
-    }, {
-        title: '备注',
-        field: 'remark',
-        maxlength: 250
     }];
-
     buildList({
         columns: columns,
-        pageCode: '622040',
+        pageCode: '622080',
         searchParams: {
             companyCode: OSS.company
         }
@@ -84,9 +76,8 @@ $(function() {
             data.orderCode = selRecords[0].code;
 
             data['updater'] = getUserName();
-            // data["remark"] = $("#remark").val();
             reqApi({
-                code: "622033",
+                code: "622073",
                 json: data
             }).done(function() {
                 toastr.info("操作成功");

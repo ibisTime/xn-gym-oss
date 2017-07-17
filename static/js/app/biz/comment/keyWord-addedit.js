@@ -40,14 +40,20 @@ $(function() {
         field: 'remark',
         maxlength: 250,
         readonly: view,
+    }, {
+        title: '更新人',
+        field: 'updater',
+        hidden: true,
+        value: getUserName(),
+        required: true
     }];
 
     buildDetail({
         fields: fields,
         code: code,
         view: view,
-        detailCode: ' ',
-        addCode: ' ',
-        editCode: ' '
+        detailCode: '622006',
+        addCode: '622000',
+        editCode: '622002'
     });
 });

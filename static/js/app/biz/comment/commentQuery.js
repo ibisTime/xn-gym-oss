@@ -5,8 +5,12 @@ $(function() {
         title: '',
         checkbox: true
     }, {
+        field: 'productCode',
+        title: '针对产品',
+        search: true
+    }, {
         field: 'content',
-        title: '内容',
+        title: '评论内容',
         search: true
     }, {
         field: 'status',
@@ -25,11 +29,13 @@ $(function() {
         formatter: dateTimeFormat
     }];
     buildList({
-        router: "comment",
         columns: columns,
-        pageCode: " ",
+        pageCode: "622145",
         searchParams: {
             companyCode: OSS.company
         },
-    })
+        beforeDetail: function() {
+            window.location.href = 'comment_addedit.html?v=1&code=' + selRecords[0].code;
+        }
+    });
 })

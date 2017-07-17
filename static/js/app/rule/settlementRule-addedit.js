@@ -1,30 +1,32 @@
 $(function() {
 
-    var columns = [{
-        field: '',
-        title: '',
-        checkbox: true
+    var code = getQueryString('code');
+
+    var fields = [{
+        field: "kind",
+        value: "1",
+        type: "hidden",
+        required: true
     }, {
-        title: '参数名',
+        title: '参数键',
         field: 'ckey',
-        search: true
+        required: true,
+        readonly: true
     }, {
         title: '参数值',
         field: 'cvalue',
+        required: true,
+        maxlength: 30
     }, {
-        field: 'updateDatetime',
-        title: '最近修改时间',
-        formatter: dateTimeFormat
-    }, {
+        title: '备注',
         field: 'remark',
-        title: '备注'
+        maxlength: 250
     }];
-    buildList({
-        columns: columns,
-        pageCode: "802025",
-        searchParams: {
-            // type: "2,3",
-            companyCode: OSS.company
-        }
+
+    buildDetail({
+        fields: fields,
+        code: code,
+        detailCode: '802026',
+        editCode: '802020'
     });
 });

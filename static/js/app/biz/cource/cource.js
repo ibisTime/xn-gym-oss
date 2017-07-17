@@ -1,36 +1,47 @@
 $(function() {
+    var isQuery = !!getQueryString('q');
+
     var columns = [{
         field: '',
         title: '',
         checkbox: true
     }, {
-        field: 'title',
-        title: '活动名称',
-        maxlength: 255
-    }, {
-        field: 'amount',
-        title: '单价',
-        formatter: moneyFormat
-    }, {
-        title: "总人数",
-        field: "totalNum",
-    }, {
-        field: "holdPlace",
-        title: "活动地点",
-        maxlength: 255,
+        field: 'coachUser',
+        title: '教练名称',
         search: true
     }, {
-        title: '活动时间',
-        field: 'startDatetime',
-        type: "date",
-        field1: 'startDatetime',
-        title1: '活动时间',
-        type1: 'date',
-        field2: 'endDatetime',
-        type2: 'date',
+        field: 'name',
+        title: '课程名称',
+        search: true
+    }, {
+        field: 'classDatetime',
+        title: '上课时间',
+        formatter: dateFormat
+    }, {
+        field: "beginClassDatetime",
+        title: "上课时间",
+        type: "datetime",
+        field1: "beginClassDatetime",
+        type1: "datetime",
+        field2: "endClassDatetime",
+        type2: "datetime",
+        required: true,
         formatter: function(v, data) {
-            return dateFormat(v) + "~" + dateFormat(data.endDatetime)
-        },
+            return dateFormat(data.classDatetime) + "&nbsp;" + dateTimeFormat(data.skStartDatetime) + "~" + dateTimeFormat(data.skEndDatetime)
+        }
+    }, {
+        field: 'totalNum',
+        title: '课程总人数',
+        required: true,
+        number: true
+    }, {
+        field: 'address',
+        title: '地址',
+        search: true
+    }, {
+        field: 'contact',
+        title: '联系方式',
+        mobile: true,
         search: true
     }, {
         field: 'location',
@@ -45,23 +56,17 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('active_status'),
-        search: true,
         type: 'select',
-        key: 'active_status'
+        key: 'active_status',
+        formatter: Dict.getNameForList('active_status'),
+        search: true
     }, {
-        field: 'updater',
-        title: '最近更新人'
-    }, {
-        title: '备注',
-        field: 'remark',
-        maxlength: 250
+        title: "备注",
+        field: "remark"
     }];
-
     buildList({
         columns: columns,
-        pageCode: '622020',
-        deleteCode: "622011",
+        pageCode: '622060',
         searchParams: {
             companyCode: OSS.company
         }
@@ -74,10 +79,31 @@ $(function() {
             return;
         }
         if (selRecords[0].status == 1) {
-            toastr.info('该活动已上架,不可以修改');
+            toastr.info('该课程已上架,不可以修改');
             return;
         }
-        window.location.href = 'active_addedit.html?code=' + selRecords[0].code;
+        window.location.href = 'cource_addedit.html?code=' + selRecords[0].code;
+    });
+    //删除
+    $('#deleBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status == 1) {
+            toastr.info('该课程已上架,不可删除');
+            return;
+        }
+        confirm("确定删除该课程？").then(function() {
+            reqApi({
+                code: '622051',
+                json: { "code": selRecords[0].code }
+            }).then(function() {
+                toastr.info("操作成功");
+                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+            });
+        });
     });
     //上架
     $('#upBtn').click(function() {
@@ -87,10 +113,10 @@ $(function() {
             return;
         }
         if (selRecords[0].status == 1) {
-            toastr.info('该活动已上架');
+            toastr.info('该课程已上架');
             return;
         }
-        window.location.href = "active_up.html?code=" + selRecords[0].code;
+        window.location.href = "cource_up.html?code=" + selRecords[0].code;
     });
     //下架
     $('#downBtn').click(function() {
@@ -100,9 +126,9 @@ $(function() {
             return;
         }
         if (selRecords[0].status == 1) {
-            confirm("确定下架该活动？").then(function() {
+            confirm("确定下架该课程？").then(function() {
                 reqApi({
-                    code: '622014',
+                    code: '622054',
                     json: { "code": selRecords[0].code, updater: getUserName() }
                 }).then(function() {
                     toastr.info("操作成功");
@@ -116,7 +142,7 @@ $(function() {
         }
 
     });
-    //截止活动
+    //截止报名
     $('#stopBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -125,19 +151,18 @@ $(function() {
         }
         if (selRecords[0].status == 1) {
 
-            confirm("确定提前截止该活动？").then(function() {
+            confirm("确定截止报名该课程？").then(function() {
                 reqApi({
-                    code: '622015',
-                    json: { "code": selRecords[0].code, remark: '提前截止活动' }
+                    code: '622055',
+                    json: { "code": selRecords[0].code, remark: '截止报名' }
                 }).then(function() {
                     toastr.info("操作成功");
                     $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
                 });
             });
         } else {
-            toastr.warning("只有已上架的活动，才可以截止活动");
+            toastr.warning("只有已上架的课程，才可以截止");
             return;
         }
-
     });
 });

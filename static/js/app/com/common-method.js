@@ -64,8 +64,6 @@ function dateTimeFormat(date) {
  * @param money
  * @param format
  */
-/**
-
 
 /**
  * 金额格式转化
@@ -127,7 +125,14 @@ function editMoneyFormat(money, format) {
  */
 function percentFormat(percent, format) {
     return percent;
-
+    /*if(isNaN(percent)){
+     return '';
+     }
+     if(format == '' || format == null || format == undefined){
+     format = 5;
+     }
+     return parseFloat(percent).toFixed(format);
+     */
 }
 
 
@@ -895,7 +900,29 @@ function buildList(options) {
         dw && dw.close().remove();
     });
 
+    $('#checkBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        } else if (selRecords.length >= 2) {
+            toastr.info("请选择一条记录");
+            return;
+        }
+        if (options.beforeCheck) {
+            if (!options.beforeCheck(selRecords[0])) {
+                return;
+            }
+        }
+        var codeParams = '';
+        if (options.uid) {
 
+            options.uid.forEach(function(i) {
+                codeParams += '&' + i + '=' + selRecords[0][i];
+            });
+        }
+        window.location.href = options.router + "_check.html?code=" + (selRecords[0].code || selRecords[0].id) + urlParamsStr + codeParams;
+    });
 
     var singleSelect = true;
     var detailView = false;
@@ -1072,7 +1099,12 @@ function buildDetail(options) {
         if (item['url']) {
             rules[item.field]['url'] = item['url'];
         }
-
+        if (item['west']) {
+            rules[item.field]['west'] = item['west'];
+        }
+        if (item['north']) {
+            rules[item.field]['north'] = item['north'];
+        }
         if (item.type == 'title') {
             html += '<div ' + (item.field ? 'id="' + item.field + '"' : '') + ' style="' + (item.hidden ? 'display:none;' : '') + '" class="form-title">' + item.title + '</div>';
         } else if (item.type == 'hidden') {
@@ -1360,15 +1392,19 @@ function buildDetail(options) {
         //editor.config.uploadImgUrl = '/upload';
         editor.create();
     }
-
     for (var i = 0, len = dateTimeList.length; i < len; i++) {
         var item = dateTimeList[i];
-        laydate({
-            elem: '#' + item.field,
-            min: item.minDate ? item.minDate : '',
-            istime: item.type == 'datetime',
-            format: item.type == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
-        });
+        if (item.dateOption) {
+            laydate(item.dateOption);
+        } else {
+            laydate({
+                elem: '#' + item.field,
+                min: item.minDate ? item.minDate : '',
+                istime: item.type == 'datetime',
+                format: item.type == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
+            });
+        }
+
     }
 
     $("#city-group").citySelect && $("#city-group").citySelect({
@@ -2483,9 +2519,10 @@ function buildDetail1(options) {
             } else if (item.type == 'textarea' && item.normalArea) {
                 html += '<div style="width:400px;float:left;"><textarea style="height:200px;width: 320px;border: 1px solid #e0e0e0;" id="' + item.field + '-model" name="' + item.field + '"></textarea></div></li>';
             } else if (item.type == 'citySelect') {
-                html += '<div id="city-group-model"><select id="province-model" name="province" class="control-def prov"></select>' +
-                    '<select id="city-model" name="city" class="control-def city"></select>' +
-                    '<select id="area-model" name="area" class="control-def dist"></select></div></li>';
+                html += '<div id="city-group-model"><select id="province-model" name="province" class="control-def prov"></select>'
+                    // +
+                    //     '<select id="city-model" name="city" class="control-def city"></select>' +
+                    //     '<select id="area-model" name="area" class="control-def dist"></select></div></li>';
                 if (item.required) {
                     rules["province"] = { required: true };
                     rules["city"] = { required: true };
@@ -2678,7 +2715,19 @@ function buildDetail1(options) {
         options.beforeDetail(detailParams);
     }
     if (code) {
-
+        // reqApi({
+        //     code: options.detailCode,
+        //     json: detailParams
+        // }).done(function (data) {
+        //     data = data.creditAuditList;
+        //     for (var k = 0; k < data.length; k++) {
+        //         if (data[k].code == code) {
+        //             break;
+        //         }
+        //     }
+        //     data = data[k] || data[0];
+        //     addData(data);
+        // });
     } else {
         $('#model-form').modal('show');
     }
@@ -2966,10 +3015,10 @@ function buildDetail1(options) {
                         data.city = data.area;
                     }
                     $('#province-model').val(data.province);
-                    // $('#province-model').trigger('change');
-                    // data.city && $('#city-model').val(data.city);
-                    // data.city && $('#city-model').trigger('change');
-                    // data.area && $('#area-model').val(data.area);
+                    $('#province-model').trigger('change');
+                    data.city && $('#city-model').val(data.city);
+                    data.city && $('#city-model').trigger('change');
+                    data.area && $('#area-model').val(data.area);
                 } else {
                     $('#' + item.field + "-model").val(item.amount ? moneyFormat(displayValue) : displayValue);
                 }
@@ -3022,7 +3071,10 @@ function chosen1() {
         allow_single_deselect: true
     });
     $('select', $("#model-form")).chosen && $('select', $("#model-form")).not('.norender').chosen().change(function() {
-
+        // var that = this;
+        // setTimeout(function() {
+        //     $(that).parent().height($(that).prev().height());
+        // }, 1);
 
     });
 }
