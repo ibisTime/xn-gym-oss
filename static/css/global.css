@@ -304,6 +304,7 @@ textarea.error {
     line-height: 34px;
     width: 25%;
     height: 32px;
+    min-width: 236px;
 }
 
 .search-form li label {

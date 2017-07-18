@@ -14,7 +14,7 @@ $(function() {
         readonly: true
     }, {
         field: 'coachUser',
-        title: '任课教练',
+        title: '私教名称',
         readonly: true
     }, {
         field: 'totalAmount',
@@ -24,10 +24,10 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('acOrder_status'),
+        formatter: Dict.getNameForList('courseOrder_status'),
         readonly: true
         type: 'select',
-        key: 'acOrder_status'
+        key: 'courseOrder_status'
     }, {
         field: 'payDatetime',
         title: '支付时间',

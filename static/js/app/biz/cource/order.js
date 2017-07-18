@@ -16,7 +16,7 @@ $(function() {
         search: true
     }, {
         field: 'coachUser',
-        title: '任课教练',
+        title: '私教名称',
     }, {
         field: 'amount',
         title: '金额',
@@ -34,8 +34,8 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'acOrder_status',
-        formatter: Dict.getNameForList('acOrder_status'),
+        key: 'courseOrder_status',
+        formatter: Dict.getNameForList('courseOrder_status'),
         search: true
     }];
     buildList({

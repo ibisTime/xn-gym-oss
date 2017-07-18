@@ -52,13 +52,7 @@ function ajaxGet(url, param, reload, sync) {
 
 function urlDispatch(code) {
     var url;
-    // if (/^80[5678]/.test(code)) {
-    //     url = OSS.mainUrl;
-    // } else if (/^80[4]/.test(code)) {
-    //     url = OSS.smsUrl;
-    // } else {
     url = OSS.mainUrl;
-    // }
     return url;
 }
 
@@ -69,15 +63,13 @@ function reqApi(options, updateType) {
             token: sessionStorage.getItem('token') || '',
             updater: sessionStorage.getItem('userName'),
             systemCode: sessionStorage.getItem('systemCode'),
-            companyCode: OSS.company,
-            //updaterId: sessionStorage.getItem('userId'),
+            companyCode: OSS.company
         };
     } else {
         var commonParams = {
             token: sessionStorage.getItem('token') || '',
             systemCode: sessionStorage.getItem('systemCode'),
-            companyCode: OSS.company,
-            //updaterId: sessionStorage.getItem('userId'),
+            companyCode: OSS.company
         };
     }
 

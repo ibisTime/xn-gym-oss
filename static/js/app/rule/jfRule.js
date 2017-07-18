@@ -5,11 +5,11 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: '参数名',
+        title: '规则名称',
         field: 'ckey',
         search: true
     }, {
-        title: '参数值',
+        title: '赠送积分数量',
         field: 'cvalue',
     }, {
         field: 'updateDatetime',

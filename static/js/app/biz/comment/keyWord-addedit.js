@@ -13,17 +13,12 @@ $(function() {
         title: '权重',
         field: 'weight',
         required: true,
-        number: true,
-        min: 0,
-        max: 1,
         value: '1',
         hidden: true
     }, {
         field: 'level',
         title: '作用等级',
         value: '0',
-        defaultOption: 'All',
-        defaultValue: '0',
         required: true,
         hidden: true
     }, {
@@ -31,9 +26,6 @@ $(function() {
         field: 'reaction',
         required: true,
         value: '3',
-        type: 'select',
-        key: 'kw_reaction',
-        defaultValue: '3',
         hidden: true
     }, {
         title: '备注',

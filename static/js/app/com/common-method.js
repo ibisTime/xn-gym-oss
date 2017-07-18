@@ -125,14 +125,6 @@ function editMoneyFormat(money, format) {
  */
 function percentFormat(percent, format) {
     return percent;
-    /*if(isNaN(percent)){
-     return '';
-     }
-     if(format == '' || format == null || format == undefined){
-     format = 5;
-     }
-     return parseFloat(percent).toFixed(format);
-     */
 }
 
 
@@ -900,29 +892,6 @@ function buildList(options) {
         dw && dw.close().remove();
     });
 
-    $('#checkBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        } else if (selRecords.length >= 2) {
-            toastr.info("请选择一条记录");
-            return;
-        }
-        if (options.beforeCheck) {
-            if (!options.beforeCheck(selRecords[0])) {
-                return;
-            }
-        }
-        var codeParams = '';
-        if (options.uid) {
-
-            options.uid.forEach(function(i) {
-                codeParams += '&' + i + '=' + selRecords[0][i];
-            });
-        }
-        window.location.href = options.router + "_check.html?code=" + (selRecords[0].code || selRecords[0].id) + urlParamsStr + codeParams;
-    });
 
     var singleSelect = true;
     var detailView = false;
@@ -1096,15 +1065,6 @@ function buildDetail(options) {
         if (item['bankCard']) {
             rules[item.field]['bankCard'] = item['bankCard'];
         }
-        if (item['url']) {
-            rules[item.field]['url'] = item['url'];
-        }
-        if (item['west']) {
-            rules[item.field]['west'] = item['west'];
-        }
-        if (item['north']) {
-            rules[item.field]['north'] = item['north'];
-        }
         if (item.type == 'title') {
             html += '<div ' + (item.field ? 'id="' + item.field + '"' : '') + ' style="' + (item.hidden ? 'display:none;' : '') + '" class="form-title">' + item.title + '</div>';
         } else if (item.type == 'hidden') {
@@ -1161,16 +1121,16 @@ function buildDetail(options) {
             } else if (item.type == 'textarea' && item.normalArea) {
                 html += '<div style="width:400px;float:left;"><textarea style="height:200px;width: 320px;border: 1px solid #e0e0e0;padding: 8px;" id="' + item.field + '" name="' + item.field + '"></textarea></div></li>';
             } else if (item.type == 'citySelect') {
-                html += '<div id="city-group"><select id="province" name="province" class="control-def prov"></select>'; +
-                '<select id="city" name="city" class="control-def city"></select>' +
-                '<select id="area" name="area" class="control-def dist"></select></div></li>';
+                html += '<div id="city-group"><select id="province" name="province" class="control-def prov"></select>' +
+                    '<select id="city" name="city" class="control-def city"></select>' +
+                    '<select id="area" name="area" class="control-def dist"></select></div></li>';
                 if (item.required) {
                     rules.province = { required: true };
                     // rules.city = {required: true};
                     // rules.area = {required: true};
                 }
 
-            } else if (item.type == 'datetime' || item.type == 'date') {
+            } else if (item.type == 'datetime' || item.type == 'date' || item.type == "time") {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '" name="' + item.field + '" class="lay-input"/></li>';
             } else if (item.type == "o2m") {
@@ -1413,6 +1373,10 @@ function buildDetail(options) {
 
     for (var i = 0, len = fields.length; i < len; i++) {
         var item = fields[i];
+        (function(j) {
+            $('#' + j.field).length > 0 && ($('#' + j.field)[0].cfg = j);
+        })(item);
+
         if ('defaultValue' in item) {
             $('#' + item.field).val(item.defaultValue);
         }
@@ -1873,7 +1837,7 @@ function buildDetail(options) {
                             columns: item.columns,
                             data: displayValue || []
                         });
-                    } else if (item.type == 'datetime' || item.type == 'date') {
+                    } else if (item.type == 'datetime' || item.type == 'date' || item == "time") {
                         $('#' + item.field)
                             .val((item.type == 'datetime' ?
                                 dateTimeFormat : dateFormat)(data[item.field]));
@@ -2056,8 +2020,28 @@ function uploadInit() {
 
     var dropId = editor.id || (editor.attr && editor.attr('id')) || 'jsForm';
 
-    // var token;
-
+    var token;
+    //上传文件类型 
+    var mime_types = [
+            //只允许上传图片 （注意，extensions中，逗号后面不要加空格）
+            {
+                title: "图片文件",
+                extensions: "jpg,jpeg,gif,png,bmp"
+            }
+        ]
+        //fileDocument:true;添加文件的时候这个要为真
+    if (editor[0] && editor[0].cfg && editor[0].cfg.fileDocument) {
+        mime_types = [
+            //只允许上传图片和文件（注意，extensions中，逗号后面不要加空格）
+            {
+                title: "图片文件",
+                extensions: "jpg,jpeg,gif,png,bmp"
+            }, {
+                title: '文件',
+                extensions: "docx,doc,xls,xlsx,pdf"
+            }
+        ]
+    }
     // reqApi({
     //     code: '001700',
     //     json: {},
@@ -2087,18 +2071,9 @@ function uploadInit() {
         max_file_size: '100mb', //最大文件体积限制
         // flash_swf_url: 'js/plupload/Moxie.swf', //引入flash,相对路径
         flash_swf_url: swfUrl,
-        // filters: {
-        //     mime_types: [
-        //         //只允许上传图片文件 （注意，extensions中，逗号后面不要加空格）
-        //         {
-        //             title: "图片文件",
-        //             extensions: "jpg,gif,png,bmp"
-        //         }, {
-        //             title: '文件',
-        //             extensions: "docx,doc,xls,xlsx,pdf,avi,mp4,zip,rar"
-        //         }
-        //     ]
-        // },
+        filters: {
+            mime_types: mime_types
+        },
         max_retries: 3, //上传失败最大重试次数
         dragdrop: true, //开启可拖曳上传
         drop_element: dropId, //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
@@ -2519,16 +2494,15 @@ function buildDetail1(options) {
             } else if (item.type == 'textarea' && item.normalArea) {
                 html += '<div style="width:400px;float:left;"><textarea style="height:200px;width: 320px;border: 1px solid #e0e0e0;" id="' + item.field + '-model" name="' + item.field + '"></textarea></div></li>';
             } else if (item.type == 'citySelect') {
-                html += '<div id="city-group-model"><select id="province-model" name="province" class="control-def prov"></select>'
-                    // +
-                    //     '<select id="city-model" name="city" class="control-def city"></select>' +
-                    //     '<select id="area-model" name="area" class="control-def dist"></select></div></li>';
+                html += '<div id="city-group-model"><select id="province-model" name="province" class="control-def prov"></select>' +
+                    '<select id="city-model" name="city" class="control-def city"></select>' +
+                    '<select id="area-model" name="area" class="control-def dist"></select></div></li>';
                 if (item.required) {
                     rules["province"] = { required: true };
                     rules["city"] = { required: true };
                     rules["area"] = { required: true };
                 }
-            } else if (item.type == 'datetime' || item.type == 'date') {
+            } else if (item.type == 'datetime' || item.type == 'date' || item.type == 'time') {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '-model" name="' + item.field + '" class="lay-input"/></li>';
             } else if (item.type == "o2m") {

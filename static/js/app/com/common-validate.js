@@ -78,12 +78,6 @@ jQuery.validator.addMethod("age", function(value, element) {
     return this.optional(element) || (age.test(value));
 }, "不能超过120岁");
 
-//传真
-jQuery.validator.addMethod("fax", function(value, element) {
-    var fax = /^(\d{3,4})?[-]?\d{7,8}$/;
-    return this.optional(element) || (fax.test(value));
-}, "传真格式如：0371-68787027");
-
 //验证当前值和目标val的值相等 相等返回为 false
 jQuery.validator.addMethod("equalTo2", function(value, element) {
     var returnVal = true;
@@ -147,11 +141,6 @@ jQuery.validator.addMethod("isNotFace", function(value, element) {
     return this.optional(element) || /^[\s0-9a-zA-Z\u4e00-\u9fa5\u00d7\u00b7\u002e\u0060\u2777\u2190\u300a\u2014\u2018\u2019\u201c\u201d\u0026\u0023\u0031\u0038\u0033\u003b\u3001\u3002\u300b\u300e\u300f\u3010\u3011\uff01\uff08\uff09\uff0c\uff1a\uff1b\uff1f\uff40\ufe11\uff0e\uff64\uff65\ufe12\uff0d\uff03\uef45\uffe5\x21-\x7e\u2460-\u2469]*$/.test(value);
 }, "请输入合法字符");
 
-//网址链接   
-jQuery.validator.addMethod("url", function(value, element) {
-    var url = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
-    return this.optional(element) || (url.test(value));
-}, "请输入正确的网址");
 
 //小数后1位
 $.validator.addMethod("minAmount", function(value, element) {
@@ -177,7 +166,6 @@ var $beforeAfter = function(dom) {
 
 $beforeAfter($('.error'));
 
-//$.validator.setDefaults({ ignore: ":hidden:not(textarea)" });
 $.validator.setDefaults({
     errorPlacement: function(error, element) {
         if (element.parent('.input-group').length) {

@@ -7,7 +7,11 @@ $(function() {
         checkbox: true
     }, {
         field: 'coachUser',
-        title: '教练名称',
+        title: '私教名称',
+        type: "select",
+        listCode: "622097",
+        keyName: "code",
+        valueName: "name",
         search: true
     }, {
         field: 'name',

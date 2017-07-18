@@ -8,15 +8,15 @@ $(function() {
         type: "hidden",
         required: true
     }, {
-        title: '参数键',
+        title: '规则名称',
         field: 'ckey',
         required: true,
         readonly: true
     }, {
-        title: '参数值',
+        title: '赠送积分数量',
         field: 'cvalue',
         required: true,
-        maxlength: 30
+        number: true
     }, {
         title: '备注',
         field: 'remark',
