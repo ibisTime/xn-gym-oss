@@ -6,7 +6,7 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'nickname',
+        field: 'realName',
         title: '私教名称',
     }, {
         field: 'age',
@@ -15,14 +15,11 @@ $(function() {
         field: 'duration',
         title: '工作年限'
     }, {
-        field: 'strengths',
-        title: '特长'
-    }, {
         field: 'label',
         title: '标签',
-        type: "select",
-        key: "",
-        formatter: Dict.getNameForList()
+        // type: "select",
+        // multiple: true,
+        // key: 'label_kind'
     }, {
         field: 'status',
         title: '状态',

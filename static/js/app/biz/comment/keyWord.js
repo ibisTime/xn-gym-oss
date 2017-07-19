@@ -26,23 +26,21 @@ $(function() {
         columns: columns,
         pageCode: "622005",
         deleteCode: "622001",
-        // getImportData: function(list) {
-        //     for (i = 0, length = list.length; i < length; i++) {
-        //         var data = {};
-        //         data[i].remark = list[i].remark;
-        //         data[i].word = list[i].word;
-        //         data[i].updater = getUserName();
-        //         data[i].weight = "1";
-        //         data[i].level = "0";
-        //         data[i].reaction = "3";
-        //     }
-        //     reqApi({
-        //         code: "622000",
-        //         json: { data }
-        //     }).then(function() {
-        //         sucList();
-        //     })
+        getImportData: function(list) {
+            var reqList = list;
+            for (var i=0,length=reqList.length;i<length;i++){
+                reqList[i].updater=getUserName();
+                reqList[i].weight="1";
+                reqList[i].level="0";
+                reqList[i].reaction="3";
+            }
+            reqApi({
+                code: "622003",
+                json: {reqList:reqList}
+            }).then(function() {
+                sucList();
+            })
 
-        // }
+        }
     });
 });

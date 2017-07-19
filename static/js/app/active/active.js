@@ -6,7 +6,8 @@ $(function() {
     }, {
         field: 'title',
         title: '活动名称',
-        maxlength: 255
+        maxlength: 255,
+        search: true
     }, {
         field: 'amount',
         title: '单价',
@@ -18,18 +19,18 @@ $(function() {
         field: "holdPlace",
         title: "活动地点",
         maxlength: 255,
-        search: true
+        // search: true
     }, {
         title: '活动时间',
         field: 'startDatetime',
-        type: "date",
+        type: "datetime",
         field1: 'startDatetime',
         title1: '活动时间',
-        type1: 'date',
+        type1: 'datetime',
         field2: 'endDatetime',
         type2: 'date',
         formatter: function(v, data) {
-            return dateFormat(v) + "~" + dateFormat(data.endDatetime)
+            return dateTimeFormat(v) + "~" + dateTimeFormat(data.endDatetime)
         },
         search: true
     }, {
@@ -73,8 +74,8 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        if (selRecords[0].status == 1) {
-            toastr.info('该活动已上架,不可以修改');
+        if (selRecords[0].status == 1 || selRecords[0].status == 2) {
+            toastr.warning('该活动已上架或结束不可修改');
             return;
         }
         window.location.href = 'active_addedit.html?code=' + selRecords[0].code;
@@ -86,11 +87,13 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        if (selRecords[0].status == 1) {
-            toastr.info('该活动已上架');
+        if (selRecords[0].status == 0 || selRecords[0].status == 3) {
+            window.location.href = "active_up.html?code=" + selRecords[0].code;
+        } else {
+            toastr.warning('该活动不是可以上架的状态');
             return;
         }
-        window.location.href = "active_up.html?code=" + selRecords[0].code;
+
     });
     //下架
     $('#downBtn').click(function() {
@@ -108,7 +111,7 @@ $(function() {
                     toastr.info("操作成功");
                     $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
                 });
-            });
+            }, function() {});
 
         } else {
             toastr.warning('不是可以下架的状态');
@@ -133,7 +136,7 @@ $(function() {
                     toastr.info("操作成功");
                     $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
                 });
-            });
+            }, function() {});
         } else {
             toastr.warning("只有已上架的活动，才可以截止活动");
             return;

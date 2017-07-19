@@ -2,7 +2,7 @@ $(function() {
     var code = getQueryString('code');
 
     var fields = [{
-        field: 'nickname',
+        field: 'realName',
         title: '私教名称',
         readonly: true
     }, {
@@ -10,22 +10,25 @@ $(function() {
         title: '年龄',
         readonly: true
     }, {
+        title: "性别",
+        field: "gender",
+        type: "select",
+        data: {
+            "1": "男",
+            "0": "女"
+        },
+        readonly: true
+    }, {
         field: 'duration',
         title: '工作年限',
         readonly: true
     }, {
-        field: 'strengths',
-        title: '特长',
-        readonly: true
-    }, {
         field: 'label',
         title: '标签',
-        type: "select",
-        key: "",
-        formatter: Dict.getNameForList(),
         readonly: true
     }, {
-        field: 'advPic',
+        title: "广告图",
+        field: 'pic',
         type: "img"
     }, {
         field: 'status',
@@ -34,6 +37,11 @@ $(function() {
         key: 'pCourse_status',
         formatter: Dict.getNameForList('pCourse_status'),
         search: true,
+        readonly: true
+    }, {
+        title: "图文详述",
+        field: "description",
+        type: "textarea",
         readonly: true
     }, {
         title: "审核说明",

@@ -1,4 +1,5 @@
 $(function() {
+
     var code = getQueryString('code');
 
     var fields = [{
@@ -7,20 +8,20 @@ $(function() {
         type: "hidden",
         required: true
     }, {
-        title: '',
+        title: '参数名称',
         field: 'ckey',
         required: true,
-        hidden: true,
+        hidden: true
     }, {
-        title: '规则名称',
+        title: '参数名称',
         field: 'note',
         required: true,
         maxlength: 255
     }, {
-        title: '赠送积分数量',
+        title: '数量',
         field: 'cvalue',
         required: true,
-        number: true
+        // number: true
     }, {
         title: '备注',
         field: 'remark',

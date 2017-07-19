@@ -628,6 +628,9 @@ function buildList(options) {
             } else if (item.type1 == 'date' || item.type1 == "datetime") {
                 dateTimeList.push(item);
                 html += '<li style="width: 50%;"><label>' + item.title1 + '</label><input id="' + item.field1 + '" name="' + item.field1 + '" class="lay-input"/><label style="float:none;padding-left: 10px;">至</label><input id="' + item.field2 + '" name="' + item.field2 + '" class="lay-input"/></li>';
+            } else if (item.type3 == 'date' || item.type3== "datetime") {
+                dateTimeList.push(item);
+                html += '<li style="width: 50%;"><label>' + item.title3 + '</label><input id="' + item.field3 + '" name="' + item.field3 + '" class="lay-input"/></li>';
             } else if (item.type == "citySelect") {
                 html += '<li class="clearfix" style="width:56%;"><label>' + item.title + '</label><div id="city-group"><select id="province" name="province" class="control-def prov"></select>' +
                     '<select id="city" name="city" class="control-def city"></select>' +
@@ -647,19 +650,32 @@ function buildList(options) {
     $('.search-form').append(html);
 
     for (var i = 0, len = dateTimeList.length; i < len; i++) {
+
         var item = dateTimeList[i];
-        laydate({
+
+        if(item.type1){
+            laydate({
             elem: '#' + item.field1,
             min: item.minDate ? item.minDate : '',
             istime: item.type1 == 'datetime',
             format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
         });
-        laydate({
-            elem: '#' + item.field2,
-            min: item.minDate ? item.minDate : '',
-            istime: item.type1 == 'datetime',
-            format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
-        });
+            laydate({
+                elem: '#' + item.field2,
+                min: item.minDate ? item.minDate : '',
+                istime: item.type1 == 'datetime',
+                format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
+            });
+        }else if(item.type3){
+            laydate({
+                elem: '#' + item.field3,
+                min: item.minDate ? item.minDate : '',
+                istime: item.type3 == 'datetime',
+                format: item.type3 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
+            });
+        }
+
+
     }
 
 
@@ -1130,7 +1146,7 @@ function buildDetail(options) {
                     // rules.area = {required: true};
                 }
 
-            } else if (item.type == 'datetime' || item.type == 'date' || item.type == "time") {
+            } else if (item.type == 'datetime' || item.type == 'date') {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '" name="' + item.field + '" class="lay-input"/></li>';
             } else if (item.type == "o2m") {
@@ -1837,7 +1853,7 @@ function buildDetail(options) {
                             columns: item.columns,
                             data: displayValue || []
                         });
-                    } else if (item.type == 'datetime' || item.type == 'date' || item == "time") {
+                    } else if (item.type == 'datetime' || item.type == 'date') {
                         $('#' + item.field)
                             .val((item.type == 'datetime' ?
                                 dateTimeFormat : dateFormat)(data[item.field]));
@@ -2502,7 +2518,7 @@ function buildDetail1(options) {
                     rules["city"] = { required: true };
                     rules["area"] = { required: true };
                 }
-            } else if (item.type == 'datetime' || item.type == 'date' || item.type == 'time') {
+            } else if (item.type == 'datetime' || item.type == 'date') {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '-model" name="' + item.field + '" class="lay-input"/></li>';
             } else if (item.type == "o2m") {
@@ -2789,7 +2805,7 @@ function buildDetail1(options) {
                     } else {
                         var dv = '';
                         if (realValue) {
-                            realValue.split('').forEach(function(i) {
+                            realValue.split(',').forEach(function(i) {
                                 dv += Dict.getName(item.key, i) + ' | ';
                             });
                             dv = dv.slice(0, dv.length - 3);
@@ -3324,6 +3340,7 @@ function getImportDataFun(options, dw) {
                     }
                 } catch (e) {
                     options.error && options.error();
+                    // console.log(error);
                     toastr.info("导入失败");
                 }
             };

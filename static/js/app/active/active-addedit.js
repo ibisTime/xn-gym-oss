@@ -4,24 +4,24 @@ $(function() {
     var view = !!getQueryString('v');
     var start = {
         elem: '#startDatetime',
-        format: 'yyyy-MM-dd hh:mm:ss',
-        min: laydate.now(), //设定最小日期为当前日期
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(0, 'YYYY-MM-DD hh:mm:ss'),
         choose: function(datas) {
             var d = new Date(datas);
             d.setDate(d.getDate());
-            datas = datetimeFormat(d);
+            datas = dateTimeFormat(d);
             end.min = datas;
             end.start = datas
         }
     };
     var end = {
         elem: '#endDatetime',
-        format: 'yyyy-MM-dd hh:mm:ss',
-        min: laydate.now(),
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(0, 'YYYY-MM-DD hh:mm:ss'),
         choose: function(datas) {
             var d = new Date(datas);
             d.setDate(d.getDate());
-            datas = datetimeFormat(d);
+            datas = dateTimeFormat(d);
             start.max = datas;
         }
     };
@@ -106,6 +106,27 @@ $(function() {
         maxlength: 250,
         readonly: view
     }];
+    var viewList = [{
+        field: 'status',
+        title: '状态',
+        readonly: true,
+        type: 'select',
+        key: 'active_status'
+    }, {
+        field: 'location',
+        title: '位置',
+        type: 'select',
+        key: "ui_location",
+        readonly: true
+    }, {
+        field: 'orderNo',
+        title: 'UI次序',
+        number: true,
+        readonly: true
+    }]
+    if (view) {
+        fields = fields.concat(viewList)
+    }
 
     buildDetail({
         fields: fields,

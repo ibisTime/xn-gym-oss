@@ -9,6 +9,14 @@ $(function() {
     }, {
         field: 'applyUser',
         title: '下单人',
+        type:'select',
+        pageCode1:"805054",
+        params:{
+            kind:"f1",
+            updater:""
+        },
+        keyName:"userId",
+        valueName:"nickname",
         search: true
     }, {
         field: 'mobile',

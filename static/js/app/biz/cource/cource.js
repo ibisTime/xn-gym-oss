@@ -6,32 +6,29 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'coachUser',
-        title: '私教名称',
-        type: "select",
-        listCode: "622097",
-        keyName: "code",
-        valueName: "name",
-        search: true
-    }, {
         field: 'name',
         title: '课程名称',
         search: true
     }, {
-        field: 'classDatetime',
-        title: '上课时间',
-        formatter: dateFormat
+        field: 'coachUser',
+        title: '私教名称',
+        type: "select",
+        listCode: "622097",
+        keyName: "userId",
+        valueName: "realName",
+        search: true
+    }, {
+        field3: "classDatetime",
+        title3: "上课时间",
+        type3: "date",
+        formatter: dateFormat,
+        search: true,
+        visible: false
     }, {
         field: "beginClassDatetime",
         title: "上课时间",
-        type: "datetime",
-        field1: "beginClassDatetime",
-        type1: "datetime",
-        field2: "endClassDatetime",
-        type2: "datetime",
-        required: true,
         formatter: function(v, data) {
-            return dateFormat(data.classDatetime) + "&nbsp;" + dateTimeFormat(data.skStartDatetime) + "~" + dateTimeFormat(data.skEndDatetime)
+            return dateTimeFormat(data.skStartDatetime) + "~" + dateTimeFormat(data.skEndDatetime)
         }
     }, {
         field: 'totalNum',
@@ -41,7 +38,7 @@ $(function() {
     }, {
         field: 'address',
         title: '地址',
-        search: true
+        // search: true
     }, {
         field: 'contact',
         title: '联系方式',
@@ -61,8 +58,8 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'active_status',
-        formatter: Dict.getNameForList('active_status'),
+        key: 'course_status',
+        formatter: Dict.getNameForList('course_status'),
         search: true
     }, {
         title: "备注",

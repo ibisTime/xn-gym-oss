@@ -11,9 +11,6 @@ $(function() {
         field: 'nickname',
         title: '微信昵称',
     }, {
-        field: 'userRefereeName',
-        title: '推荐人'
-    }, {
         field: 'status',
         title: '状态',
         type: 'select',
@@ -22,7 +19,7 @@ $(function() {
         keyCode: "807706",
         formatter: Dict.getNameForList('user_status', "807706"),
     }, {
-        field: 'updateDatetime',
+        field: 'createDatetime',
         title: '注册时间',
         formatter: dateTimeFormat
     }];
@@ -34,8 +31,16 @@ $(function() {
             kind: 'f1'
         }
     });
-
-
+//详情
+    $('#detaBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        window.location.href = "member_addedit.html?userId=" + selRecords[0].userId;
+    });
+//账户查询
     $('#accountBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -45,6 +50,7 @@ $(function() {
 
         window.location.href = "member_account.html?userId=" + selRecords[0].userId;
     });
+    //注销和激活
     $('#rockBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {

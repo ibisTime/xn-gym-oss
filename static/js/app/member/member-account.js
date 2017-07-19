@@ -33,13 +33,13 @@ $(function() {
         }
     });
 
-    $('.tools .toolbar').html('<li style="display:block;" id="minxiBtn"><span><img src="/static/images/t01.png"></span>查看明细</li><li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    $('.tools .toolbar').html('<li style="display:block;" id="mingxiBtn"><span><img src="/static/images/t01.png"></span>查看明细</li><li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
     $('#backBtn').on('click', function() {
         goBack();
     });
 
     //查看明细
-    $('#ledgerBtn').click(function() {
+    $('#mingxiBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
