@@ -38,7 +38,7 @@ $(function() {
         pageCode: "622145",
         searchParams: {
             companyCode: OSS.company,
-            status: "C"
+            status: "D"
         }
     });
     //审核

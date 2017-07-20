@@ -2,10 +2,7 @@ $(function() {
     var code = getQueryString('code');
 
     var fields = [{
-        field: 'code',
-        title: '订单号'
-    }, {
-        field: 'applyUser',
+        field: 'nickname',
         title: '下单人',
         readonly: true
     }, {
@@ -17,25 +14,39 @@ $(function() {
         title: '活动标题',
         readonly: true
     }, {
-        field: 'totalNum',
-        title: '参与人数',
+        title: "价格",
+        field: "price",
+        formatter: moneyFormat,
         readonly: true
     }, {
-        field: 'totalAmount',
-        title: '订单总额',
+        field: 'quantity',
+        title: '预约人数',
+        readonly: true
+    }, {
+        title: "下单时间",
+        field: "applyDatetime",
+        formatter: dateTimeFormat,
+        readonly: true
+    }, {
+        title: "订单总额",
+        field: "amount",
         formatter: moneyFormat,
         readonly: true
     }, {
         field: 'status',
         title: '状态',
         formatter: Dict.getNameForList('acOrder_status'),
-        readonly: true
+        readonly: true,
         type: 'select',
         key: 'acOrder_status'
     }, {
         field: 'payDatetime',
-        title: '下单时间',
+        title: '支付时间',
         formatter: dateTimeFormat,
+        readonly: true
+    }, {
+        title: "下单说明",
+        field: "applyNote",
         readonly: true
     }, {
         title: '备注',
@@ -84,7 +95,7 @@ $(function() {
     var options = {
         fields: fields,
         code: code,
-        detailCode: '622042',
+        detailCode: '622041',
         buttons: buttons
     };
     buildDetail(options);

@@ -19,6 +19,9 @@ $(function() {
         valueName: "nickname",
         search: true
     }, {
+        field: 'nickname',
+        title: '下单人'
+    }, {
         field: 'mobile',
         title: '手机号'
     }, {
@@ -26,10 +29,10 @@ $(function() {
         title: '活动标题',
         search: true
     }, {
-        field: 'totalNum',
-        title: '参与人数'
+        field: 'quantity',
+        title: '预约人数'
     }, {
-        field: 'totalAmount',
+        field: 'amount',
         title: '订单总额',
         formatter: moneyFormat
     }, {

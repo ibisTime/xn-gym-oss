@@ -1,7 +1,5 @@
 $(function() {
-    var A = A,
-        B = B,
-        C = C;
+
     var columns = [{
         field: '',
         title: '',
@@ -44,7 +42,7 @@ $(function() {
         pageCode: "622145",
         searchParams: {
             companyCode: OSS.company,
-            statusList: [A, B, C]
+            statusList: ["A", "B", "C"]
         }
     });
 })
