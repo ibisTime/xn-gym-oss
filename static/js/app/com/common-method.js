@@ -628,7 +628,7 @@ function buildList(options) {
             } else if (item.type1 == 'date' || item.type1 == "datetime") {
                 dateTimeList.push(item);
                 html += '<li style="width: 50%;"><label>' + item.title1 + '</label><input id="' + item.field1 + '" name="' + item.field1 + '" class="lay-input"/><label style="float:none;padding-left: 10px;">至</label><input id="' + item.field2 + '" name="' + item.field2 + '" class="lay-input"/></li>';
-            } else if (item.type3 == 'date' || item.type3== "datetime") {
+            } else if (item.type3 == 'date' || item.type3 == "datetime") {
                 dateTimeList.push(item);
                 html += '<li style="width: 50%;"><label>' + item.title3 + '</label><input id="' + item.field3 + '" name="' + item.field3 + '" class="lay-input"/></li>';
             } else if (item.type == "citySelect") {
@@ -653,20 +653,20 @@ function buildList(options) {
 
         var item = dateTimeList[i];
 
-        if(item.type1){
+        if (item.type1) {
             laydate({
-            elem: '#' + item.field1,
-            min: item.minDate ? item.minDate : '',
-            istime: item.type1 == 'datetime',
-            format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
-        });
+                elem: '#' + item.field1,
+                min: item.minDate ? item.minDate : '',
+                istime: item.type1 == 'datetime',
+                format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
+            });
             laydate({
                 elem: '#' + item.field2,
                 min: item.minDate ? item.minDate : '',
                 istime: item.type1 == 'datetime',
                 format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
             });
-        }else if(item.type3){
+        } else if (item.type3) {
             laydate({
                 elem: '#' + item.field3,
                 min: item.minDate ? item.minDate : '',

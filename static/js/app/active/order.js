@@ -9,14 +9,14 @@ $(function() {
     }, {
         field: 'applyUser',
         title: '下单人',
-        type:'select',
-        pageCode1:"805054",
-        params:{
-            kind:"f1",
-            updater:""
+        type: 'select',
+        pageCode1: "805054",
+        params: {
+            kind: "f1",
+            updater: ""
         },
-        keyName:"userId",
-        valueName:"nickname",
+        keyName: "userId",
+        valueName: "nickname",
         search: true
     }, {
         field: 'mobile',
@@ -58,61 +58,63 @@ $(function() {
         columns: columns,
         pageCode: '622040',
         searchParams: {
-            companyCode: OSS.company
-        }
+            companyCode: OSS.company,
+            statusList: [0, 1, 4]
+        },
+
     });
-    var d = dialog({
-        content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
-            '<div class="form-body">' +
-            '<ul class="form-info">' +
-            '<li type="" style=""><label><b>*</b>备注:</label><input id="remark" name="remark" class="control-def"></li>' +
-            '</div></form>'
-    });
-
-    $(document).on('click', '#popBtn3', function() {
-        d.close();
-    });
-
-    $(document).on('click', '#popBtn1', function() {
-        // $('#popForm').validate({
-        //     'rules': {
-        //         approveNote: {
-        //             required: true,
-        //             maxlength: 200
-        //         }
-        //     }
-        // });
-        if ($('#popForm').valid()) {
-            var selRecords = $('#tableList').bootstrapTable('getSelections');
-            if (selRecords.length <= 0) {
-                toastr.info("请选择记录");
-                return;
-            }
-            var data = $('#popForm').serializeObject();
-            data.orderCode = selRecords[0].code;
-
-            data['updater'] = getUserName();
-            // data["remark"] = $("#remark").val();
-            reqApi({
-                code: "622033",
-                json: data
-            }).done(function() {
-                toastr.info("操作成功");
-                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                d.close();
-            });
-        }
-    });
-
-
+    //取消
     $('#cancelBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        d.showModal();
+        var dw = dialog({
+            content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
+                '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">取消订单</li></ul>' +
+                '</form>'
+        });
+        dw.showModal();
+        buildDetail({
+            fields: [{
+                field: 'remark',
+                title: '备注',
+                maxlength: 255
+            }],
+            container: $('#formContainer'),
+            buttons: [{
+                title: '通过',
+                handler: function() {
+                    var data = $('#popForm').serializeObject();
+                    data.orderCode = selRecords[0].code;
+                    data.updater = getUserName();
+                    data.remark = $("#remark").val();
+                    reqApi({
+                        code: '622033',
+                        json: data
+                    }).done(function(data) {
+                        toastr.info("操作成功");
+
+                        $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                        setTimeout(function() {
+                            dw.close().remove();
+                        }, 500)
+                    });
+
+                }
+            }, {
+                title: '返回',
+                handler: function() {
+                    dw.close().remove();
+                }
+            }]
+        });
+
+        dw.__center();
+
     });
+    //审批
     $('#checkBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {

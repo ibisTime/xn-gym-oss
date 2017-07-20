@@ -13,7 +13,19 @@ $(function() {
         required: true,
         hidden: true
     }, {
-        title: '参数名称',
+        title: '',
+        field: 'remark',
+        required: true,
+        hidden: true
+    }, {
+        title: '等级',
+        field: 'remark1',
+        readonly: true,
+        formatter: function(v, data) {
+            return data.remark
+        }
+    }, {
+        title: '等级描述',
         field: 'note',
         required: true,
         maxlength: 255
@@ -21,17 +33,14 @@ $(function() {
         title: '数量',
         field: 'cvalue',
         required: true,
-        // number: true
-    }, {
-        title: '备注',
-        field: 'remark',
-        maxlength: 250
+        number: true
     }];
 
     buildDetail({
         fields: fields,
         code: code,
         detailCode: '622916',
-        editCode: '622911'
+        editCode: '622911',
+
     });
 });

@@ -5,9 +5,15 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'productCode',
-        title: '针对产品',
-        search: true
+        title: '针对内容',
+        field: 'coachRealName',
+        formatter: function(v, data) {
+            if (v) {
+                return "私课教练：" + v;
+            } else {
+                return "团课：" + data.courseName;
+            }
+        }
     }, {
         field: 'content',
         title: '评论内容',
@@ -17,14 +23,13 @@ $(function() {
         title: '状态',
         formatter: Dict.getNameForList('comment_status'),
         type: 'select',
-        search: true,
-        value: 'C2',
+        // search: true,
         key: 'comment_status'
     }, {
-        field: 'nickname',
+        field: 'commerRealName',
         title: '评论人'
     }, {
-        field: 'commDatetime',
+        field: 'commentDatetime',
         title: '评论时间',
         formatter: dateTimeFormat
     }];
@@ -32,7 +37,21 @@ $(function() {
         columns: columns,
         pageCode: "622145",
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            status: "C"
         }
+    });
+    //审核
+    $('#checkBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status != "D") {
+            toastr.info('不是可以审核的状态');
+            return;
+        }
+        window.location.href = 'comment_addedit.html?code=' + selRecords[0].code;
     });
 })

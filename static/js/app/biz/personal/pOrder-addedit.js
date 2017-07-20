@@ -4,31 +4,56 @@ $(function() {
     var view = !!getQueryString('v');
 
     var fields = [{
-        field: 'applyUser',
+        field: 'realName',
         title: '下单人',
-        readonly: view
+        readonly: true
+    }, {
+        title: "联系方式",
+        field: "mobile",
+        readonly: true
     }, {
         field: 'courseName',
         title: '课程名称',
-        readonly: view
+        readonly: true
     }, {
-        field: 'price ',
+        field: 'price',
         title: '价格',
         formatter: moneyFormat,
-        readonly: view
+        readonly: true
     }, {
-        field: '',
+        title: "下单时间",
+        field: "applyDatetime",
+        type: "datetime",
+        fomatter: dateTimeFormat,
+        readonly: true
+    }, {
+        title: "上课地址",
+        field: "address",
+        readonly: true
+    }, {
+        field: 'skDatetime',
         title: '开课时间',
-        readonly: view
+        fomatter: dateTimeFormat,
+        readonly: true
     }, {
-        field: 'advPic',
-        type: "img"
+        field: 'quantity',
+        title: '预约人数',
+        readonly: true
     }, {
         field: 'status',
         title: '状态',
         type: 'select',
         key: 'pOrder_status',
-        readonly: view
+        formatter: Dict.getNameForList('pOrder_status'),
+        readonly: true
+    }, {
+        title: "下单说明",
+        field: 'applyNote',
+        readonly: true
+    }, {
+        title: "备注",
+        field: "remark",
+        readonly: true
     }];
 
     buildDetail({

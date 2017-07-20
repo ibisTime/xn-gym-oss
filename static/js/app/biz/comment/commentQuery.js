@@ -1,13 +1,21 @@
 $(function() {
-
+    var A = A,
+        B = B,
+        C = C;
     var columns = [{
         field: '',
         title: '',
         checkbox: true
     }, {
-        field: 'productCode',
-        title: '针对产品',
-        search: true
+        title: '针对内容',
+        field: 'coachRealName',
+        formatter: function(v, data) {
+            if (v) {
+                return "私课教练：" + v;
+            } else {
+                return "团课：" + data.courseName;
+            }
+        }
     }, {
         field: 'content',
         title: '评论内容',
@@ -15,27 +23,28 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('comment_status'),
         type: 'select',
         search: true,
-        value: 'C2',
-        key: 'comment_status'
+        data: {
+            "A": "已发布",
+            "B": "审批通过",
+            "C": "审批不通过"
+        }
     }, {
-        field: 'nickname',
+        field: 'commerRealName',
         title: '评论人'
     }, {
-        field: 'commDatetime',
+        field: 'commentDatetime',
         title: '评论时间',
         formatter: dateTimeFormat
     }];
     buildList({
+        router: 'comment',
         columns: columns,
         pageCode: "622145",
         searchParams: {
-            companyCode: OSS.company
-        },
-        beforeDetail: function() {
-            window.location.href = 'comment_addedit.html?v=1&code=' + selRecords[0].code;
+            companyCode: OSS.company,
+            statusList: [A, B, C]
         }
     });
 })

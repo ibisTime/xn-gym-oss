@@ -2,9 +2,24 @@ $(function() {
 
     var code = getQueryString('code');
     var view = getQueryString('v');
+    var remarkNote = [{
+        title: "审核说明",
+        field: 'remark',
+        maxlength: 255,
+        readonly: false
+    }];
     var checkList = [{
         title: '审核人',
-        field: 'updater',
+        field: 'approver',
+        formatter: function(v, data) {
+            if (v) {
+                return v
+            } else {
+                $("#approver").parent().css('display', 'none');
+                $("#approveDatetime").parent().css('display', 'none');
+                $("#remark").parent().css('display', 'none');
+            }
+        },
         readonly: true
     }, {
         title: '审核时间',
@@ -12,21 +27,32 @@ $(function() {
         readonly: true,
         formatter: dateTimeFormat
     }, {
-        title: '意见说明',
+        title: '审核说明',
         field: 'remark',
         readonly: true
     }];
     var fields = [{
-        title: '内容',
-        field: 'content',
+        title: '针对内容',
+        field: 'coachRealName',
+        formatter: function(v, data) {
+            if (v) {
+                return "私课教练：" + v;
+            } else {
+                return "团课：" + data.courseName;
+            }
+        },
+        readonly: true
+    }, {
+        title: "评论内容",
+        field: "content",
         readonly: true
     }, {
         title: '评论人',
-        field: 'nickname',
+        field: 'commerRealName',
         readonly: true
     }, {
         title: '评论时间',
-        field: 'commDatetime',
+        field: 'commentDatetime',
         readonly: true,
         formatter: dateTimeFormat
     }, {
@@ -37,16 +63,23 @@ $(function() {
         key: 'comment_status'
     }];
     if (view) {
-        fields = fields.concat(chenckList),
-            buttons = [];
+        remarkNote = [];
+        fields = fields.concat(checkList),
+            buttons = [{
+                title: '返回',
+                handler: function() {
+                    goBack();
+                }
+            }];
     } else {
+        fields = fields.concat(remarkNote);
         var buttons = [{
             title: '通过',
             handler: function() {
                 if ($('#jsForm').valid()) {
                     var data = $('#jsForm').serializeObject();
                     data.result = '1';
-                    data.updater = getUserName();
+                    data.approver = getUserName();
                     data.code = code;
                     reqApi({
                         code: '622142',
@@ -62,7 +95,7 @@ $(function() {
                 if ($('#jsForm').valid()) {
                     var data = $('#jsForm').serializeObject();
                     data.result = '0';
-                    data.updater = getUserName();
+                    data.approver = getUserName();
                     data.code = code;
                     reqApi({
                         code: '622142',
@@ -87,5 +120,4 @@ $(function() {
         detailCode: '622146',
     };
     buildDetail(options);
-
 });

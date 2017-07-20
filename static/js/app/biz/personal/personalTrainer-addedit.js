@@ -1,7 +1,7 @@
 $(function() {
-
     var code = getQueryString('code');
     var view = !!getQueryString('v');
+    var labelDict = Dict.getNameForList("label_kind");
 
     var fields = [{
         field: 'realName',
@@ -27,6 +27,15 @@ $(function() {
     }, {
         field: 'label',
         title: '标签',
+        formatter: function(data) {
+            var arr = data.split(/||/),
+                str = "";
+            arr = arr.filter(item => item !== "|");
+            for (var i = 0; i < arr.length; i++) {
+                str += labelDict(arr[i]) + "|";
+            }
+            return i && str.substr(0, str.length - 1) || "";
+        },
         readonly: true
     }, {
         title: "广告图",

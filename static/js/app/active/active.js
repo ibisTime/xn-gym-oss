@@ -28,7 +28,7 @@ $(function() {
         title1: '活动时间',
         type1: 'datetime',
         field2: 'endDatetime',
-        type2: 'date',
+        type2: 'datetime',
         formatter: function(v, data) {
             return dateTimeFormat(v) + "~" + dateTimeFormat(data.endDatetime)
         },

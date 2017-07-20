@@ -8,29 +8,39 @@ $(function() {
     }, {
         field: 'applyUser',
         title: '下单人',
-        type:"select",
-        pageCode1:"805054",
-        params:{
-            kind:"f1",
-            updater:""
+        type: "select",
+        pageCode1: "805054",
+        params: {
+            kind: "f1",
+            updater: ""
         },
-        keyName:"userId",
-        valueName:"nickname",
-        search: true
+        keyName: "userId",
+        valueName: "nickname",
+        search: true,
+        visible: false
+    }, {
+        field: 'realName',
+        title: '下单人'
+    }, {
+        title: "联系方式",
+        field: "mobile"
     }, {
         field: 'courseName',
-        title: '课程名称',
-        search: true
+        title: '课程名称'
     }, {
-        field: 'price ',
+        field: 'price',
         title: '价格',
         formatter: moneyFormat
     }, {
-        field: '',
-        title: '开课时间'
+        title: "上课地址",
+        field: "address"
     }, {
-        field: '',
-        title: '任课教练',
+        field: 'skDatetime',
+        title: '开课时间',
+        fomatter: dateTimeFormat
+    }, {
+        field: 'quantity',
+        title: '预约人数',
     }, {
         field: 'status',
         title: '状态',

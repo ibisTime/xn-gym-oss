@@ -1,6 +1,6 @@
 $(function() {
 
-
+    var labelDict = Dict.getNameForList("label_kind");
     var columns = [{
         field: '',
         title: '',
@@ -17,9 +17,15 @@ $(function() {
     }, {
         field: 'label',
         title: '标签',
-        // type: "select",
-        // multiple: true,
-        // key: 'label_kind'
+        formatter: function(data) {
+            var arr = data.split(/||/),
+                str = "";
+            arr = arr.filter(item => item !== "|");
+            for (var i = 0; i < arr.length; i++) {
+                str += labelDict(arr[i]) + "|";
+            }
+            return i && str.substr(0, str.length - 1) || "";
+        }
     }, {
         field: 'status',
         title: '状态',

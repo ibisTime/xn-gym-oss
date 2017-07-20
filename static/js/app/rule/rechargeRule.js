@@ -5,27 +5,26 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'remark',
-        title: '等级'
-    }, {
-        title: '等级描述',
-        field: 'note',
+        title: '参数名',
+        field: 'ckey',
         search: true
     }, {
-        title: '数量',
+        title: '参数值',
         field: 'cvalue',
     }, {
         field: 'updateDatetime',
         title: '最近修改时间',
         formatter: dateTimeFormat
+    }, {
+        field: 'remark',
+        title: '备注'
     }];
     buildList({
         columns: columns,
-        pageCode: "622915",
+        pageCode: "802025",
         searchParams: {
-            type: "3",
+            type: "1",
             companyCode: OSS.company
         }
     });
-
 });
