@@ -89,11 +89,11 @@ $(function() {
     $('#deleBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
+            toastr.warning("请选择记录");
             return;
         }
-        if (selRecords[0].status == 1) {
-            toastr.info('该课程已上架,不可删除');
+        if (selRecords[0].status != 0) {
+            toastr.warning('只有未上架的课程才可以删除');
             return;
         }
         confirm("确定删除该课程？").then(function() {
@@ -110,11 +110,11 @@ $(function() {
     $('#upBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
+            toastr.warning("请选择记录");
             return;
         }
         if (selRecords[0].status == 1) {
-            toastr.info('该课程已上架');
+            toastr.warning('该课程已上架');
             return;
         }
         window.location.href = "cource_up.html?code=" + selRecords[0].code;
@@ -162,7 +162,7 @@ $(function() {
                 });
             });
         } else {
-            toastr.warning("只有已上架的课程，才可以截止");
+            toastr.warning("只有已上架的课程，才可以截止报名");
             return;
         }
     });

@@ -12,10 +12,6 @@ $(function() {
         field: "mobile",
         readonly: true
     }, {
-        field: 'courseName',
-        title: '课程名称',
-        readonly: true
-    }, {
         field: 'price',
         title: '价格',
         formatter: moneyFormat,
@@ -23,8 +19,7 @@ $(function() {
     }, {
         title: "下单时间",
         field: "applyDatetime",
-        type: "datetime",
-        fomatter: dateTimeFormat,
+        formatter: dateTimeFormat,
         readonly: true
     }, {
         title: "上课地址",

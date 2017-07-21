@@ -32,10 +32,6 @@ $(function() {
         formatter: Dict.getNameForList('channel_type', '802006'),
         readonly: true
     }, {
-        title: '渠道单号',
-        field: 'channelOrder',
-        readonly: true
-    }, {
         field: 'bizType',
         title: '业务类型',
         type: 'select',
@@ -74,10 +70,6 @@ $(function() {
         key: 'jour_status',
         keyCode: '802006',
         formatter: Dict.getNameForList('jour_status', '802006'),
-        readonly: true
-    }, {
-        field: 'workDate',
-        title: '拟对账时间',
         readonly: true
     }, {
         field: 'remark',

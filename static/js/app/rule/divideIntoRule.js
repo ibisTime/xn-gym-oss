@@ -9,7 +9,7 @@ $(function() {
         field: 'note',
         search: true
     }, {
-        title: '赠送积分数量',
+        title: '分成比例',
         field: 'cvalue',
     }, {
         field: 'updateDatetime',
@@ -23,7 +23,7 @@ $(function() {
         columns: columns,
         pageCode: "622915",
         searchParams: {
-            type: "1",
+            type: "4",
             companyCode: OSS.company
         }
     });

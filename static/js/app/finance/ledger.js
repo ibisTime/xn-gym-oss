@@ -18,6 +18,13 @@ $(function() {
         keyCode: '802006',
         formatter: Dict.getNameForList('channel_type', '802006'),
     }, {
+        title: "币种",
+        field: "currency",
+        type: "select",
+        key: "currency",
+        keyCode: '802006',
+        formatter: Dict.getNameForList("currency", '802006')
+    }, {
         field: 'bizType',
         title: '业务类型',
         type: 'select',

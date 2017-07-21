@@ -50,7 +50,7 @@ $(function() {
         title: '购买数量'
     }, {
         field: 'amount',
-        title: '总额',
+        title: '订单总额',
         formatter: moneyFormat
     }, {
         field: 'applyDatetime',
@@ -59,8 +59,7 @@ $(function() {
         type1: "datetime",
         field1: "applyBeginDatetime",
         type1: "datetime",
-        field1: "applyEndDatetime",
-        field2: "applyBeginDatetime",
+        field2: "applyEndDatetime",
         type2: "datetime",
         formatter: dateTimeFormat,
         search: true
@@ -88,7 +87,7 @@ $(function() {
             return;
         }
         var dw = dialog({
-            content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
+            content: '<form class="pop-formCancel" id="popForm" novalidate="novalidate">' +
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">取消订单</li></ul>' +
                 '</form>'
         });
@@ -126,18 +125,19 @@ $(function() {
                 }
             }]
         });
-
         dw.__center();
-
     });
     //审批
     $('#checkBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
+            toastr.warning("请选择记录");
+            return;
+        }
+        if (selRecords[0].status != 4) {
+            toastr.warning("不是待审批的状态");
             return;
         }
         window.location.href = "order_check.html?code=" + selRecords[0].code;
     });
-
 });

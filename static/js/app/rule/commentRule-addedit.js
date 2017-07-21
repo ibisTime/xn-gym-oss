@@ -15,16 +15,9 @@ $(function() {
         title: '规则名称',
         field: 'note',
         required: true,
-        hidden: true
+        maxlength: 255
     }, {
-        title: '规则名称',
-        field: 'note1',
-        readonly: true,
-        formatter: function(v, data) {
-            return data.note;
-        }
-    }, {
-        title: '赠送积分数量',
+        title: '数值',
         field: 'cvalue',
         required: true,
         number: true

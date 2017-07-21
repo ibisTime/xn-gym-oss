@@ -18,11 +18,6 @@ $(function() {
         title: '私教名称',
         readonly: true
     }, {
-        field: 'price',
-        title: '课程价格',
-        formatter: moneyFormat,
-        readonly: true
-    }, {
         title: "上课时间",
         field: "skStartDatetime",
         formatter: function(v, data) {
@@ -51,12 +46,17 @@ $(function() {
         },
         readonly: true
     }, {
+        field: 'price',
+        title: '课程价格',
+        formatter: moneyFormat,
+        readonly: true
+    }, {
         field: 'quantity',
         title: '购买数量',
         readonly: true
     }, {
         field: 'amount',
-        title: '总额',
+        title: '订单总额',
         formatter: moneyFormat,
         readonly: true
     }, {

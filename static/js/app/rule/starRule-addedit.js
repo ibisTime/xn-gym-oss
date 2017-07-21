@@ -22,7 +22,19 @@ $(function() {
         field: 'remark1',
         readonly: true,
         formatter: function(v, data) {
-            return data.remark
+            if (data.ckey == 'LXJL') {
+                return "0"
+            } else if (data.ckey == 'YXJL') {
+                return "1"
+            } else if (data.ckey == 'EXJL') {
+                return "2"
+            } else if (data.ckey == 'SAXJL') {
+                return "3"
+            } else if (data.ckey == 'SXJL') {
+                return "4"
+            } else if (data.ckey == 'WXJL') {
+                return "5"
+            }
         }
     }, {
         title: '等级描述',

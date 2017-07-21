@@ -74,47 +74,23 @@ $(function() {
         formatter: Dict.getNameForList('jour_status', '802006'),
         readonly: view
     }, {
-        field: 'workDate',
-        title: '拟对账时间',
-        readonly: view
-    }, {
         field: 'checkUser',
         title: '对账人',
         readonly: view,
-        afterSet: founction(v, data) {
-            if (v == null || v == "undefined" || v == "") {
-                $("#checkUser").parent().css('display', 'none')
+        afterSet: function(v, data) {
+            if (v == undefined) {
+                $("#checkUser").parent().css('display', 'none');
+                $("#checkDatetime").parent().css('display', 'none');
+                $("#adjustUser").parent().css('display', 'none');
+                $("#adjustUser").parent().css('display', 'none');
+                $("#adjustDatetime").parent().css('display', 'none')
             }
         }
     }, {
         field: 'checkDatetime',
         title: '对账时间',
         formatter: dateTimeFormat,
-        readonly: view,
-        afterSet: founction(v, data) {
-            if (v == null || v == "undefined" || v == "") {
-                $("#checkDatetime").parent().css('display', 'none')
-            }
-        }
-    }, {
-        field: 'adjustUser',
-        title: '调账人',
-        readonly: view,
-        afterSet: founction(v, data) {
-            if (v == null || v == "undefined" || v == "") {
-                $("#adjustUser").parent().css('display', 'none')
-            }
-        }
-    }, {
-        field: 'adjustDatetime',
-        title: '调账时间',
-        formatter: dateTimeFormat,
-        readonly: view,
-        afterSet: founction(v, data) {
-            if (v == null || v == "undefined" || v == "") {
-                $("#adjustUser").parent().css('display', 'none')
-            }
-        }
+        readonly: view
     }, {
         title: '备注',
         field: 'remark',

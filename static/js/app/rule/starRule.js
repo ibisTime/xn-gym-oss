@@ -5,8 +5,23 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        field: 'remark',
-        title: '等级'
+        field: 'ckey',
+        title: '等级',
+        formatter: function(v, data) {
+            if (v == 'LXJL') {
+                return "0"
+            } else if (v == 'YXJL') {
+                return "1"
+            } else if (v == 'EXJL') {
+                return "2"
+            } else if (v == 'SAXJL') {
+                return "3"
+            } else if (v == 'SXJL') {
+                return "4"
+            } else if (v == 'WXJL') {
+                return "5"
+            }
+        }
     }, {
         title: '等级描述',
         field: 'note',

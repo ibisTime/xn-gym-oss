@@ -24,7 +24,7 @@ $(function() {
             return data.note;
         }
     }, {
-        title: '赠送积分数量',
+        title: '分成比例',
         field: 'cvalue',
         required: true,
         number: true

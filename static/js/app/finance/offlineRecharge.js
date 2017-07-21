@@ -117,7 +117,7 @@ $(function() {
 
             var dw = dialog({
                 content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
-                    '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">批量支付</li></ul>' +
+                    '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">批量审核</li></ul>' +
                     '</form>'
             });
 

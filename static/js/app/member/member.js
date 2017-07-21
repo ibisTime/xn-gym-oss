@@ -11,6 +11,9 @@ $(function() {
         field: 'nickname',
         title: '微信昵称',
     }, {
+        field: 'userRefereeName',
+        title: '推荐人'
+    }, {
         field: 'status',
         title: '状态',
         type: 'select',
@@ -31,7 +34,7 @@ $(function() {
             kind: 'f1'
         }
     });
-//详情
+    //详情
     $('#detaBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -40,7 +43,7 @@ $(function() {
         }
         window.location.href = "member_addedit.html?userId=" + selRecords[0].userId;
     });
-//账户查询
+    //账户查询
     $('#accountBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -61,9 +64,9 @@ $(function() {
             toStatus,
             msg;
         status == 0 ? toStatus = 2 : toStatus = 0;
-        msg= toStatus==2?'确定注销该用户？':"确定激活该用户？";
-        confirm(msg).then(function(){
-                reqApi({
+        msg = toStatus == 2 ? '确定注销该用户？' : "确定激活该用户？";
+        confirm(msg).then(function() {
+            reqApi({
                 code: '805052',
                 json: {
                     userId: selRecords[0].userId,
@@ -72,10 +75,10 @@ $(function() {
             }).then(function() {
                 sucList();
             });
-        },function(){})
+        }, function() {})
     });
 
-    
+
     $("#ledgerBtn").remove();
 
 });

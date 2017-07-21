@@ -7,7 +7,7 @@ $(function() {
         checkbox: true
     }, {
         field: 'realName',
-        title: '私教名称',
+        title: '私教名称'
     }, {
         field: 'age',
         title: '年龄'
@@ -18,11 +18,10 @@ $(function() {
         field: 'label',
         title: '标签',
         formatter: function(data) {
-            var arr = data.split(/||/),
+            var arr = data.split('||'),
                 str = "";
-            arr = arr.filter(item => item !== "|");
             for (var i = 0; i < arr.length; i++) {
-                str += labelDict(arr[i]) + "|";
+                str += labelDict(arr[i]) + "、";
             }
             return i && str.substr(0, str.length - 1) || "";
         }
@@ -33,7 +32,17 @@ $(function() {
         key: 'pCourse_status',
         formatter: Dict.getNameForList('pCourse_status'),
         search: true
-    }];
+    }, {
+        title: "审核人",
+        field: "approver"
+    }, {
+        title: "审核时间",
+        field: "approveDatetime",
+        formatter: dateTimeFormat
+    }, {
+        title: "审核说明",
+        field: "remark"
+    }, ];
     buildList({
         columns: columns,
         pageCode: '622095',

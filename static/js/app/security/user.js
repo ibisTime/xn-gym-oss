@@ -93,9 +93,9 @@ $(function() {
             toStatus,
             msg;
         status == 0 ? toStatus = 2 : toStatus = 0;
-        msg= toStatus==2?'确定注销该用户？':"确定激活该用户？";
-        confirm(msg).then(function(){
-                reqApi({
+        msg = toStatus == 2 ? '确定注销该用户？' : "确定激活该用户？";
+        confirm(msg).then(function() {
+            reqApi({
                 code: '805052',
                 json: {
                     userId: selRecords[0].userId,
@@ -104,7 +104,7 @@ $(function() {
             }).then(function() {
                 sucList();
             });
-        },function(){})
+        }, function() {})
     });
 
 

@@ -50,7 +50,7 @@ $(function() {
         title: '购买数量'
     }, {
         field: 'amount',
-        title: '总额',
+        title: '订单总额',
         formatter: moneyFormat
     }, {
         field: 'applyDatetime',
@@ -59,7 +59,8 @@ $(function() {
         type1: "datetime",
         field1: "applyBeginDatetime",
         type1: "datetime",
-        field1: "applyEndDatetime",
+        field2: "applyEndDatetime",
+        type2: "datetime",
         formatter: dateTimeFormat,
         search: true
     }, {
@@ -76,7 +77,7 @@ $(function() {
         pageCode: '622080',
         searchParams: {
             companyCode: OSS.company,
-            statusList: [2, 3, 5, 6, 7]
+            statusList: [2, 3, 5, 6, 7, 8]
         }
     });
 

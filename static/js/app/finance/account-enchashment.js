@@ -33,9 +33,7 @@ $(function() {
     }, {
         field: 'applyNote',
         title: '备注',
-        maxlength: 255,
-        type: "textarea",
-        normalArea: true
+        maxlength: 255
     }];
 
     var options = {
