@@ -13,10 +13,9 @@ $(function() {
         field: 'location',
         formatter: function(v) {
             if (v == "index_banner") {
-                return '发现';
+                return '首页';
             }
         },
-
     }, {
         title: '顺序',
         field: 'orderNo'

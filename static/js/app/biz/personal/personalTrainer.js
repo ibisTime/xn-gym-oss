@@ -48,19 +48,16 @@ $(function() {
         pageCode: '622095',
         searchParams: {
             companyCode: OSS.company
+        },
+        beforeEdit: function() {
+            var selRecords = $('#tableList').bootstrapTable('getSelections');
+            if (selRecords[0].status != 0) {
+                toastr.info("不是待审批的状态");
+                return;
+            }
+            //审批
+            window.location.href = 'personalTrainer_check.html?code=' + selRecords[0].code;
         }
-    });
-    $("#checkBtn").click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        if (selRecords[0].status != 0) {
-            toastr.info("不是待审批的状态");
-            return;
-        }
-        window.location.href = 'personalTrainer_check.html?code=' + selRecords[0].code;
     });
 
 });

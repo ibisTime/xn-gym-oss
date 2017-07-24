@@ -62,23 +62,39 @@ $(function() {
     buildList({
         columns: columns,
         pageCode: '622020',
-        deleteCode: "622011",
         searchParams: {
             companyCode: OSS.company
+        },
+        beforeDelete: function() {
+            var selRecords = $('#tableList').bootstrapTable('getSelections');
+            if (selRecords.length <= 0) {
+                toastr.info("请选择记录");
+                return;
+            } else if (selRecords[0].status != 0) {
+                toastr.warning("该活动不是可以删除的状态");
+                return;
+            }
+            confirm("确认是否删除该记录？").then(function() {
+                reqApi({
+                    code: '622011',
+                    json: data
+                }).done(function(data) {
+                    sucList();
+                });
+            });
+        },
+        beforeEdit: function() {
+            var selRecords = $('#tableList').bootstrapTable('getSelections');
+            if (selRecords.length <= 0) {
+                toastr.info("请选择记录");
+                return;
+            }
+            if (selRecords[0].status == 1 || selRecords[0].status == 2) {
+                toastr.warning('该活动已上架或结束不可修改');
+                return;
+            }
+            window.location.href = 'active_addedit.html?code=' + selRecords[0].code;
         }
-    });
-    //修改
-    $('#edit2Btn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        if (selRecords[0].status == 1 || selRecords[0].status == 2) {
-            toastr.warning('该活动已上架或结束不可修改');
-            return;
-        }
-        window.location.href = 'active_addedit.html?code=' + selRecords[0].code;
     });
     //上架
     $('#upBtn').click(function() {

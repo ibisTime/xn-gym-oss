@@ -2,8 +2,6 @@ $(function() {
     var code = getQueryString('code');
 
 
-    OSS.company
-
     var fields = [{
         title: '类型',
         field: 'type',

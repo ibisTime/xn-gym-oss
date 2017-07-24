@@ -65,7 +65,14 @@ $(function() {
         formatter: dateTimeFormat
     }, {
         field: 'payUser',
-        title: '回录人'
+        title: '回录人',
+        formatter: function(v, data) {
+            if (v == "SYS_USER_ZWZJ") {
+                return 'admin';
+            } else {
+                return v
+            }
+        }
     }, {
         field: 'payDatetime',
         title: '回录时间',
@@ -80,7 +87,7 @@ $(function() {
             companyCode: OSS.company
         }
     });
-
+    //详情
     $("#detaBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {

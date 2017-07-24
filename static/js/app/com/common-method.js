@@ -64,12 +64,6 @@ function dateTimeFormat(date) {
  * @param money
  * @param format
  */
-
-/**
- * 金额格式转化
- * @param money
- * @param format
- */
 function moneyFormat(money, format) {
     var flag = true;
     if (isNaN(money)) {
@@ -650,9 +644,7 @@ function buildList(options) {
     $('.search-form').append(html);
 
     for (var i = 0, len = dateTimeList.length; i < len; i++) {
-
         var item = dateTimeList[i];
-
         if (item.type1) {
             laydate({
                 elem: '#' + item.field1,
@@ -674,8 +666,6 @@ function buildList(options) {
                 format: item.type3 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
             });
         }
-
-
     }
 
 
@@ -761,7 +751,6 @@ function buildList(options) {
         }
 
         if (item.onChange) {
-
             (function(i, data) {
                 $('#' + i.field).on('change', function(e) {
                     var record = Dict.findObj(data, this.value, i.keyName);
@@ -836,7 +825,11 @@ function buildList(options) {
             toastr.info("请选择一条记录");
             return;
         }
-
+        if (options.beforeDelete) {
+            if (!options.beforeDelete(selRecords[0])) {
+                return;
+            }
+        }
         confirm("确认是否删除该记录？").then(function() {
             var codeParams = {
                 code: selRecords[0].code,
@@ -1022,7 +1015,6 @@ function buildDetail(options) {
             rules[item.field + 'Img'].isNotFace = false;
         }
         if (item.required) {
-
             rules[item.field].required = item.required;
         }
 
@@ -2089,7 +2081,7 @@ function uploadInit() {
         flash_swf_url: swfUrl,
         filters: {
             mime_types: mime_types
-        },
+        }, //上传文件格式过滤
         max_retries: 3, //上传失败最大重试次数
         dragdrop: true, //开启可拖曳上传
         drop_element: dropId, //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
@@ -2165,7 +2157,6 @@ function uploadInit() {
                 }
             },
             'UploadProgress': function(up, file) {
-                //
                 // 显示进度条
                 if (editor.showUploadProgress) {
                     editor.showUploadProgress(file.percent);
@@ -2195,7 +2186,6 @@ function uploadInit() {
                 var sourceLink1 = res.key; //获取上传成功后的文件的Url
 
                 //printLog(sourceLink);
-
                 // 插入图片到editor
                 editor.command && editor.command(null, 'insertHtml', '<img src="' + sourceLink + '" style="max-width:100%;"/>');
                 if (editor.append) {
@@ -3376,7 +3366,7 @@ function getDocOrAviOrZipIcon(suffix) {
 
 function isAcceptImg(suffix) {
     if (suffix == 'jpg' || suffix == 'gif' ||
-        suffix == 'png' || suffix == 'bmp') {
+        suffix == 'png' || suffix == 'bmp' || suffix == 'JPG' || suffix == "jpeg") {
         return true;
     }
     return false;

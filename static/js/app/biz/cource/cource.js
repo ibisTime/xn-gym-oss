@@ -37,8 +37,7 @@ $(function() {
         number: true
     }, {
         field: 'address',
-        title: '地址',
-        // search: true
+        title: '地址'
     }, {
         field: 'contact',
         title: '联系方式',
@@ -70,47 +69,36 @@ $(function() {
         pageCode: '622060',
         searchParams: {
             companyCode: OSS.company
+        },
+        beforeDelete: function() {
+            var selRecords = $('#tableList').bootstrapTable('getSelections');
+            if (selRecords[0].status != 0) {
+                toastr.warning("该课程不是可以删除的状态");
+                return;
+            }
+            confirm("确认是否删除该记录？").then(function() {
+                reqApi({
+                    code: '622051',
+                    json: data
+                }).done(function(data) {
+                    sucList();
+                });
+            }, function() {});
+        },
+        beforeEdit: function() {
+            var selRecords = $('#tableList').bootstrapTable('getSelections');
+            if (selRecords[0].status == 1) {
+                toastr.warning('该课程已上架,不可以修改');
+                return;
+            }
+            window.location.href = 'cource_addedit.html?code=' + selRecords[0].code;
         }
-    });
-    //修改
-    $('#edit2Btn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        if (selRecords[0].status == 1) {
-            toastr.info('该课程已上架,不可以修改');
-            return;
-        }
-        window.location.href = 'cource_addedit.html?code=' + selRecords[0].code;
-    });
-    //删除
-    $('#deleBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.warning("请选择记录");
-            return;
-        }
-        if (selRecords[0].status != 0) {
-            toastr.warning('只有未上架的课程才可以删除');
-            return;
-        }
-        confirm("确定删除该课程？").then(function() {
-            reqApi({
-                code: '622051',
-                json: { "code": selRecords[0].code }
-            }).then(function() {
-                toastr.info("操作成功");
-                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-            });
-        });
     });
     //上架
     $('#upBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
-            toastr.warning("请选择记录");
+            toastr.info("请选择记录");
             return;
         }
         if (selRecords[0].status == 1) {

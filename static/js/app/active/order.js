@@ -17,7 +17,8 @@ $(function() {
         },
         keyName: "userId",
         valueName: "nickname",
-        search: true
+        search: true,
+        visible: false
     }, {
         field: 'nickname',
         title: '下单人'

@@ -32,16 +32,15 @@ $(function() {
         pageCode: '805054',
         searchParams: {
             kind: 'f1'
+        },
+        beforeDetail: function() {
+            var selRecords = $('#tableList').bootstrapTable('getSelections');
+            if (selRecords.length <= 0) {
+                toastr.info("请选择记录");
+                return;
+            }
+            window.location.href = "member_addedit.html?userId=" + selRecords[0].userId;
         }
-    });
-    //详情
-    $('#detaBtn').click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        window.location.href = "member_addedit.html?userId=" + selRecords[0].userId;
     });
     //账户查询
     $('#accountBtn').click(function() {
@@ -77,8 +76,4 @@ $(function() {
             });
         }, function() {})
     });
-
-
-    $("#ledgerBtn").remove();
-
 });

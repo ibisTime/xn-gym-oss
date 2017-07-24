@@ -65,7 +65,14 @@ $(function() {
             title: '审核意见'
         }, {
             field: 'payUser',
-            title: '回录人'
+            title: '回录人',
+            formatter: function(v, data) {
+                if (v == "SYS_USER_ZWZJ") {
+                    return "admin";
+                } else {
+                    return v
+                }
+            }
         }, {
             field: 'payDatetime',
             title: '回录时间',

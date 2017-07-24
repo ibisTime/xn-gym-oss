@@ -13,7 +13,7 @@ $(function() {
         value: sessionStorage.getItem('systemCode')
     }, {
         field: "type",
-        value: 2, //4开机爆图
+        value: 2,
         required: true,
         hidden: true
     }, {
