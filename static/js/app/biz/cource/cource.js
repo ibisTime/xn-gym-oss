@@ -1,5 +1,5 @@
 $(function() {
-    var isQuery = !!getQueryString('q');
+
 
     var columns = [{
         field: '',
@@ -37,7 +37,17 @@ $(function() {
         number: true
     }, {
         field: 'address',
-        title: '地址'
+        title: '地址',
+        formatter: function(v, data) {
+            if (data.province == data.city && data.city == data.area) {
+                data.city = "";
+                data.area = "";
+            } else if (data.province == data.city && data.city != data.area) {
+                data.city = "";
+            }
+            var result = (data.province || "") + (data.city || "") + (data.area || "") + (data.address || "");
+            return result || "-";
+        },
     }, {
         field: 'contact',
         title: '联系方式',
@@ -87,11 +97,12 @@ $(function() {
         },
         beforeEdit: function() {
             var selRecords = $('#tableList').bootstrapTable('getSelections');
-            if (selRecords[0].status == 1) {
-                toastr.warning('该课程已上架,不可以修改');
+            if (selRecords[0].status == 0 || selRecords[0].status == 3) {
+                window.location.href = 'cource_addedit.html?code=' + selRecords[0].code;
+            } else {
+                toastr.warning('只有草稿和已下架的课程才可以修改');
                 return;
             }
-            window.location.href = 'cource_addedit.html?code=' + selRecords[0].code;
         }
     });
     //上架
@@ -139,7 +150,6 @@ $(function() {
             return;
         }
         if (selRecords[0].status == 1) {
-
             confirm("确定截止报名该课程？").then(function() {
                 reqApi({
                     code: '622055',
@@ -148,10 +158,56 @@ $(function() {
                     toastr.info("操作成功");
                     $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
                 });
-            });
+            }, function() {});
         } else {
             toastr.warning("只有已上架的课程，才可以截止报名");
             return;
         }
+    });
+    //开始课程
+    $('#beginBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status == 2) {
+            confirm("确定开始上课？").then(function() {
+                reqApi({
+                    code: '622056',
+                    json: { "code": selRecords[0].code, updater: getUserName(), remark: '开始课程' }
+                }).then(function() {
+                    toastr.info("操作成功");
+                    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                });
+            }, function() {});
+        } else {
+            toastr.warning("只有截止报名的状态才可以开始上课");
+            return;
+        }
+
+    });
+    //结束课程
+    $('#endBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status == 4) {
+            confirm("确定结束课程？").then(function() {
+                reqApi({
+                    code: '622057',
+                    json: { "code": selRecords[0].code, updater: getUserName(), remark: '结束课程' }
+                }).then(function() {
+                    toastr.info("操作成功");
+                    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                });
+            }, function() {});
+        } else {
+            toastr.warning("只有开始上课的状态才可以结束课程");
+            return;
+        }
+
     });
 });

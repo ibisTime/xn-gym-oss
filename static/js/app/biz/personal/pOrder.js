@@ -25,8 +25,14 @@ $(function() {
         title: "联系方式",
         field: "mobile"
     }, {
+        title: "私教名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.coach.realName;
+        }
+    }, {
         field: 'price',
-        title: '价格',
+        title: '私课价格',
         formatter: moneyFormat
     }, {
         title: "上课地址",
@@ -38,6 +44,10 @@ $(function() {
     }, {
         field: 'quantity',
         title: '预约人数',
+    }, {
+        title: "订单总额",
+        field: "amount",
+        formatter: moneyFormat
     }, {
         field: 'status',
         title: '状态',

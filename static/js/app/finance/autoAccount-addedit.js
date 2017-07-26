@@ -22,7 +22,7 @@ $(function() {
         key: 'currency',
         keyCode: "802006",
         formatter: Dict.getNameForList("currency", '802006'),
-        readonly: true
+        readonly: true,
     }, {
         field: 'channelType',
         title: '渠道类型',
@@ -38,7 +38,7 @@ $(function() {
         key: 'biz_type',
         keyCode: '802006',
         formatter: Dict.getNameForList('biz_type', '802006'),
-        readonly: true
+        readonly: true,
     }, {
         field: 'bizNote',
         title: '业务说明',
@@ -72,6 +72,10 @@ $(function() {
         formatter: Dict.getNameForList('jour_status', '802006'),
         readonly: true
     }, {
+        field: 'workDate',
+        title: '拟对账时间',
+        readonly: true
+    }, {
         field: 'remark',
         title: '备注',
         readonly: true
@@ -79,6 +83,7 @@ $(function() {
         title: '偏离金额',
         field: 'checkAmount',
         amount1: true,
+        defaultValue: '0',
         required: true,
         readonly: false,
         help: '0表示平账；<br/>负数表示需减钱；<br/>正数表示需加钱'
@@ -101,8 +106,8 @@ $(function() {
         editCode: '802800',
         view: view,
         beforeSubmit: function(data) {
-            data.order = data.code;
             data.checkAmount = data.checkAmount * 1000;
+            data.order = data.code;
             return true;
         }
     };

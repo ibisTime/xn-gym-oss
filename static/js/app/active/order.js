@@ -24,7 +24,7 @@ $(function() {
         title: '下单人'
     }, {
         field: 'mobile',
-        title: '手机号'
+        title: '联系方式'
     }, {
         field: 'activityTitle',
         title: '活动标题',
@@ -39,15 +39,19 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('acOrder_status'),
+        data: {
+            "0": "待付款",
+            "1": "付款成功",
+            "4": "申请退款"
+        },
         search: true,
         type: 'select',
-        key: 'acOrder_status'
+        // key: 'acOrder_status'
     }, {
-        field: 'payDatetime',
+        field: 'applyDatetime',
         title: '下单时间',
         formatter: dateTimeFormat,
-        type1: 'date',
+        type1: 'datetime',
         title1: '下单时间',
         field1: 'applyBeginDatetime',
         field2: 'applyEndDatetime',
@@ -88,7 +92,7 @@ $(function() {
             }],
             container: $('#formContainer'),
             buttons: [{
-                title: '通过',
+                title: '确定',
                 handler: function() {
                     var data = $('#popForm').serializeObject();
                     data.orderCode = selRecords[0].code;
@@ -123,6 +127,10 @@ $(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status != 4) {
+            toastr.info("不是待审批的状态");
             return;
         }
         window.location.href = "order_check.html?code=" + selRecords[0].code;

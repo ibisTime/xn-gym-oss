@@ -8,7 +8,7 @@ $(function() {
         readonly: true
     }, {
         field: 'mobile',
-        title: '手机号',
+        title: '联系方式',
         readonly: true
     }, {
         title: "课程名称",
@@ -36,7 +36,14 @@ $(function() {
         title: "上课地址",
         field: "address",
         formatter: function(v, data) {
-            return data.orgCourse.address;
+            if (data.orgCourse.province == data.orgCourse.city && data.orgCourse.city == data.orgCourse.area) {
+                data.orgCourse.city = "";
+                data.orgCourse.area = "";
+            } else if (data.orgCourse.province == data.orgCourse.city && data.orgCourse.city != data.orgCourse.area) {
+                data.orgCourse.city = "";
+            }
+            var result = (data.orgCourse.province || "") + (data.orgCourse.city || "") + (data.orgCourse.area || "") + (data.orgCourse.address || "");
+            return result || "-";
         },
         readonly: true
     }, {
@@ -63,7 +70,8 @@ $(function() {
     }, {
         title: "下单时间",
         field: "applyDatetime",
-        formatter: dateTimeFormat
+        formatter: dateTimeFormat,
+        readonly: true
     }, {
         field: 'status',
         title: '状态',
@@ -73,12 +81,29 @@ $(function() {
     }, {
         field: 'payDatetime',
         title: '支付时间',
-        formatter: dateTimeFormat,
+        formatter: function(v, data) {
+            if (v && v != "") {
+                return dateTimeFormat(v)
+            } else {
+                $("#payDatetime").parent().css('display', 'none');
+            }
+        },
         readonly: true
     }, {
         title: '下单说明',
         field: 'applyNote',
         readonly: true
+    }, {
+        title: "备注",
+        field: "remark",
+        readonly: true,
+        formatter: function(v, data) {
+            if (v) {
+                return v
+            } else {
+                $("#remark").parent().css('display', 'none');
+            }
+        }
     }];
     var options = {
         fields: fields,

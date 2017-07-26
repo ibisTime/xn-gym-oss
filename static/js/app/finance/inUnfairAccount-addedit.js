@@ -21,8 +21,8 @@ $(function() {
     }, {
         field: 'amount',
         title: '金额',
-        formatter: moneyFormat,
-        readonly: true
+        readonly: true,
+        formatter: moneyFormat
     }, {
         field: 'status',
         title: '状态',
@@ -58,6 +58,7 @@ $(function() {
     var options = {
         fields: fields,
         code: code,
+        view: view,
         detailCode: '802806',
     };
 

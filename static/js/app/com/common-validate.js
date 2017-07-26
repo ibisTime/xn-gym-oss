@@ -113,6 +113,10 @@ $.validator.addMethod("amount", function(value, element) {
     return /^\d+$/.test(aint) && /^[\d\.\,]+$/.test(value + '') && aint.length <= 13;
 }, '金额必须>=0，且小于13位');
 
+$.validator.addMethod("amount1", function(value, element) {
+    var aint = '' + parseInt(value.replace(/[\,]/g, ''));
+    return /^\-?\d+$/.test(aint) && /^\-|\+?[\d\.\,]+$/.test(value + '') && aint.length <= 13;
+}, '金额须小于13位');
 //汉字
 jQuery.validator.addMethod("chinese", function(value, element) {
     var chinese = /^[\u4E00-\u9FFF]+$/;

@@ -17,13 +17,6 @@ $(function() {
         formatter: Dict.getNameForList("currency", '802006'),
         search: true
     }, {
-        //		field: 'channelType',
-        //		title: '渠道',
-        //		type: 'select',
-        //		key: 'channel_type',
-        //		keyCode:'802006',
-        //		formatter: Dict.getNameForList('channel_type','802006'),
-        //	},{
         field: 'bizType',
         title: '业务类型',
         type: 'select',

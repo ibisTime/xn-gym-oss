@@ -25,28 +25,6 @@ $(function() {
         title: '工作年限',
         readonly: true
     }, {
-        title: "等级",
-        field: "star",
-        formatter: function(v, data) {
-            if (v == '0') {
-                return "零星教练"
-            } else if (v == "1") {
-                return "一星教练"
-            } else if (v == "2") {
-                return "二星教练"
-            } else if (v == "3") {
-                return "三星教练"
-            } else if (v == "4") {
-                return "四星教练"
-            } else if (v == "5") {
-                return "五星教练"
-            }
-        }
-    }, {
-        title: "星星总数",
-        field: "starNum",
-        readonly: true
-    }, {
         field: 'label',
         title: '标签',
         formatter: function(data) {

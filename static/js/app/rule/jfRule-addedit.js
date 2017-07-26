@@ -7,24 +7,12 @@ $(function() {
         type: "hidden",
         required: true
     }, {
-        title: '',
+        title: '参数键',
         field: 'ckey',
         required: true,
-        hidden: true,
-    }, {
-        title: '规则名称',
-        field: 'note',
-        required: true,
-        hidden: true
-    }, {
-        title: '规则名称',
-        field: 'note1',
         readonly: true,
-        formatter: function(v, data) {
-            return data.note;
-        }
     }, {
-        title: '赠送积分数量',
+        title: '参数值',
         field: 'cvalue',
         required: true,
         number: true

@@ -8,7 +8,7 @@ $(function() {
         readonly: true
     }, {
         field: 'mobile',
-        title: '手机号',
+        title: '联系方式',
         readonly: true
     }, {
         field: 'activityTitle',
@@ -23,6 +23,22 @@ $(function() {
         field: 'quantity',
         title: '预约人数',
         readonly: true
+    }, {
+        title: "活动开始时间",
+        field: "activityBeginDatetime",
+        formatter: dateTimeFormat,
+        readonly: true
+    }, {
+        title: "活动结束时间",
+        field: "activityEndDatetime",
+        formatter: dateTimeFormat,
+        readonly: true
+    }, {
+        title: "活动地点",
+        field: "holdPlace",
+    }, {
+        title: "活动方联系方式",
+        field: "contact"
     }, {
         title: "下单时间",
         field: "applyDatetime",
@@ -43,7 +59,13 @@ $(function() {
     }, {
         field: 'payDatetime',
         title: '支付时间',
-        formatter: dateTimeFormat,
+        formatter: function(v, data) {
+            if (v && v != "") {
+                return dateTimeFormat(v)
+            } else {
+                $("#payDatetime").parent().css('display', 'none');
+            }
+        },
         readonly: true
     }, {
         title: "下单说明",

@@ -57,6 +57,7 @@ $(function() {
     var options = {
         fields: fields,
         code: code,
+        view: true,
         detailCode: '802806'
     };
 

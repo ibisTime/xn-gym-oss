@@ -5,7 +5,7 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: '参数名',
+        title: '参数键',
         field: 'ckey',
         search: true
     }, {
@@ -20,6 +20,7 @@ $(function() {
         title: '备注'
     }];
     buildList({
+        router: "enchashmentRule",
         columns: columns,
         pageCode: "802025",
         searchParams: {

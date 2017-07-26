@@ -7,7 +7,7 @@ $(function() {
         readonly: true
     }, {
         field: 'mobile',
-        title: '手机号',
+        title: '联系方式',
         readonly: true
     }, {
         field: 'activityTitle',

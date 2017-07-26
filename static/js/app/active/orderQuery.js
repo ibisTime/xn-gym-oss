@@ -24,7 +24,7 @@ $(function() {
         title: '下单人'
     }, {
         field: 'mobile',
-        title: '手机号'
+        title: '联系方式'
     }, {
         field: 'activityTitle',
         title: '活动标题',
@@ -39,15 +39,22 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('acOrder_status'),
+        data: {
+            "2": "用户取消订单",
+            "3": "平台取消订单",
+            "5": "退款成功",
+            "6": "退款失败",
+            "7": "活动开始",
+            "8": "已完成"
+        },
         search: true,
         type: 'select',
-        key: 'acOrder_status'
+        // key: 'acOrder_status'
     }, {
-        field: 'payDatetime',
+        field: 'applyDatetime',
         title: '下单时间',
         formatter: dateTimeFormat,
-        type1: 'date',
+        type1: 'datetime',
         title1: '下单时间',
         field1: 'applyBeginDatetime',
         field2: 'applyEndDatetime',

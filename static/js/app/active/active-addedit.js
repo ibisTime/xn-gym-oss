@@ -2,29 +2,7 @@ $(function() {
 
     var code = getQueryString('code');
     var view = !!getQueryString('v');
-    var start = {
-        elem: '#startDatetime',
-        format: 'YYYY-MM-DD hh:mm:ss',
-        min: laydate.now(0, 'YYYY-MM-DD hh:mm:ss'),
-        choose: function(datas) {
-            var d = new Date(datas);
-            d.setDate(d.getDate());
-            datas = dateTimeFormat(d);
-            end.min = datas;
-            end.start = datas
-        }
-    };
-    var end = {
-        elem: '#endDatetime',
-        format: 'YYYY-MM-DD hh:mm:ss',
-        min: laydate.now(0, 'YYYY-MM-DD hh:mm:ss'),
-        choose: function(datas) {
-            var d = new Date(datas);
-            d.setDate(d.getDate());
-            datas = dateTimeFormat(d);
-            start.max = datas;
-        }
-    };
+
 
     var fields = [{
         field: 'updater',
@@ -85,7 +63,7 @@ $(function() {
     }, {
         title: "联系方式",
         field: "contact",
-        mobile: true,
+        tm: true,
         readonly: view,
         required: true
     }, {
@@ -103,10 +81,14 @@ $(function() {
     }, {
         title: '备注',
         field: 'remark',
-        maxlength: 250,
+        maxlength: 255,
         readonly: view
     }];
     var viewList = [{
+        title: "剩余人数",
+        field: "remainNum",
+        readonly: true,
+    }, {
         field: 'status',
         title: '状态',
         readonly: true,

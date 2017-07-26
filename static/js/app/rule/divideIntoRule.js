@@ -5,11 +5,11 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: '规则名称',
-        field: 'note',
+        title: "参数键",
+        field: 'ckey',
         search: true
     }, {
-        title: '分成比例',
+        title: '参数值',
         field: 'cvalue',
     }, {
         field: 'updateDatetime',
@@ -20,6 +20,7 @@ $(function() {
         title: '备注'
     }];
     buildList({
+        router: "jfRule",
         columns: columns,
         pageCode: "622915",
         searchParams: {

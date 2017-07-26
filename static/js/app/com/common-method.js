@@ -1058,7 +1058,9 @@ function buildDetail(options) {
         if (item['amount']) {
             rules[item.field]['amount'] = item['amount'];
         }
-
+        if (item['amount1']) {
+            rules[item.field]['amount1'] = item['amount1'];
+        }
         if (item['minAmount']) {
             rules[item.field]['minAmount'] = item['minAmount'];
         }
@@ -1390,23 +1392,19 @@ function buildDetail(options) {
         }
 
         if (item.onBlur) {
-
             (function(i) {
                 $('#' + i.field).on('blur', function(e) {
                     i.onBlur(this.value);
                 });
             })(item);
-
         }
 
         if (item.onKeyup) {
-
             (function(i) {
                 $('#' + i.field).on('keyup', function(e) {
                     i.onKeyup(this.value);
                 });
             })(item);
-
         }
 
     }
@@ -1461,7 +1459,6 @@ function buildDetail(options) {
                 var displayValue = data[item.field];
 
                 if (item.onKeyup) {
-
                     (function(i, d) {
                         $('#' + i.field).on('keyup', function() {
                             i.onKeyup(this.value, d);
@@ -1695,7 +1692,7 @@ function buildDetail(options) {
                             data.city = "";
                             data.area = "";
                         } else if (data.province == data.city && data.city != data.area) {
-                            data.city = data.area;
+                            data.city = "";
                         }
                         $('#province').html(data.province);
                         data.city && $('#city').html(data.city);

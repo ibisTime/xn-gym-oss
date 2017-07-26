@@ -18,8 +18,7 @@ $(function() {
     }, {
         field: "holdPlace",
         title: "活动地点",
-        maxlength: 255,
-        // search: true
+        maxlength: 255
     }, {
         title: '活动时间',
         field: 'startDatetime',
@@ -85,15 +84,12 @@ $(function() {
         },
         beforeEdit: function() {
             var selRecords = $('#tableList').bootstrapTable('getSelections');
-            if (selRecords.length <= 0) {
-                toastr.info("请选择记录");
+            if (selRecords[0].status == 0 || selRecords[0].status == 3) {
+                window.location.href = 'active_addedit.html?code=' + selRecords[0].code;
+            } else {
+                toastr.warning('只有草稿和已下架的状态才可以修改信息');
                 return;
             }
-            if (selRecords[0].status == 1 || selRecords[0].status == 2) {
-                toastr.warning('该活动已上架或结束不可修改');
-                return;
-            }
-            window.location.href = 'active_addedit.html?code=' + selRecords[0].code;
         }
     });
     //上架
@@ -155,6 +151,52 @@ $(function() {
             }, function() {});
         } else {
             toastr.warning("只有已上架的活动，才可以截止活动");
+            return;
+        }
+
+    });
+    //开始活动
+    $('#beginBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status == 2) {
+            confirm("确定开始该活动？").then(function() {
+                reqApi({
+                    code: '622016',
+                    json: { "code": selRecords[0].code, updater: getUserName(), remark: '开始活动' }
+                }).then(function() {
+                    toastr.info("操作成功");
+                    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                });
+            }, function() {});
+        } else {
+            toastr.warning("只有截止报名的状态才可以开始活动");
+            return;
+        }
+
+    });
+    //结束活动
+    $('#endBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status == 4) {
+            confirm("确定结束该活动？").then(function() {
+                reqApi({
+                    code: '622017',
+                    json: { "code": selRecords[0].code, updater: getUserName(), remark: '结束活动' }
+                }).then(function() {
+                    toastr.info("操作成功");
+                    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                });
+            }, function() {});
+        } else {
+            toastr.warning("只有开始活动的状态才可以结束活动");
             return;
         }
 

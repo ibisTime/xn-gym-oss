@@ -39,7 +39,14 @@ $(function() {
         title: "上课地址",
         field: "orgCourse",
         formatter: function(v, data) {
-            return data.orgCourse.address;
+            if (data.orgCourse.province == data.orgCourse.city && data.orgCourse.city == data.orgCourse.area) {
+                data.orgCourse.city = "";
+                data.orgCourse.area = "";
+            } else if (data.orgCourse.province == data.orgCourse.city && data.orgCourse.city != data.orgCourse.area) {
+                data.orgCourse.city = "";
+            }
+            var result = (data.orgCourse.province || "") + (data.orgCourse.city || "") + (data.orgCourse.area || "") + (data.orgCourse.address || "");
+            return result || "-";
         }
     }, {
         field: 'price',
@@ -67,8 +74,11 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'courseOrder_status',
-        formatter: Dict.getNameForList('courseOrder_status'),
+        data: {
+            "0": "待付款",
+            "1": "付款成功",
+            "4": "申请退款"
+        },
         search: true
     }];
     buildList({
@@ -87,7 +97,7 @@ $(function() {
             return;
         }
         var dw = dialog({
-            content: '<form class="pop-formCancel" id="popForm" novalidate="novalidate">' +
+            content: '<form class="pop-form" id="popForm" novalidate="novalidate">' +
                 '<ul class="form-info" id="formContainer"><li style="text-align:center;font-size: 15px;">取消订单</li></ul>' +
                 '</form>'
         });
@@ -100,7 +110,7 @@ $(function() {
             }],
             container: $('#formContainer'),
             buttons: [{
-                title: '通过',
+                title: '确定',
                 handler: function() {
                     var data = $('#popForm').serializeObject();
                     data.orderCode = selRecords[0].code;

@@ -39,7 +39,14 @@ $(function() {
         title: "上课地址",
         field: "orgCourse",
         formatter: function(v, data) {
-            return data.orgCourse.address;
+            if (data.orgCourse.province == data.orgCourse.city && data.orgCourse.city == data.orgCourse.area) {
+                data.orgCourse.city = "";
+                data.orgCourse.area = "";
+            } else if (data.orgCourse.province == data.orgCourse.city && data.orgCourse.city != data.orgCourse.area) {
+                data.orgCourse.city = "";
+            }
+            var result = (data.orgCourse.province || "") + (data.orgCourse.city || "") + (data.orgCourse.area || "") + (data.orgCourse.address || "");
+            return result || "-";
         }
     }, {
         field: 'price',
@@ -67,8 +74,16 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'courseOrder_status',
-        formatter: Dict.getNameForList('courseOrder_status'),
+        data: {
+            "2": "用户取消订单",
+            "3": "平台取消订单",
+            "5": "退款成功",
+            "6": "退款失败",
+            "7": " 开始",
+            "8": "待评价",
+            "9": "已完成"
+        },
+        // key: 'courseOrder_status',
         search: true
     }];
     buildList({
@@ -77,7 +92,7 @@ $(function() {
         pageCode: '622080',
         searchParams: {
             companyCode: OSS.company,
-            statusList: [2, 3, 5, 6, 7, 8]
+            statusList: [2, 3, 5, 6, 7, 8, 9]
         }
     });
 

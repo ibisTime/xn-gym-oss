@@ -44,64 +44,65 @@ $(function() {
             required: true,
             number: true,
             readonly: view
+        }, {
+            title: "地址",
+            field: "province",
+            type: "citySelect",
+            readonly: view,
+            required: true,
+            afterSet: function(v, data) {
+                // if (data.province == data.city && data.city == data.area) {
+                //     data.city = "";
+                //     data.area = "";
+                // } else if (data.province == data.city && data.city != data.area) {
+                //     data.city = "";
+                // }
+                // var result = (data.province || "") + (data.city || "") + (data.area || "");
+                // return result || "-";
+            }
         },
-        //  {
-        //     field: 'province',
-        //     type: 'citySelect',
-        //     title: '地址',
-        //     required: true,
-        //     formatter: function(v, data) {
-        //         var arr = data.split(/,/);
-        //         if (arr[0] == arr[1] && arr[1] == arr[2]) {
-        //             arr[1] = "";
-        //             arr[2] = "";
-        //         } else
-        //         if (arr[0] == arr[1] && arr[1] != arr[2]) {
-        //             arr[1] = arr[2];
-        //         }
-        //         $('#province').html(arr[0]);
-        //         arr[1] && $('#city').html(arr[1]);
-        //         arr[2] && $('#area').html(arr[2]);
-        //         arr[3] && $('#detail').html(arr[3]);
-        //     },
-        //     readonly: view
-        // }, 
         {
             field: 'address',
             title: '详细地址',
             required: true,
             readonly: view
-        }, {
+        },
+        {
             field: 'contact',
             title: '联系方式',
-            mobile: true,
+            tm: true,
             required: true,
             readonly: view
-        }, {
+        },
+        {
             title: '缩略图',
             field: 'pic',
             type: 'img',
             required: true,
             readonly: view
-        }, {
+        },
+        {
             title: "广告图",
             field: "advPic",
             type: 'img',
             required: true,
             readonly: view
-        }, {
+        },
+        {
             title: '单价',
             field: 'price',
             required: true,
             amount: true,
             readonly: view
-        }, {
+        },
+        {
             title: '图文详述',
             field: 'description',
             required: true,
             type: 'textarea',
             readonly: view
-        }, {
+        },
+        {
             title: '备注',
             field: 'remark',
             maxlength: 255,
@@ -135,10 +136,19 @@ $(function() {
         addCode: '622050',
         editCode: "622052",
         detailCode: '622061',
-        // beforeSubmit: function(data) {
-        //     data.address = data.province + "," + data.city + "," + data.area + "," + data.detail;
-        //     return data;
-        // },
+        beforeSubmit: function(data) {
+            var skStartDate = data.skStartDatetime.split(' '),
+                skEndDate = data.skEndDatetime.split(' ');
+            if (skStartDate[0] != skEndDate[0]) {
+                toastr.warning("上课时间必须是同一天");
+                return '';
+            } else if (skStartDate[1] >= skEndDate[1]) {
+                toastr.warning("开始时间必须大于结束时间");
+                return '';
+            } else {
+                return data;
+            }
+        },
         view: view
     };
 

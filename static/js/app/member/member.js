@@ -11,7 +11,7 @@ $(function() {
         field: 'nickname',
         title: '微信昵称',
     }, {
-        field: 'userRefereeName',
+        field: 'userRefereeMobile',
         title: '推荐人'
     }, {
         field: 'status',
