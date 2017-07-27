@@ -14,6 +14,14 @@ $(function() {
         field: 'userRefereeMobile',
         title: '推荐人'
     }, {
+        field: 'userRefereeKind',
+        title: '推荐人类型',
+        type: "select",
+        data: {
+            "f2": "B端用户",
+            "f1": "C端用户"
+        }
+    }, {
         field: 'status',
         title: '状态',
         type: 'select',

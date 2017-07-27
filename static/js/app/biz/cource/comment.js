@@ -1,20 +1,12 @@
 $(function() {
-
-
+    var code = getQueryString('code');
     var columns = [{
         field: '',
         title: '',
         checkbox: true
     }, {
         title: '针对内容',
-        field: 'coachRealName',
-        formatter: function(v, data) {
-            if (v) {
-                return "私课教练：" + v;
-            } else {
-                return "团课：" + data.courseName;
-            }
-        }
+        field: 'courseName'
     }, {
         field: 'content',
         title: '评论内容',
@@ -38,13 +30,11 @@ $(function() {
         pageCode: "622145",
         searchParams: {
             companyCode: OSS.company,
-            status: "D"
-        },
-        //审核
-        beforeEdit: function() {
-            var selRecords = $('#tableList').bootstrapTable('getSelections');
-            window.location.href = 'comment_addedit.html?code=' + selRecords[0].code;
+            productCode: code
         }
     });
-
+    $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    $('#backBtn').on('click', function() {
+        goBack();
+    });
 })

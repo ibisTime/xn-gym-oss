@@ -1,4 +1,5 @@
 $(function() {
+    var toUser = getQueryString('userId');
 
     var columns = [{
         field: '',
@@ -62,8 +63,13 @@ $(function() {
         columns: columns,
         pageCode: '622130',
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            toUser: toUser
         }
-    });;
+    });
+    $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    $('#backBtn').on('click', function() {
+        goBack();
+    });
 
 });

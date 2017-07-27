@@ -68,7 +68,8 @@ $(function() {
         searchParams: {
             channelType: '0',
             accountType: 'NOT_P',
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            status: 'in'
         },
         beforeDetail: function(data) {
             location.href = "ledger_addedit.html?v=1&code=" + data.code;

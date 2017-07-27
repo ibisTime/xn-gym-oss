@@ -32,9 +32,10 @@ $(function() {
         }
     }, {
         field: 'totalNum',
-        title: '课程总人数',
-        required: true,
-        number: true
+        title: '课程总人数'
+    }, {
+        field: 'remainNum',
+        title: '剩余人数'
     }, {
         field: 'address',
         title: '地址',
@@ -209,5 +210,14 @@ $(function() {
             return;
         }
 
+    });
+    //查看评论
+    $('#commentBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        window.location.href = "comment.html?code=" + selRecords[0].code;
     });
 });

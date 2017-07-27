@@ -8,6 +8,10 @@ $(function() {
         title: '私教名称',
         readonly: true
     }, {
+        field: 'mobile',
+        title: '联系方式',
+        readonly: true
+    }, {
         field: 'age',
         title: '年龄',
         readonly: true
@@ -37,6 +41,27 @@ $(function() {
         },
         readonly: true
     }, {
+        title: "等级",
+        field: "star",
+        formatter: function(v, data) {
+            if (v == "0") {
+                return "零级"
+            } else if (v == "1") {
+                return "一级"
+            } else if (v == "2") {
+                return "二级"
+            } else if (v == "3") {
+                return "三级"
+            } else if (v == "4") {
+                return "四级"
+            } else if (v == "5") {
+                return "五级"
+            }
+        }
+    }, {
+        title: "星星总数",
+        field: "starNum"
+    }, {
         title: "缩略图",
         field: 'pic',
         type: "img"
@@ -50,13 +75,21 @@ $(function() {
         type: 'select',
         key: 'pCourse_status',
         formatter: Dict.getNameForList('pCourse_status'),
-        search: true,
         readonly: true
     }, {
         title: "图文详述",
         field: "description",
         type: "textarea",
         readonly: true
+    }, {
+        field: 'location',
+        title: '位置',
+        type: 'select',
+        key: "ui_location",
+        formatter: Dict.getNameForList("ui_location")
+    }, {
+        field: 'orderNo',
+        title: 'UI次序'
     }, {
         title: "审核人",
         field: "approver"

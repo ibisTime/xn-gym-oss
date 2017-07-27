@@ -6,6 +6,10 @@ $(function() {
         title: '私教名称',
         readonly: true
     }, {
+        field: 'mobile',
+        title: '联系方式',
+        readonly: true
+    }, {
         field: 'age',
         title: '年龄',
         readonly: true
@@ -105,6 +109,4 @@ $(function() {
         buttons: buttons
     }
     buildDetail(options);
-
-
 });

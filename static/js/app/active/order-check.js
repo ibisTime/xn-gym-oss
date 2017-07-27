@@ -14,6 +14,9 @@ $(function() {
         title: '活动标题',
         readonly: true
     }, {
+        title: "活动地点",
+        field: "holdPlace"
+    }, {
         title: "价格",
         field: "price",
         formatter: moneyFormat,

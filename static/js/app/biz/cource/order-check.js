@@ -93,6 +93,7 @@ $(function() {
                 data.result = '1';
                 data.updater = getUserName();
                 data.orderCode = code;
+                data.ramark = $("#remark").val();
                 reqApi({
                     code: '622075',
                     json: data
@@ -109,6 +110,7 @@ $(function() {
                 data.result = '0';
                 data.updater = getUserName();
                 data.orderCode = code;
+                data.ramark = $("#remark").val();
                 reqApi({
                     code: '622075',
                     json: data

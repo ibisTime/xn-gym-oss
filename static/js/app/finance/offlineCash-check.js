@@ -5,7 +5,7 @@ $(function() {
     var approveNoteField = {
         title: '审核意见',
         field: 'approveNote',
-        maxlength: 250,
+        maxlength: 255,
         required: true,
         readonly: false
     };
@@ -55,7 +55,19 @@ $(function() {
         approveNoteField = {};
         payList = [{
             field: 'approveUser',
-            title: '审核人'
+            title: '审核人',
+            formatter: function(v, data) {
+                if (v) {
+                    return v
+                } else {
+                    $("#approveUser").parent().css("display", "none");
+                    $("#approveDatetime").parent().css("display", "none");
+                    $("#approveNote").parent().css("display", "none");
+                    $("#payUser").parent().css("display", "none");
+                    $("#payDatetime").parent().css("display", "none");
+                    $("#payNote").parent().css("display", "none");
+                }
+            }
         }, {
             field: 'approveDatetime',
             title: '审核日期',
@@ -67,7 +79,11 @@ $(function() {
             field: 'payUser',
             title: '回录人',
             formatter: function(v, data) {
-                if (v == "SYS_USER_ZWZJ") {
+                if (v == undefined) {
+                    $("#payUser").parent().css("display", "none");
+                    $("#payDatetime").parent().css("display", "none");
+                    $("#payNote").parent().css("display", "none");
+                } else if (v == "SYS_USER_ZWZJ") {
                     return "admin";
                 } else {
                     return v
@@ -102,6 +118,16 @@ $(function() {
         field: 'amount',
         title: '金额',
         formatter: moneyFormat
+    }, {
+        title: "手续费",
+        field: "fee",
+        formatter: function(v, data) {
+            if (v) {
+                return moneyFormat(v);
+            } else {
+                $("#fee").parent().css("display", "none");
+            }
+        }
     }, {
         field: 'channelType',
         title: '支付渠道',

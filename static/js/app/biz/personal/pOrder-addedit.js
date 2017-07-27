@@ -24,13 +24,10 @@ $(function() {
         readonly: true
     }, {
         field: 'skDatetime',
-        title: '上课时间',
-        fomatter: dateTimeFormat,
-        readonly: true
-    }, {
-        field: 'xkDatetime',
-        title: '下课时间',
-        fomatter: dateTimeFormat,
+        title: '开课时间',
+        formatter: function(v, data) {
+            return dateFormat(data.appointDatetime) + "&nbsp;&nbsp;" + data.skDatetime + "&nbsp;-&nbsp;" + data.xkDatetime;
+        },
         readonly: true
     }, {
         title: "上课地址",

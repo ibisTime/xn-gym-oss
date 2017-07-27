@@ -68,6 +68,16 @@ $(function() {
         formatter: moneyFormat,
         readonly: true
     }, {
+        title: "违约金",
+        field: "penalty",
+        formatter: function(v, data) {
+            if (v) {
+                return moneyFormat(v);
+            } else {
+                $("#penalty").parent().css("display", "none");
+            }
+        }
+    }, {
         title: "下单时间",
         field: "applyDatetime",
         formatter: dateTimeFormat,

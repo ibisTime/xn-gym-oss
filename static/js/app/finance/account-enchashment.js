@@ -17,7 +17,7 @@ $(function() {
     }, {
         title: "支付时间",
         field: "payDatetime",
-        type: "date",
+        type: "datetime",
         formatter: dateFormat,
         required: true,
     }, {

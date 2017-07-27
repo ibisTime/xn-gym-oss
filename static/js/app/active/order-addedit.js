@@ -50,6 +50,16 @@ $(function() {
         formatter: moneyFormat,
         readonly: true
     }, {
+        title: "违约金",
+        field: 'penalty',
+        formatter: function(v, data) {
+            if (v) {
+                return moneyFormat(v)
+            } else {
+                $("#penalty").parent().css("display", "none");
+            }
+        }
+    }, {
         field: 'status',
         title: '状态',
         formatter: Dict.getNameForList('acOrder_status'),
