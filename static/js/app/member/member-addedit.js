@@ -16,7 +16,7 @@ $(function() {
         field: 'realName',
         title: '真实姓名',
     }, {
-        field: 'userRefereeName',
+        field: 'userRefereeMobile',
         title: '推荐人'
     }, {
         field: 'userRefereeKind',

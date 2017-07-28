@@ -73,8 +73,11 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'pCourse_status',
-        formatter: Dict.getNameForList('pCourse_status'),
+        data: {
+            "0": "待审批",
+            "1": "审批通过",
+            "2": "审批不通过"
+        },
         readonly: true
     }, {
         title: "图文详述",
@@ -85,8 +88,10 @@ $(function() {
         field: 'location',
         title: '位置',
         type: 'select',
-        key: "ui_location",
-        formatter: Dict.getNameForList("ui_location")
+        data: {
+            "1": "热门",
+            "0": "普通"
+        }
     }, {
         field: 'orderNo',
         title: 'UI次序'

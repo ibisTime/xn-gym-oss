@@ -135,43 +135,50 @@ $(function() {
                 buttons: [{
                     title: '通过',
                     handler: function() {
-
-                        var data = $('#popForm').serializeObject();
-                        data.codeList = dataCode;
-                        data.payResult = "1";
-                        data.payUser = getUserName();
-                        data.payNote = $("#payNote").val();
-                        reqApi({
-                            code: '802753',
-                            json: data
-                        }).done(function(data) {
-                            toastr.info("操作成功");
-
-                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                            setTimeout(function() {
-                                dw.close().remove();
-                            }, 500)
-                        });
-
+                        var payNote = $("#payNote").val();
+                        if (payNote == "") {
+                            toastr.warning("回录说明必须填写！")
+                        } else {
+                            var data = $('#popForm').serializeObject();
+                            data.codeList = dataCode;
+                            data.payResult = "1";
+                            data.payUser = getUserName();
+                            data.payNote = payNote;
+                            reqApi({
+                                code: '802753',
+                                json: data
+                            }).done(function(data) {
+                                toastr.info("操作成功");
+                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                                setTimeout(function() {
+                                    dw.close().remove();
+                                }, 500)
+                            });
+                        }
                     }
                 }, {
                     title: '不通过',
                     handler: function() {
-                        var data = [];
-                        data.codeList = dataCode;
-                        data.payResult = '0';
-                        data.payUser = getUserName();
-                        data.payNote = $("#payNote").val();
-                        reqApi({
-                            code: '802753',
-                            json: data
-                        }).done(function(data) {
-                            toastr.info("操作成功");
-                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                            setTimeout(function() {
-                                dw.close().remove();
-                            }, 500)
-                        });
+                        var payNote = $("#payNote").val();
+                        if (payNote == "") {
+                            toastr.warning("回录说明必须填写！")
+                        } else {
+                            var data = [];
+                            data.codeList = dataCode;
+                            data.payResult = '0';
+                            data.payUser = getUserName();
+                            data.payNote = payNote;
+                            reqApi({
+                                code: '802753',
+                                json: data
+                            }).done(function(data) {
+                                toastr.info("操作成功");
+                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                                setTimeout(function() {
+                                    dw.close().remove();
+                                }, 500)
+                            });
+                        }
                     }
                 }, {
                     title: '取消',
@@ -220,52 +227,63 @@ $(function() {
                 }],
                 container: $('#formContainer'),
                 buttons: [{
-                    title: '通过',
-                    handler: function() {
+                        title: '通过',
+                        handler: function() {
+                            var approveNote = $("#approveNote").val();
+                            if (approveNote == "") {
+                                toastr.warning("审核意见必须填写！")
+                            } else {
+                                var data = $('#popForm').serializeObject();
+                                data.codeList = dataCode;
+                                data.approveResult = "1";
+                                data.approveUser = getUserName();
+                                data.approveNote = approveNote;
+                                reqApi({
+                                    code: '802752',
+                                    json: data
+                                }).done(function(data) {
+                                    toastr.info("操作成功");
 
-                        var data = $('#popForm').serializeObject();
-                        data.codeList = dataCode;
-                        data.approveResult = "1";
-                        data.approveUser = getUserName();
-                        data.approveNote = $("#approveNote").val();
-                        reqApi({
-                            code: '802752',
-                            json: data
-                        }).done(function(data) {
-                            toastr.info("操作成功");
-
-                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                            setTimeout(function() {
-                                dw.close().remove();
-                            }, 500)
-                        });
-
+                                    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                                    setTimeout(function() {
+                                        dw.close().remove();
+                                    }, 500)
+                                });
+                            }
+                        }
+                    },
+                    {
+                        title: '不通过',
+                        handler: function() {
+                            var approveNote = $("#approveNote").val();
+                            if (approveNote == "") {
+                                toastr.warning("审核意见必须填写！")
+                            } else {
+                                var data = [];
+                                data.codeList = dataCode;
+                                data.approveResult = "0";
+                                data.approveUser = getUserName();
+                                data.approveNote = approveNote;
+                                reqApi({
+                                    code: '802752',
+                                    json: data
+                                }).done(function(data) {
+                                    toastr.info("操作成功");
+                                    $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                                    setTimeout(function() {
+                                        dw.close().remove();
+                                    }, 500)
+                                });
+                            }
+                        }
+                    },
+                    {
+                        title: '取消',
+                        handler: function() {
+                            dw.close().remove();
+                        }
                     }
-                }, {
-                    title: '不通过',
-                    handler: function() {
-                        var data = [];
-                        data.codeList = dataCode;
-                        data.approveResult = "0";
-                        data.approveUser = getUserName();
-                        data.approveNote = $("#approveNote").val();
-                        reqApi({
-                            code: '802752',
-                            json: data
-                        }).done(function(data) {
-                            toastr.info("操作成功");
-                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                            setTimeout(function() {
-                                dw.close().remove();
-                            }, 500)
-                        });
-                    }
-                }, {
-                    title: '取消',
-                    handler: function() {
-                        dw.close().remove();
-                    }
-                }]
+                ]
             });
 
             dw.__center();

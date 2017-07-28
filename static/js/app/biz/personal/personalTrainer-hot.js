@@ -5,8 +5,11 @@ $(function() {
         field: 'location',
         title: '位置',
         type: 'select',
-        key: "ui_location",
         required: true,
+        data: {
+            "1": "热门",
+            "0": "普通"
+        }
     }, {
         field: 'orderNo',
         title: 'UI次序',

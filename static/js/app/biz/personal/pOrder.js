@@ -39,7 +39,9 @@ $(function() {
     }, {
         field: 'skDatetime',
         title: '开课时间',
-        fomatter: dateTimeFormat
+        formatter: function(v, data) {
+            return dateFormat(data.appointDatetime) + "&nbsp;&nbsp;" + data.skDatetime + "&nbsp;-&nbsp;" + data.xkDatetime;
+        }
     }, {
         field: 'quantity',
         title: '预约人数',
@@ -51,8 +53,17 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'pOrder_status',
-        formatter: Dict.getNameForList('pOrder_status'),
+        // key: 'pOrder_status',
+        data: {
+            "0": "未支付",
+            "1": "付款成功",
+            "2": "已接单",
+            "3": "上课",
+            "4": "下课",
+            "5": "用户取消",
+            "6": "私教取消",
+            "7": "已完成"
+        },
         search: true
     }, {
         title: "下单说明",

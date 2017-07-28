@@ -68,8 +68,7 @@ $(function() {
         search: true
     }, {
         title: '备注',
-        field: 'remark',
-        maxlength: 250
+        field: 'remark'
     }];
 
     buildList({
@@ -78,7 +77,7 @@ $(function() {
         pageCode: '622040',
         searchParams: {
             companyCode: OSS.company,
-            statusList: [2, 3, 5, 6, 7]
+            statusList: [2, 3, 5, 6, 7, 8]
         },
 
     });

@@ -60,7 +60,12 @@ $(function() {
         field: 'status',
         readonly: true,
         type: 'select',
-        key: 'comment_status'
+        data: {
+            "A": "已发布",
+            "B": "审批通过",
+            "C": "审批不通过",
+            "D": "被过滤"
+        }
     }];
     if (view) {
         remarkNote = [];

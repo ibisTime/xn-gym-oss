@@ -55,8 +55,16 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'pOrder_status',
-        formatter: Dict.getNameForList('pOrder_status'),
+        data: {
+            "0": "未支付",
+            "1": "付款成功",
+            "2": "已接单",
+            "3": "上课",
+            "4": "下课",
+            "5": "用户取消",
+            "6": "私教取消",
+            "7": "已完成"
+        },
         readonly: true
     }, {
         title: "下单时间",

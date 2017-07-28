@@ -40,9 +40,13 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'jour_status',
-        keyCode: '802006',
-        formatter: Dict.getNameForList('jour_status', '802006'),
+        // key: 'jour_status',
+        data: {
+            "1": "待对账",
+            "3": "已对账且账已平",
+            "4": "账不平待调账",
+            "5": "已调账"
+        },
         search: true
     }, {
         field: 'createDatetime',

@@ -36,9 +36,11 @@ $(function() {
     }, {
         title: "活动地点",
         field: "holdPlace",
+        readonly: true
     }, {
         title: "活动方联系方式",
-        field: "contact"
+        field: "contact",
+        readonly: true
     }, {
         title: "下单时间",
         field: "applyDatetime",
@@ -62,10 +64,19 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('acOrder_status'),
         readonly: true,
         type: 'select',
-        key: 'acOrder_status'
+        data: {
+            "2": "用户取消订单",
+            "3": "平台取消订单",
+            "5": "退款成功",
+            "6": "退款失败",
+            "7": "活动开始",
+            "8": "已完成",
+            "0": "待付款",
+            "1": "付款成功",
+            "4": "申请退款"
+        }
     }, {
         field: 'payDatetime',
         title: '支付时间',

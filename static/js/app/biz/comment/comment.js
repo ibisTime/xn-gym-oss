@@ -22,9 +22,11 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('comment_status'),
         type: 'select',
-        key: 'comment_status'
+        data: {
+            "D": "被过滤"
+        }
+        // key: 'comment_status'
     }, {
         field: 'commerRealName',
         title: '评论人'

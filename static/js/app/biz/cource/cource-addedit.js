@@ -90,17 +90,6 @@ $(function() {
         number: true,
         readonly: view
     }, {
-        title: "剩余人数",
-        field: "remainNum",
-        formatter: function(v, data) {
-            if (v) {
-                return v
-            } else {
-                $("#remainNum").parent().css("display", "none");
-            }
-        },
-        readonly: view
-    }, {
         title: "地址",
         field: "province",
         type: "citySelect",
@@ -148,6 +137,17 @@ $(function() {
         readonly: view
     }];
     var viewList = [{
+        title: "剩余人数",
+        field: "remainNum",
+        formatter: function(v, data) {
+            if (v) {
+                return v
+            } else {
+                $("#remainNum").parent().css("display", "none");
+            }
+        },
+        readonly: true
+    }, {
         field: 'status',
         title: '状态',
         type: 'select',

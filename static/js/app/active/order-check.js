@@ -15,7 +15,12 @@ $(function() {
         readonly: true
     }, {
         title: "活动地点",
-        field: "holdPlace"
+        field: "holdPlace",
+        readonly: true
+    }, {
+        title: "活动方联系方式",
+        field: "contact",
+        readonly: true
     }, {
         title: "价格",
         field: "price",
@@ -38,10 +43,11 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('acOrder_status'),
         readonly: true,
         type: 'select',
-        key: 'acOrder_status'
+        data: {
+            "4": "申请退款"
+        }
     }, {
         field: 'payDatetime',
         title: '支付时间',
@@ -65,6 +71,7 @@ $(function() {
                 data.result = '1';
                 data.updater = getUserName();
                 data.orderCode = code;
+                data.remark = $('#remark').val();
                 reqApi({
                     code: '622035',
                     json: data
@@ -81,6 +88,7 @@ $(function() {
                 data.result = '0';
                 data.updater = getUserName();
                 data.orderCode = code;
+                data.remark = $('#remark').val();
                 reqApi({
                     code: '622035',
                     json: data

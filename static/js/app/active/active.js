@@ -36,8 +36,11 @@ $(function() {
         field: 'location',
         title: '位置',
         type: 'select',
-        key: "ui_location",
-        formatter: Dict.getNameForList("ui_location"),
+        // key: "ui_location",
+        data: {
+            "1": "热门",
+            "0": "普通"
+        },
         search: true
     }, {
         field: 'orderNo',
@@ -45,10 +48,17 @@ $(function() {
     }, {
         field: 'status',
         title: '状态',
-        formatter: Dict.getNameForList('active_status'),
         search: true,
         type: 'select',
-        key: 'active_status'
+        data: {
+            "0": "草稿",
+            "1": "上架",
+            "2": "截止报名",
+            "3": "下架",
+            "4": "开始活动",
+            "5": "结束活动"
+        }
+        // key: 'active_status'
     }, {
         field: 'updater',
         title: '最近更新人'
