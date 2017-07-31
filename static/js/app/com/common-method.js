@@ -646,18 +646,29 @@ function buildList(options) {
     for (var i = 0, len = dateTimeList.length; i < len; i++) {
         var item = dateTimeList[i];
         if (item.type1) {
-            laydate({
-                elem: '#' + item.field1,
-                min: item.minDate ? item.minDate : '',
-                istime: item.type1 == 'datetime',
-                format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
-            });
-            laydate({
-                elem: '#' + item.field2,
-                min: item.minDate ? item.minDate : '',
-                istime: item.type1 == 'datetime',
-                format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD'
-            });
+            var start = {
+            elem: '#' + item.field1,
+            min: item.minDate1 ? item.minDate1 : '',
+            istime: item.type1 == 'datetime',
+            format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD',
+            choose: function(datas){
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#' + item.field2,
+            min: item.minDate2 ? item.minDate2 : '',
+            istime: item.type1 == 'datetime',
+            format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD',
+            choose: function(datas){
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        
+        laydate(start);
+        laydate(end);
+
         } else if (item.type3) {
             laydate({
                 elem: '#' + item.field3,
@@ -1075,6 +1086,13 @@ function buildDetail(options) {
         if (item['bankCard']) {
             rules[item.field]['bankCard'] = item['bankCard'];
         }
+        if (item['url']) {
+            rules[item.field]['url'] = item['url'];
+        }
+        var imgLabel = '';
+        if (item.type == 'img') {
+            imgLabel = item.single ? '（单）': '（可多）';
+        }
         if (item.type == 'title') {
             html += '<div ' + (item.field ? 'id="' + item.field + '"' : '') + ' style="' + (item.hidden ? 'display:none;' : '') + '" class="form-title">' + item.title + '</div>';
         } else if (item.type == 'hidden') {
@@ -1098,7 +1116,7 @@ function buildDetail(options) {
                 html += '<li class="clearfix" type="' + (item.amount ? 'amount' : '') + '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') + (item.hidden ? 'display: none;' : '') + '"><label>' + item.title + ':</label><span id="' + item.field + '" name="' + item.field + '"></span></li>';
             }
         } else {
-            html += '<li class="clearfix" type="' + (item.amount ? 'amount' : '') + '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') + (item.hidden ? 'display: none;' : '') + '"><label>' + (item.title ? ('<b>' + ((item.required && '*') || '') + '</b>' + item.title + ':') : '&nbsp;') + '</label>';
+            html += '<li class="clearfix" type="' + (item.amount ? 'amount' : '') + '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') + (item.hidden ? 'display: none;' : '') + '"><label>' + (item.title ? ('<b>' + ((item.required && '*') || '') + '</b>' + item.title + imgLabel + ':') : '&nbsp;') + '</label>';
             if (item.type == 'radio') {
                 for (var k = 0, len1 = item.items.length; k < len1; k++) {
                     var rd = item.items[k];
@@ -1708,7 +1726,66 @@ function buildDetail(options) {
 
                     }
                     if (item.formatter) {
-                        $('#' + item.field).html(item.formatter(displayValue, data));
+                        if (item.type == 'select' && item.data) {
+                            var realValue = item.formatter(displayValue, data);
+                            if (item.value) {
+                                if (item.value.call) {
+                                    realValue = item.value(data);
+                                } else {
+                                    realValue = item.value;
+                                }
+                            }
+                            $('#' + item.field).html(item.data[realValue] || '-');
+                            $('#' + item.field).attr('data-value', realValue);
+                            if (item.onChange) {
+                                item.onChange(realValue);
+                            }
+                        } else if (item.type == 'img') {
+                            var imgData = item.formatter(displayValue, data);
+                            var sp = imgData && imgData.split('||') || [];
+                            var imgsHtml = '';
+                            var defaultFile = getDefaultFileIcon();
+
+                            sp.length && sp.forEach(function(item) {
+                                var suffix = item.slice(item.lastIndexOf('.') + 1);
+                                var src = (item.indexOf('http://') > -1 ? item : (OSS.picBaseUrl + '/' + item));
+                                var src1 = (item.indexOf('http://') > -1 ? item.substring(item.lastIndexOf("/") + 1) : item);
+                                var name = src1.substring(0, src1.lastIndexOf("_")) + "." + suffix;
+                                if (isDocOrAviOrZip(suffix)) {
+
+                                    imgsHtml += '<div class="img-ctn" data-src="' + src1 + '" style="display: inline-block;position: relative;">' +
+                                        '<div class="center-img-wrap">' +
+                                        '<img width="100" src="' + getDocOrAviOrZipIcon(suffix) + '" />' +
+                                        '<i class="zmdi zmdi-download zmdi-hc-fw"></i></div>' +
+                                        '<div class="t_3dot w100p" title="' + name + '">' + name + '</div>' +
+                                        '</div>';
+                                } else if (isAcceptImg(suffix)) {
+                                    imgsHtml += '<div class="img-ctn" data-src="' + src1 + '" style="display: inline-block;position: relative;">' +
+                                        '<div class="center-img-wrap">' +
+                                        '<img src="' + src + OSS.picShow + '" class="center-img" />' +
+                                        '<i class="zmdi zmdi-download zmdi-hc-fw"></i>' +
+                                        '</div>' +
+                                        '<div class="t_3dot w100p" title="' + name + '">' + name + '</div>' +
+                                        '</div>';
+                                } else {
+                                    imgsHtml += '<div class="img-ctn" data-src="' + src1 + '" style="display: inline-block;position: relative;">' +
+                                        '<div class="center-img-wrap">' +
+                                        '<img width="100" src="' + defaultFile + '" />' +
+                                        '<i class="zmdi zmdi-download zmdi-hc-fw"></i>' +
+                                        '</div>' +
+                                        '<div class="t_3dot w100p" title="' + name + '">' + name + '</div>' +
+                                        '</div>';
+                                }
+                            });
+                            $('#' + item.field).html(imgsHtml);
+                            $('#' + item.field).find('.zmdi-download').on('click', function(e) {
+                                var dSrc = OSS.picBaseUrl + '/' + $(this).parents("[data-src]").attr('data-src');
+                                window.open(dSrc, '_blank');
+                            });
+
+                        } else {
+                            $('#' + item.field).html(item.formatter(displayValue, data));
+                        }
                     }
                     if (item['[value]']) {
                         if (item.type == 'img') {
@@ -1767,8 +1844,12 @@ function buildDetail(options) {
                             }
                         });
                         $('#' + item.field).html(imgsHtml);
+                        item.single && setImgDisabled($('#' + item.field));
                         $('#' + item.field).find('.zmdi-close-circle-o').on('click', function(e) {
-                            $(this).parents("[data-src]").remove();
+                            var el = $(this).parent().parent(), el_parent = el.parent();
+                            el.remove();
+                            el_parent[0].cfg.single && setImgDisabled(el_parent);
+                            // $(this).parents("[data-src]").remove();
                         });
                         $('#' + item.field).find('.zmdi-download').on('click', function(e) {
                             var dSrc = OSS.picBaseUrl + '/' + $(this).parents("[data-src]").attr('data-src');
@@ -2014,7 +2095,6 @@ function setImgDisabled(el) {
         el.prev().find('input').prop('disabled', false);
     }
 }
-
 function uploadInit() {
     // this 即 editor 对象
     var editor = this;
@@ -2024,6 +2104,11 @@ function uploadInit() {
     var containerId = editor.customUploadContainerId || editor.prev().next().attr('id');
 
     var dropId = editor.id || (editor.attr && editor.attr('id')) || 'jsForm';
+
+    var multi_selection = true;
+    if (editor[0] && editor[0].cfg && editor[0].cfg.single) {
+        multi_selection = false;
+    }
 
     var token;
     //上传文件类型 
@@ -2047,6 +2132,7 @@ function uploadInit() {
             }
         ]
     }
+
     // reqApi({
     //     code: '001700',
     //     json: {},
@@ -2084,6 +2170,7 @@ function uploadInit() {
         drop_element: dropId, //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
         chunk_size: '4mb', //分块上传时，每片的体积
         auto_start: true, //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+        multi_selection: multi_selection,
         init: {
             'FilesAdded': function(up, files) {
                 if (editor.append) {
@@ -2184,7 +2271,7 @@ function uploadInit() {
 
                 //printLog(sourceLink);
                 // 插入图片到editor
-                editor.command && editor.command(null, 'insertHtml', '<img src="' + sourceLink + '" style="max-width:100%;"/>');
+                editor.command && editor.command(null, 'insertHtml', '<img src="' + sourceLink + '" style="max-width:100%"/>');
                 if (editor.append) {
                     var imgCtn = editor.find("#" + file.id);
                     imgCtn.find(".progress-wrap").hide();
@@ -2199,6 +2286,13 @@ function uploadInit() {
                         imgCtn.attr("data-src", sourceLink1);
                     }
                     (function(imgCtn, sourceLink) {
+                        editor[0] && editor[0].cfg.single && setImgDisabled(editor);
+
+                        imgCtn.find('.zmdi-close-circle-o').on('click', function(e) {
+                            imgCtn.remove();
+                            editor[0] && editor[0].cfg.single && setImgDisabled(editor);
+                        });
+
                         imgCtn.find('.zmdi-download').on('click', function(e) {
                             window.open(sourceLink, '_blank');
                         }); //zmdi-name

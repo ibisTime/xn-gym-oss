@@ -81,7 +81,7 @@ $(function() {
             companyCode: OSS.company
         }
     });
-
+    //详情
     $("#detaBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
@@ -134,43 +134,51 @@ $(function() {
                 buttons: [{
                     title: '通过',
                     handler: function() {
+                        var payNote = $("#payNote").val();
+                        if (payNote == "") {
+                            toastr.warning("审核意见必须填写！")
+                        } else {
+                            var data = $('#popForm').serializeObject();
+                            data.codeList = dataCode;
+                            data.payResult = "1";
+                            data.payUser = getUserName();
+                            data.payNote = payNote;
+                            reqApi({
+                                code: '802701',
+                                json: data
+                            }).done(function(data) {
+                                toastr.info("操作成功");
 
-                        var data = $('#popForm').serializeObject();
-                        data.codeList = dataCode;
-                        data.payResult = "1";
-                        data.payUser = getUserName();
-                        data.payNote = $("#payNote").val();
-                        reqApi({
-                            code: '802701',
-                            json: data
-                        }).done(function(data) {
-                            toastr.info("操作成功");
-
-                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                            setTimeout(function() {
-                                dw.close().remove();
-                            }, 500)
-                        });
-
+                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                                setTimeout(function() {
+                                    dw.close().remove();
+                                }, 500)
+                            });
+                        }
                     }
                 }, {
                     title: '不通过',
                     handler: function() {
-                        var data = [];
-                        data.codeList = dataCode;
-                        data.payResult = "0";
-                        data.payUser = getUserName();
-                        data.payNote = $("#payNote").val();
-                        reqApi({
-                            code: '802701',
-                            json: data
-                        }).done(function(data) {
-                            toastr.info("操作成功");
-                            $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
-                            setTimeout(function() {
-                                dw.close().remove();
-                            }, 500)
-                        });
+                        var payNote = $("#payNote").val();
+                        if (payNote == "") {
+                            toastr.warning("审核意见必须填写！")
+                        } else {
+                            var data = [];
+                            data.codeList = dataCode;
+                            data.payResult = "0";
+                            data.payUser = getUserName();
+                            data.payNote = payNote;
+                            reqApi({
+                                code: '802701',
+                                json: data
+                            }).done(function(data) {
+                                toastr.info("操作成功");
+                                $('#tableList').bootstrapTable('refresh', { url: $('#tableList').bootstrapTable('getOptions').url });
+                                setTimeout(function() {
+                                    dw.close().remove();
+                                }, 500)
+                            });
+                        }
                     }
                 }, {
                     title: '取消',
