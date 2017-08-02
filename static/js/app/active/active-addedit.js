@@ -12,29 +12,6 @@ $(function() {
         "7": "活动开始",
         "8": "已完成"
     };
-    // var start = {
-    //     elem: '#startDatetime',
-    //     format: "YYYY-MM-DD hh:mm:ss",
-    //     min: laydate.now(),
-    //     choose: function(datas) {
-    //         var d = new Date(datas);
-    //         d.setDate(d.getDate());
-    //         datas = dateTimeFormat(d);
-    //         end.min = datas; //开始日选好后，重置结束日的最小日期
-    //         end.start = datas //将结束日的初始值设定为开始日
-    //     }
-    // };
-    // var end = {
-    //     elem: '#endDatetime',
-    //     format: 'YYYY-MM-DD',
-    //     min: laydate.now(),
-    //     choose: function(datas) {
-    //         var d = new Date(datas);
-    //         d.setDate(d.getDate());
-    //         datas = dateFormat(d);
-    //         start.max = datas; //结束日选好后，重置开始日的最大日期
-    //     }
-    // };
 
 
 
