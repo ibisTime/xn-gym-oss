@@ -8,9 +8,9 @@ $(function() {
             userId: getUserId()
         }
     }).done(function(data) {
-        $("#amount-CNY").text("￥" + data[0].amount / 1000);
+        $("#amount-CNY").text("￥" + (data[0].amount / 1000).toFixed(2));
         accountNumberCNY = data[0].accountNumber;
-        $("#amount-JF").text(data[1].amount / 1000);
+        $("#amount-JF").text((data[1].amount / 1000).toFixed(2));
         accountNumberJF = data[1].accountNumber;
     });
 
@@ -20,7 +20,7 @@ $(function() {
             userId: "SYS_USER_ZWZJ_TG"
         }
     }).then(function(data) {
-        $("#amount-TG").text("￥" + data[0].amount / 1000);
+        $("#amount-TG").text("￥" + (data[0].amount / 1000).toFixed(2));
         accountNumberTG = data[0].accountNumber;
     });
 
