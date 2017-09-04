@@ -1,6 +1,6 @@
 $(function() {
     var userId = getQueryString('userId');
-
+    var kind = getQueryString('kind') || "";
     var view = 1;
 
     var columns = [{
@@ -35,7 +35,14 @@ $(function() {
 
     $('.tools .toolbar').html('<li style="display:block;" id="mingxiBtn"><span><img src="/static/images/t01.png"></span>查看明细</li><li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
     $('#backBtn').on('click', function() {
-        window.location.href = "./member.html"
+        if (kind == "B") {
+            window.location.href = "../biz/personal/personalTrainer.html"
+        }
+        if (kind == "D") {
+            window.location.href = "../biz/personal/doyen.html"
+        } else {
+            window.location.href = "./member.html"
+        }
     });
 
     //查看明细

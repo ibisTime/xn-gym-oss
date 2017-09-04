@@ -65,10 +65,12 @@ $(function() {
         field: "remark"
     }, ];
     buildList({
+        router: "personalTrainer",
         columns: columns,
         pageCode: '622095',
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            type: "1"
         },
         beforeEdit: function() {
             var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -80,14 +82,14 @@ $(function() {
             window.location.href = 'personalTrainer_check.html?code=' + selRecords[0].code;
         }
     });
-    //私教订单
+    //订单查询
     $('#orderBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "myOrder.html?kind=B&userId=" + selRecords[0].userId;
+        window.location.href = "myOrder.html?kind=D&userId=" + selRecords[0].userId;
     });
     //热门设置
     $('#hotBtn').click(function() {
@@ -127,21 +129,21 @@ $(function() {
         }, function() {})
     });
     //账户查询
-    $('#accoutQueryBtn').click(function() {
+    $('#accountBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "../../member/member_account.html?kind=B&userId=" + selRecords[0].userId;
+        window.location.href = "../../member/member_account.html?kind=D&userId=" + selRecords[0].userId;
     });
     //课程查询 
-    $('#courseQueryBtn').click(function() {
+    $('#courseBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = "personalTrainer_course.html?kind=B&code=" + selRecords[0].code;
+        window.location.href = "personalTrainer_course.html?kind=D&code=" + selRecords[0].code;
     });
 });

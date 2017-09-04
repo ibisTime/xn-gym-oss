@@ -73,7 +73,8 @@ $(function() {
         columns: columns,
         pageCode: '622130',
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            type: "0"
         }
     });;
 

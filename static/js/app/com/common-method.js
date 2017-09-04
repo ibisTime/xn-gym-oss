@@ -760,7 +760,6 @@ function buildList(options) {
             $('#' + item.field)[0].pageParams = pageParams;
             $('#' + item.field)[0].pageParams.start += 1;
         }
-
         if (item.onChange) {
             (function(i, data) {
                 $('#' + i.field).on('change', function(e) {

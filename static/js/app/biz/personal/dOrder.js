@@ -1,6 +1,5 @@
 $(function() {
-    var toUser = getQueryString('userId');
-    var kind = getQueryString('kind');
+
     var columns = [{
         field: '',
         title: '',
@@ -40,7 +39,9 @@ $(function() {
     }, {
         field: 'skDatetime',
         title: '开课时间',
-        fomatter: dateTimeFormat
+        formatter: function(v, data) {
+            return dateFormat(data.appointDatetime) + "&nbsp;&nbsp;" + data.skDatetime + "&nbsp;-&nbsp;" + data.xkDatetime;
+        }
     }, {
         field: 'quantity',
         title: '预约人数',
@@ -52,8 +53,17 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'pOrder_status',
-        formatter: Dict.getNameForList('pOrder_status'),
+        // key: 'pOrder_status',
+        data: {
+            "0": "未支付",
+            "1": "付款成功",
+            "2": "已接单",
+            "3": "上课",
+            "4": "下课",
+            "5": "用户取消",
+            "6": "私教取消",
+            "7": "已完成"
+        },
         search: true
     }, {
         title: "下单说明",
@@ -64,18 +74,8 @@ $(function() {
         pageCode: '622130',
         searchParams: {
             companyCode: OSS.company,
-            toUser: toUser
+            type: "1"
         }
-    });
-    $('.tools .toolbar').html('<li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
-
-    $('#backBtn').on('click', function() {
-        if (kind == "B") {
-            window.location.href = "./personalTrainer.html"
-        }
-        if (kind == "D") {
-            window.location.href = "./doyen.html"
-        }
-    });
+    });;
 
 });
