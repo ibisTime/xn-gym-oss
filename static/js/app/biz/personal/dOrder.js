@@ -59,10 +59,11 @@ $(function() {
             "1": "付款成功",
             "2": "已接单",
             "3": "上课",
-            "4": "下课",
-            "5": "用户取消",
-            "6": "私教取消",
-            "7": "已完成"
+            "4": "待填表",
+            "5": "已下课",
+            "6": "用户",
+            "7": "B端取消",
+            "8": "已完成"
         },
         search: true
     }, {
@@ -70,6 +71,7 @@ $(function() {
         field: 'applyNote'
     }];
     buildList({
+        router: "pOrder",
         columns: columns,
         pageCode: '622130',
         searchParams: {

@@ -71,13 +71,19 @@ $(function() {
         type: "img"
     }, {
         field: 'status',
-        title: '状态',
+        title: '资料状态',
         type: 'select',
         data: {
             "0": "待审批",
             "1": "审批通过",
             "2": "审批不通过"
         },
+        readonly: true
+    }, {
+        field: 'uStatus',
+        title: '用户状态',
+        type: 'select',
+        formatter: Dict.getNameForList('user_status', "807706"),
         readonly: true
     }, {
         title: "图文详述",

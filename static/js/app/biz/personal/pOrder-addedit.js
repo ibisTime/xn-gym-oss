@@ -2,6 +2,17 @@ $(function() {
 
     var code = getQueryString('code');
     var view = !!getQueryString('v');
+    var sizeDataList;
+    reqApi({
+        code: "622131",
+        json: {
+            code: code,
+            updater: ""
+        },
+        sync: true
+    }).then(function(data) {
+        sizeDataList = data.sizeDataList;
+    });
 
     var fields = [{
         field: 'realName',
@@ -60,10 +71,11 @@ $(function() {
             "1": "付款成功",
             "2": "已接单",
             "3": "上课",
-            "4": "下课",
-            "5": "用户取消",
-            "6": "私教取消",
-            "7": "已完成"
+            "4": "待填表",
+            "5": "已下课",
+            "6": "用户",
+            "7": "B端取消",
+            "8": "已完成"
         },
         readonly: true
     }, {
@@ -79,6 +91,9 @@ $(function() {
         title: "备注",
         field: "remark",
         readonly: true
+    }, {
+        title: "会员电子档案",
+        type: "title"
     }];
 
     buildDetail({
@@ -87,5 +102,21 @@ $(function() {
         detailCode: '622131',
         view: view
     });
+    var html = '<table id="table" class="xxtable" cellspacing="0" cellpadding="0"><tr><td>日期</td><td id="RQ" colspan="2"></td><td>场地</td><td id="CD" colspan="3"></td></tr>' +
+        '<tr><td rowspan="2">上课课程内容</td><td>类别</td><td id="LB"></td><td>课时</td><td id="KS"></td><td>运动强度</td><td id="YD"></td> </tr><tr>' +
+        '<td>上课具体内容</td> <td id="SKNR" colspan="5"></td></tr><tr><td>个人身体基本情况</td><td>伤病史</td><td id="SBS"></td><td>伤病史情况</td><td id="SBSQK" colspan="3"></td> </tr>' +
+        '<tr><td rowspan="11" style="line-height: 30px;">个<br>人<br>运<br>动<br>能<br>力</td><td>颈部</td><td id="JB" colspan="5"></td></tr>' +
+        '<tr><td>肩部</td><td id="JBB" colspan="5"></td></tr><tr><td>心肺</td><td id="XF" colspan="5"></td></tr><tr><td>核心</td><td id="HX" colspan="5"></td></tr><tr>' +
+        '<td>左臂</td><td id="ZB" colspan="5"></td></tr><tr><td>右臂</td><td id="YB" colspan="5"></td></tr>' +
+        '<tr><td>臀部</td><td id="TB" colspan="5"></td></tr>' +
+        '<tr><td>左腿</td><td id="ZT" colspan="5"></td></tr>' +
+        '<tr><td>右腿</td><td id="YT" colspan="5"></td></tr>' +
+        '<tr><td>协调</td><td id="XT" colspan="5"></td></tr>' +
+        '<tr><td>上课教练</td><td id="JL"></td><td>课程完成度</td><td id="WCD"></td><td>表现</td><td id="BX"></td>' +
+        '</tr><tr><td>备注</td><td id="BZ" colspan="6"></td></tr></table>';
+    $("#form-info").find('.form-title').after(html);
+    for (var i = 0, length = sizeDataList.length; i < length; i++) {
+        $("#" + sizeDataList[i].ckey).text(sizeDataList[i].cvalue)
+    }
 
 });

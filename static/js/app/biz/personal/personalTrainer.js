@@ -44,7 +44,7 @@ $(function() {
         title: 'UI次序'
     }, {
         field: 'status',
-        title: '状态',
+        title: '资料状态',
         type: 'select',
         data: {
             "0": "待审批",
@@ -53,6 +53,14 @@ $(function() {
         },
         // key: 'pCourse_status',
         search: true
+    }, {
+        field: 'uStatus',
+        title: '用户状态',
+        type: 'select',
+        key: 'user_status',
+        keyCode: "807706",
+        formatter: Dict.getNameForList('user_status', "807706"),
+        // search: true
     }, {
         title: "审核人",
         field: "approver"
@@ -68,7 +76,8 @@ $(function() {
         columns: columns,
         pageCode: '622095',
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            type: "0"
         },
         beforeEdit: function() {
             var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -102,24 +111,47 @@ $(function() {
         }
         window.location.href = "personalTrainer_hot.html?code=" + selRecords[0].code;
     });
-    //注销激活
+    //激活
+    $('#rockBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].uStatus != 0) {
+            toastr.info("不是可以禁止登录的状态");
+            return;
+        }
+
+        confirm("确定禁止该用户登录？").then(function() {
+            reqApi({
+                code: '805052',
+                json: {
+                    userId: selRecords[0].userId,
+                    toStatus: "2"
+                }
+            }).then(function() {
+                sucList();
+            });
+        }, function() {})
+    });
+    //注销
     $('#activeBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");
             return;
         }
-        var status = selRecords[0].status,
-            toStatus,
-            msg;
-        status == 0 ? toStatus = 2 : toStatus = 0;
-        msg = toStatus == 2 ? '确定禁止该用户登录？' : "确定激活该用户？";
-        confirm(msg).then(function() {
+        if (selRecords[0].uStatus != 2) {
+            toastr.info("不是可以允许登录的状态");
+            return;
+        }
+        confirm("确定允许该用户登录？").then(function() {
             reqApi({
                 code: '805052',
                 json: {
                     userId: selRecords[0].userId,
-                    toStatus: toStatus
+                    toStatus: "0"
                 }
             }).then(function() {
                 sucList();
