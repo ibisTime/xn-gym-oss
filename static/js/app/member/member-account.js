@@ -37,10 +37,9 @@ $(function() {
     $('#backBtn').on('click', function() {
         if (kind == "B") {
             window.location.href = "../biz/personal/personalTrainer.html"
-        }
-        if (kind == "D") {
+        } else if (kind == "D") {
             window.location.href = "../biz/personal/doyen.html"
-        } else {
+        } else if (kind == "C") {
             window.location.href = "./member.html"
         }
     });

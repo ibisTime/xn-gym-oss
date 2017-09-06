@@ -112,7 +112,7 @@ $(function() {
         '<tr><td>左腿</td><td id="ZT" colspan="5"></td></tr>' +
         '<tr><td>右腿</td><td id="YT" colspan="5"></td></tr>' +
         '<tr><td>协调</td><td id="XT" colspan="5"></td></tr>' +
-        '<tr><td>上课教练</td><td id="JL"></td><td>课程完成度</td><td id="WCD"></td><td>表现</td><td id="BX"></td>' +
+        '<tr><td>上课教练</td><td id="JL"></td><td>学员课程完成度</td><td id="WCD"></td><td>学员表现</td><td id="BX"></td>' +
         '</tr><tr><td>备注</td><td id="BZ" colspan="6"></td></tr></table>';
     $("#form-info").find('.form-title').after(html);
     for (var i = 0, length = sizeDataList.length; i < length; i++) {

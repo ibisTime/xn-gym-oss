@@ -58,7 +58,7 @@ $(function() {
             return;
         }
 
-        window.location.href = "member_account.html?userId=" + selRecords[0].userId;
+        window.location.href = "member_account.html?kind=C&userId=" + selRecords[0].userId;
     });
     //注销和激活
     $('#rockBtn').click(function() {
