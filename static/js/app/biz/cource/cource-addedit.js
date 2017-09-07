@@ -111,7 +111,8 @@ $(function() {
         field: 'pic',
         type: 'img',
         required: true,
-        readonly: view
+        readonly: view,
+        single:true
     }, {
         title: "广告图",
         field: "advPic",

@@ -62,7 +62,7 @@ $(function() {
         visible: false
     }, {
         field: 'workDate',
-        title: '对账日期',
+        title: '拟对账日期',
         type: 'date',
         search: true,
     }];

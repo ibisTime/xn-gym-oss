@@ -22,7 +22,8 @@ $(function() {
         title: '下单人'
     }, {
         title: "联系方式",
-        field: "mobile"
+        field: "mobile",
+        search: true
     }, {
         title: "私教名称",
         field: "coach",

@@ -41,11 +41,14 @@ $(function() {
     }, {
         title: "缩略图",
         field: 'pic',
-        type: "img"
+        type: "img",
+        readonly: true,
+        single:true
     }, {
         title: "广告图",
         field: 'advPic',
-        type: "img"
+        type: "img",
+        readonly: true
     }, {
         field: 'status',
         title: '状态',

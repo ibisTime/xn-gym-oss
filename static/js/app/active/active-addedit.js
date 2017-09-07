@@ -13,8 +13,6 @@ $(function() {
         "8": "已完成"
     };
 
-
-
     var orderList = [];
     reqApi({
         code: "622040",
@@ -41,7 +39,32 @@ $(function() {
             });
         });
     });
+    var start = {
+        elem: '#startDatetime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        istime: true,
 
+        choose: function(datas) {
+            var d = new Date(datas);
+            d.setDate(d.getDate());
+            datas = dateTimeFormat(d);
+            end.min = datas;
+            end.start = datas
+        }
+    };
+    var end = {
+        elem: '#endDatetime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        istime: true,
+        choose: function(datas) {
+            var d = new Date(datas);
+            d.setDate(d.getDate());
+            datas = dateTimeFormat(d);
+            start.max = datas;
+        }
+    };
 
     var fields = [{
         field: 'updater',
@@ -58,7 +81,8 @@ $(function() {
         field: 'pic',
         type: 'img',
         required: true,
-        readonly: view
+        readonly: view,
+        single: true
     }, {
         title: "广告图",
         field: "advPic",
@@ -88,7 +112,7 @@ $(function() {
         field: 'startDatetime',
         type: "datetime",
         formatter: dateTimeFormat,
-        // dateOption: start,
+        dateOption: start,
         readonly: view,
         required: true
     }, {
@@ -96,7 +120,7 @@ $(function() {
         field: 'endDatetime',
         type: "datetime",
         formatter: dateTimeFormat,
-        // dateOption: end,
+        dateOption: end,
         readonly: view,
         required: true
     }, {

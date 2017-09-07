@@ -19,7 +19,8 @@ $(function() {
         type: "select",
         data: {
             "f2": "B端用户",
-            "f1": "C端用户"
+            "f1": "C端用户",
+            "f3": "达人用户"
         }
     }, {
         field: 'status',

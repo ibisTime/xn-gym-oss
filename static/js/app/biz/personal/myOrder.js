@@ -1,6 +1,25 @@
 $(function() {
     var toUser = getQueryString('userId');
     var kind = getQueryString('kind');
+    var coachFieldB = {
+        title: "私教名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.coach.realName;
+        }
+    };
+    var coachFieldD = {
+        title: "达人名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.coach.realName;
+        }
+    }
+    if (kind == "D") {
+        coachField = coachFieldD
+    } else {
+        coachField = coachFieldB
+    };
     var columns = [{
         field: '',
         title: '',
@@ -24,13 +43,7 @@ $(function() {
     }, {
         title: "联系方式",
         field: "mobile"
-    }, {
-        title: "私教名称",
-        field: "coach",
-        formatter: function(v, data) {
-            return data.coach.realName;
-        }
-    }, {
+    }, coachField, {
         field: 'price',
         title: '私课价格',
         formatter: moneyFormat
@@ -40,7 +53,9 @@ $(function() {
     }, {
         field: 'skDatetime',
         title: '开课时间',
-        fomatter: dateTimeFormat
+        formatter: function(v, data) {
+            return dateFormat(data.appointDatetime) + "&nbsp;&nbsp;" + data.skDatetime + "&nbsp;-&nbsp;" + data.xkDatetime;
+        }
     }, {
         field: 'quantity',
         title: '预约人数',

@@ -22,7 +22,8 @@ $(function() {
         title: '下单人'
     }, {
         title: "联系方式",
-        field: "mobile"
+        field: "mobile",
+        search: true
     }, {
         title: "私教名称",
         field: "coach",
@@ -77,6 +78,9 @@ $(function() {
         searchParams: {
             companyCode: OSS.company,
             type: "1"
+        },
+        beforeDetail: function(data) {
+            window.location.href = "pOrder_addedit.html?&v=1&kind=D&code=" + data.code;
         }
     });;
 

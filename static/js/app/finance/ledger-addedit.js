@@ -74,6 +74,10 @@ $(function() {
         formatter: Dict.getNameForList('jour_status', '802006'),
         readonly: view
     }, {
+        field: "workDate",
+        title: "拟对账日期",
+        readonly: view
+    }, {
         field: 'checkUser',
         title: '对账人',
         readonly: view,

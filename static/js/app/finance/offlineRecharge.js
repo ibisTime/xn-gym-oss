@@ -79,20 +79,15 @@ $(function() {
         searchParams: {
             channelType: '90',
             companyCode: OSS.company
+        },
+        beforeDetail: function(data) {
+            location.href = "offlineRecharge_check.html?code=" + data.code + "&detail=1";
         }
-    });
-    //详情
-    $("#detaBtn").click(function() {
-        var selRecords = $('#tableList').bootstrapTable('getSelections');
-        if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
-            return;
-        }
-        location.href = "offlineRecharge_check.html?code=" + selRecords[0].code + "&detail=1";
     });
 
+
     //审核
-    $('#checkBtn').click(function() {
+    $('#multiCheckBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
             toastr.info("请选择记录");

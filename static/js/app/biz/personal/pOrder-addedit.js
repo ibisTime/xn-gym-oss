@@ -1,5 +1,5 @@
 $(function() {
-
+    var kind = getQueryString('kind') || "";
     var code = getQueryString('code');
     var view = !!getQueryString('v');
     var sizeDataList;
@@ -102,6 +102,7 @@ $(function() {
         detailCode: '622131',
         view: view
     });
+
     var html = '<table id="table" class="xxtable" cellspacing="0" cellpadding="0"><tr><td>日期</td><td id="RQ" colspan="2"></td><td>场地</td><td id="CD" colspan="3"></td></tr>' +
         '<tr><td rowspan="2">上课课程内容</td><td>类别</td><td id="LB"></td><td>课时</td><td id="KS"></td><td>运动强度</td><td id="YD"></td> </tr><tr>' +
         '<td>上课具体内容</td> <td id="SKNR" colspan="5"></td></tr><tr><td>个人身体基本情况</td><td>伤病史</td><td id="SBS"></td><td>伤病史情况</td><td id="SBSQK" colspan="3"></td> </tr>' +
@@ -112,9 +113,15 @@ $(function() {
         '<tr><td>左腿</td><td id="ZT" colspan="5"></td></tr>' +
         '<tr><td>右腿</td><td id="YT" colspan="5"></td></tr>' +
         '<tr><td>协调</td><td id="XT" colspan="5"></td></tr>' +
-        '<tr><td>上课教练</td><td id="JL"></td><td>学员课程完成度</td><td id="WCD"></td><td>学员表现</td><td id="BX"></td>' +
+        '<tr><td>上课教练</td><td id="JL"></td><td>学员课程完成度(%)</td><td id="WCD"></td><td>学员表现(十分制)</td><td id="BX"></td>' +
         '</tr><tr><td>备注</td><td id="BZ" colspan="6"></td></tr></table>';
-    $("#form-info").find('.form-title').after(html);
+
+    if (kind == "D") {
+        $("#form-info").find('.form-title').css("display", "none");
+        html = "";
+    } else {
+        $("#form-info").find('.form-title').after(html);
+    }
     for (var i = 0, length = sizeDataList.length; i < length; i++) {
         $("#" + sizeDataList[i].ckey).text(sizeDataList[i].cvalue)
     }
