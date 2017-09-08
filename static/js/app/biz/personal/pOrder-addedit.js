@@ -2,6 +2,27 @@ $(function() {
     var kind = getQueryString('kind') || "";
     var code = getQueryString('code');
     var view = !!getQueryString('v');
+    var coachFieldB = {
+        title: "私教名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.realName;
+        },
+        readonly: true
+    };
+    var coachFieldD = {
+        title: "达人名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.realName;
+        },
+        readonly: true
+    }
+    if (kind == "D") {
+        coachField = coachFieldD
+    } else {
+        coachField = coachFieldB
+    };
     var sizeDataList;
     reqApi({
         code: "622131",
@@ -22,13 +43,7 @@ $(function() {
         title: "联系方式",
         field: "mobile",
         readonly: true
-    }, {
-        title: "私教名称",
-        field: "coach",
-        formatter: function(v, data) {
-            return data.coach.realName;
-        }
-    }, {
+    }, coachField, {
         field: 'price',
         title: '私课价格',
         formatter: moneyFormat,
@@ -73,7 +88,7 @@ $(function() {
             "3": "上课",
             "4": "待填表",
             "5": "已下课",
-            "6": "用户",
+            "6": "用户取消",
             "7": "B端取消",
             "8": "已完成"
         },

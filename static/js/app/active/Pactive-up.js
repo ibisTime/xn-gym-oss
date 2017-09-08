@@ -1,23 +1,11 @@
 $(function() {
     var code = getQueryString('code');
 
-
-
     var fields = [{
-        title: "",
-        field: "updater",
-        value: getUserName(),
-        hidden: true,
-        required: true
-    }, {
         field: 'location',
         title: '位置',
-        type: 'select',
-        data: {
-            "1": "热门",
-            "0": "普通"
-        },
-        // key: "ui_location",
+        type: 'hidden',
+        value: "0",
         required: true,
     }, {
         field: 'orderNo',

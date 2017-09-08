@@ -8,8 +8,10 @@ $(function() {
         title: '针对内容',
         field: 'coachRealName',
         formatter: function(v, data) {
-            if (v) {
+            if (data.type == "0") {
                 return "私课教练：" + v;
+            } else if (data.type == "1") {
+                return "私课达人：" + v;
             } else {
                 return "团课：" + data.courseName;
             }

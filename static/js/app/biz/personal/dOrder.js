@@ -25,7 +25,7 @@ $(function() {
         field: "mobile",
         search: true
     }, {
-        title: "私教名称",
+        title: "达人名称",
         field: "coach",
         formatter: function(v, data) {
             return data.coach.realName;
@@ -62,7 +62,7 @@ $(function() {
             "3": "上课",
             "4": "待填表",
             "5": "已下课",
-            "6": "用户",
+            "6": "用户取消",
             "7": "B端取消",
             "8": "已完成"
         },

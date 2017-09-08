@@ -8,9 +8,9 @@ $(function() {
             userId: getUserId()
         }
     }).done(function(data) {
-        $("#amount-CNY").text("￥" + (data[0].amount / 1000).toFixed(2));
+        $("#amount-CNY").text("￥" + moneyFormat(data[0].amount));
         accountNumberCNY = data[0].accountNumber;
-        $("#amount-JF").text((data[1].amount / 1000).toFixed(2));
+        $("#amount-JF").text(moneyFormat(data[1].amount));
         accountNumberJF = data[1].accountNumber;
     });
 
@@ -20,19 +20,19 @@ $(function() {
             userId: "SYS_USER_ZWZJ_TG"
         }
     }).then(function(data) {
-        $("#amount-TG").text("￥" + (data[0].amount / 1000).toFixed(2));
+        $("#amount-TG").text("￥" + moneyFormat(data[0].amount));
         accountNumberTG = data[0].accountNumber;
     });
 
     $("#CNYls-Btn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberCNY;
-    })
+    });
     $("#JFls-Btn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberJF;
-    })
+    });
     $("#accoutGrantBtn").click(function() {
         location.href = "ledger.html?accountNumber=" + accountNumberTG;
-    })
+    });
     $("#accouBtn").click(function() {
         window.location.href = 'account_enchashment.html?accountNumber=' + accountNumberTG;
     });

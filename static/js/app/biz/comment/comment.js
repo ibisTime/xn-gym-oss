@@ -12,7 +12,7 @@ $(function() {
             if (data.type == "0") {
                 return "私课教练：" + v;
             } else if (data.type == "1") {
-                return "达人：" + v;
+                return "私课达人：" + v;
             } else {
                 return "团课：" + data.courseName;
             }

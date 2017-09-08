@@ -72,7 +72,8 @@ $(function() {
         columns: columns,
         pageCode: '622020',
         searchParams: {
-            companyCode: OSS.company
+            companyCode: OSS.company,
+            type: "1"
         },
         beforeDelete: function() {
             var selRecords = $('#tableList').bootstrapTable('getSelections');

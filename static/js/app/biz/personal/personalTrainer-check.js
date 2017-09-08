@@ -1,11 +1,29 @@
 $(function() {
     var code = getQueryString('code');
+    var kind = getQueryString('kind');
     var labelDict = Dict.getNameForList("label_kind");
-    var fields = [{
-        field: 'realName',
-        title: '私教名称',
+    var coachFieldB = {
+        title: "私教名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.realName;
+        },
         readonly: true
-    }, {
+    };
+    var coachFieldD = {
+        title: "达人名称",
+        field: "coach",
+        formatter: function(v, data) {
+            return data.realName;
+        },
+        readonly: true
+    }
+    if (kind == "D") {
+        coachField = coachFieldD
+    } else {
+        coachField = coachFieldB
+    };
+    var fields = [coachField, {
         field: 'mobile',
         title: '联系方式',
         readonly: true
@@ -30,12 +48,15 @@ $(function() {
         field: 'label',
         title: '标签',
         formatter: function(data) {
-            var arr = data.split('||'),
-                str = "";
-            for (var i = 0; i < arr.length; i++) {
-                str += labelDict(arr[i]) + "、";
+            if (data) {
+                var arr = data.split('||'),
+                    str = "";
+
+                for (var i = 0; i < arr.length; i++) {
+                    str += labelDict(arr[i]) + "、";
+                }
+                return i && str.substr(0, str.length - 1) || "";
             }
-            return i && str.substr(0, str.length - 1) || "";
         },
         readonly: true
     }, {
@@ -43,9 +64,9 @@ $(function() {
         field: 'pic',
         type: "img",
         readonly: true,
-        single:true
+        single: true
     }, {
-        title: "广告图",
+        title: "健身照片",
         field: 'advPic',
         type: "img",
         readonly: true
@@ -56,6 +77,16 @@ $(function() {
         key: 'pCourse_status',
         formatter: Dict.getNameForList('pCourse_status'),
         search: true,
+        readonly: true
+    }, {
+        title: "工作地址",
+        field: "address",
+        readonly: true
+    }, {
+        field: "pdf",
+        type: "img",
+        title: "证件照",
+        single: true,
         readonly: true
     }, {
         title: "图文详述",

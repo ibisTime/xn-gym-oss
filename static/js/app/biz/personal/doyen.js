@@ -23,12 +23,14 @@ $(function() {
         field: 'label',
         title: '标签',
         formatter: function(data) {
-            var arr = data.split('||'),
-                str = "";
-            for (var i = 0; i < arr.length; i++) {
-                str += labelDict(arr[i]) + "、";
+            if (data) {
+                var arr = data.split('||'),
+                    str = "";
+                for (var i = 0; i < arr.length; i++) {
+                    str += labelDict(arr[i]) + "、";
+                }
+                return i && str.substr(0, str.length - 1) || "";
             }
-            return i && str.substr(0, str.length - 1) || "";
         }
     }, {
         field: 'location',
@@ -87,7 +89,10 @@ $(function() {
                 return;
             }
             //审批
-            window.location.href = 'personalTrainer_check.html?code=' + selRecords[0].code;
+            window.location.href = 'personalTrainer_check.html?&kind=D&code=' + selRecords[0].code;
+        },
+        beforeDetail: function(data) {
+            window.location.href = 'personalTrainer_addedit.html?&v=1&kind=D&code=' + data.code;
         }
     });
     //订单查询
