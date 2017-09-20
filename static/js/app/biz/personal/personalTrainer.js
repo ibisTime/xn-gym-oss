@@ -53,7 +53,6 @@ $(function() {
             "1": "审批通过",
             "2": "审批不通过"
         },
-        // key: 'pCourse_status',
         search: true
     }, {
         field: 'uStatus',
@@ -91,8 +90,17 @@ $(function() {
             window.location.href = 'personalTrainer_check.html?&kind=B&code=' + selRecords[0].code;
         },
         beforeDetail: function(data) {
-            window.location.href = 'personalTrainer_addedit.html?&v=1&kind=B&code=' + data.code;
+            window.location.href = 'personalTrainer_detail.html?&v=1&kind=B&code=' + data.code;
         }
+    });
+    //修改资料
+    $('#edit2Btn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        window.location.href = 'personalTrainer_adddedit.html?&kind=B&code=' + selRecords[0].code;
     });
     //私教订单
     $('#orderBtn').click(function() {

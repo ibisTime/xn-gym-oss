@@ -647,27 +647,27 @@ function buildList(options) {
         var item = dateTimeList[i];
         if (item.type1) {
             var start = {
-            elem: '#' + item.field1,
-            min: item.minDate1 ? item.minDate1 : '',
-            istime: item.type1 == 'datetime',
-            format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD',
-            choose: function(datas){
-                end.min = datas; //开始日选好后，重置结束日的最小日期
-                end.start = datas //将结束日的初始值设定为开始日
-            }
-        };
-        var end = {
-            elem: '#' + item.field2,
-            min: item.minDate2 ? item.minDate2 : '',
-            istime: item.type1 == 'datetime',
-            format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD',
-            choose: function(datas){
-                start.max = datas; //结束日选好后，重置开始日的最大日期
-            }
-        };
-        
-        laydate(start);
-        laydate(end);
+                elem: '#' + item.field1,
+                min: item.minDate1 ? item.minDate1 : '',
+                istime: item.type1 == 'datetime',
+                format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD',
+                choose: function(datas) {
+                    end.min = datas; //开始日选好后，重置结束日的最小日期
+                    end.start = datas //将结束日的初始值设定为开始日
+                }
+            };
+            var end = {
+                elem: '#' + item.field2,
+                min: item.minDate2 ? item.minDate2 : '',
+                istime: item.type1 == 'datetime',
+                format: item.type1 == 'datetime' ? 'YYYY-MM-DD hh:mm:ss' : 'YYYY-MM-DD',
+                choose: function(datas) {
+                    start.max = datas; //结束日选好后，重置开始日的最大日期
+                }
+            };
+
+            laydate(start);
+            laydate(end);
 
         } else if (item.type3) {
             laydate({
@@ -1090,7 +1090,7 @@ function buildDetail(options) {
         }
         var imgLabel = '';
         if (item.type == 'img') {
-            imgLabel = item.single ? '（单）': '（可多）';
+            imgLabel = item.single ? '（单）' : '（可多）';
         }
         if (item.type == 'title') {
             html += '<div ' + (item.field ? 'id="' + item.field + '"' : '') + ' style="' + (item.hidden ? 'display:none;' : '') + '" class="form-title">' + item.title + '</div>';
@@ -1591,7 +1591,7 @@ function buildDetail(options) {
                         }
                         $('#' + item.field).html('<div class="zmdi ' + selectOne.icon + ' zmdi-hc-5x" title="' + selectOne.value + '"></div>');
                     } else if (item.type == "checkbox") {
-                        var checkData = displayValue.split(/,/);
+                        var checkData = displayValue.split('||');
                         for (var h = 0; h < checkData.length; h++) {
                             for (var k = 0, len1 = item.items.length; k < len1; k++) {
                                 var rd = item.items[k];
@@ -1845,7 +1845,8 @@ function buildDetail(options) {
                         $('#' + item.field).html(imgsHtml);
                         item.single && setImgDisabled($('#' + item.field));
                         $('#' + item.field).find('.zmdi-close-circle-o').on('click', function(e) {
-                            var el = $(this).parent().parent(), el_parent = el.parent();
+                            var el = $(this).parent().parent(),
+                                el_parent = el.parent();
                             el.remove();
                             el_parent[0].cfg.single && setImgDisabled(el_parent);
                             // $(this).parents("[data-src]").remove();
@@ -1857,7 +1858,7 @@ function buildDetail(options) {
                     } else if (item.type == 'radio') {
                         $('input[name=' + item.field + '][value=' + displayValue + ']').prop('checked', true);
                     } else if (item.type == "checkbox") {
-                        var checkData = displayValue.split(/,/);
+                        var checkData = displayValue.split('||');
                         for (var h = 0; h < checkData.length; h++) {
                             for (var k = 0, len1 = item.items.length; k < len1; k++) {
                                 var rd = item.items[k];
@@ -2094,6 +2095,7 @@ function setImgDisabled(el) {
         el.prev().find('input').prop('disabled', false);
     }
 }
+
 function uploadInit() {
     // this 即 editor 对象
     var editor = this;
