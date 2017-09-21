@@ -16,72 +16,96 @@ $(function() {
         field: "realName",
         formatter: function(v, data) {
             return data.realName;
-        }
+        },
+        required: true,
+        readonly: view
     };
     var coachFieldD = {
         title: "达人名称",
         field: "realName",
         formatter: function(v, data) {
             return data.realName;
-        }
+        },
+        required: true,
+        readonly: view
     }
-    if (kind == "D") {
+    if (kind == "1") {
         coachField = coachFieldD
-    } else {
+    } else if (kind == "0") {
         coachField = coachFieldB
     };
     var fields = [coachField, {
-            field: 'mobile',
-            title: '联系方式'
-        }, {
-            field: 'age',
-            title: '年龄',
-        }, {
-            title: "性别",
-            field: "gender",
-            type: "select",
-            data: {
-                "1": "男",
-                "0": "女"
-            }
-        }, {
-            field: 'duration',
-            title: '工作年限'
-        }, {
-            field: 'label',
-            title: '标签',
-            type: "checkbox",
-            items: items
+        field: 'mobile',
+        title: '联系方式',
+        mobile: true,
+        required: true,
+        readonly: view,
+    }, {
+        field: 'age',
+        title: '年龄',
+        number: true,
+        required: true,
+        readonly: view,
+    }, {
+        title: "性别",
+        field: "gender",
+        type: "select",
+        data: {
+            "1": "男",
+            "0": "女"
         },
-        {
-            title: "缩略图",
-            field: 'pic',
-            type: "img",
-            single: true
-        }, {
-            title: "健身照片",
-            field: 'advPic',
-            type: "img"
-        }, {
-            title: "工作地址",
-            field: "address",
-            readonly: true
-        }, {
-            field: "pdf",
-            type: "img",
-            title: "证件照",
-            single: true
-        }, {
-            title: "图文详述",
-            field: "description",
-            type: "textarea"
-        }
-    ];
+        required: true,
+        readonly: view,
+    }, {
+        field: 'duration',
+        title: '工作年限',
+        number: true,
+        required: true,
+        readonly: view,
+    }, {
+        field: 'label',
+        title: '标签',
+        type: "checkbox",
+        items: items,
+        required: true,
+        readonly: view,
+    }, {
+        title: "缩略图",
+        field: 'pic',
+        type: "img",
+        single: true,
+        required: true,
+        readonly: view,
+    }, {
+        title: "健身照片",
+        field: 'advPic',
+        type: "img",
+        required: true,
+        readonly: view,
+    }, {
+        title: "工作地址",
+        field: "province1",
+        type: "citySelect",
+        required: true,
+        readonly: view
+    }, {
+        field: "pdf",
+        type: "img",
+        title: "证件照",
+        required: true,
+        readonly: view
+    }, {
+        title: "图文详述",
+        field: "description",
+        type: "textarea",
+        required: true,
+        readonly: view
+    }];
 
     buildDetail({
         fields: fields,
         code: code,
-        editCode: '622091',
+        editCode: '622251',
         detailCode: '622096',
         view: view,
         beforeSubmit: function(data) {
@@ -89,6 +113,7 @@ $(function() {
             if (data.label) {
                 labelValue = data.label.join("||");
             }
+            data.type = kind;
             data.label = labelValue;
             return data;
         }

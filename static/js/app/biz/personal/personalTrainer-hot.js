@@ -15,6 +15,10 @@ $(function() {
         title: 'UI次序',
         number: true,
         required: true
+    }, {
+        title: "备注",
+        field: "remark",
+        maxlength: 255
     }];
 
     buildDetail({
@@ -27,12 +31,15 @@ $(function() {
         if ($('#jsForm').valid()) {
             var data = $('#jsForm').serializeObject();
             data.code = code;
-            reqApi({
-                code: '622099',
-                json: data
-            }).then(function() {
-                sucDetail();
-            });
+            confirm("确定上架?").then(function() {
+                reqApi({
+                    code: '622099',
+                    json: data
+                }).then(function() {
+                    sucDetail();
+                });
+            }, function() {});
+
         }
     });
 });

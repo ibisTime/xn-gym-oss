@@ -74,8 +74,13 @@ $(function() {
         field: 'status',
         title: '状态',
         type: 'select',
-        key: 'pCourse_status',
-        formatter: Dict.getNameForList('pCourse_status'),
+        data: {
+            "0": "待审批",
+            "1": "审批通过",
+            "2": "审批不通过",
+            "3": "已上架",
+            "4": "已下架"
+        },
         search: true,
         readonly: true
     }, {

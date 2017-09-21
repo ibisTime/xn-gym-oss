@@ -1,0 +1,35 @@
+<!DOCUMENT TYPE>
+<html>
+<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js" type="text/javascript"></script>
+<title></title>
+
+<head></head>
+
+<body>
+    <input type="time"></input>
+    <div id="jq" class="color:blue;"></div>
+</body>
+<script>
+    var html = "";
+    var overtimehours = [{
+        "leftHours": "1"
+    }, {
+        "leftHours": "2"
+    }, {
+        "leftHours": "3"
+    }];
+    for (var i in overtimehours) {
+        if (overtimehours[i]) {
+            html += '<div class="weui-cell">' +
+                '<div class="weui-cell__bd">' +
+                '<span style="font-size: 30px;color:#23D3AF;">' + overtimehours[i].leftHours + '</span><span style="margin-right:10px;font-size: 12px;">h</span>——<span style="margin: 0 10px;font-size: 14px;">春节调休需加班抵扣</span>' +
+                '</div>' +
+                '</div>';
+            console.log(overtimehours[i].leftHours)
+        }
+
+    }
+    $("#js").append(html);
+</script>
+
+</html>

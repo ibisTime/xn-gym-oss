@@ -51,7 +51,9 @@ $(function() {
         data: {
             "0": "待审批",
             "1": "审批通过",
-            "2": "审批不通过"
+            "2": "审批不通过",
+            "3": "已上架",
+            "4": "已下架"
         },
         // key: 'pCourse_status',
         search: true
@@ -61,8 +63,7 @@ $(function() {
         type: 'select',
         key: 'user_status',
         keyCode: "807706",
-        formatter: Dict.getNameForList('user_status', "807706"),
-        // search: true
+        formatter: Dict.getNameForList('user_status', "807706")
     }, {
         title: "审核人",
         field: "approver"
@@ -102,7 +103,7 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        window.location.href = 'personalTrainer_adddedit.html?&kind=B&code=' + selRecords[0].code;
+        window.location.href = 'personalTrainer_adddedit.html?&kind=1&code=' + selRecords[0].code;
     });
     //订单查询
     $('#orderBtn').click(function() {
@@ -190,5 +191,28 @@ $(function() {
             return;
         }
         window.location.href = "personalTrainer_course.html?kind=D&code=" + selRecords[0].code;
+    });
+    //下架
+    $('#downBtn').click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        }
+        if (selRecords[0].status != 3) {
+            toastr.info("只有上架状态，才可以下架");
+            return;
+        }
+
+        confirm("确定下架？").then(function() {
+            reqApi({
+                code: '622250',
+                json: {
+                    code: selRecords[0].code
+                }
+            }).then(function() {
+                sucList();
+            });
+        }, function() {})
     });
 });
