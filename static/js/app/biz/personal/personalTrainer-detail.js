@@ -110,14 +110,15 @@ $(function() {
         formatter: Dict.getNameForList('user_status', "807706"),
         readonly: true
     }, {
-        title: "工作地址",
-        field: "address",
-        readonly: true
-    }, {
         field: "pdf",
         type: "img",
         title: "证件照",
         single: true,
+        readonly: true
+    }, {
+        title: "工作地址",
+        field: "province1",
+        type: "citySelect",
         readonly: true
     }, {
         title: "图文详述",

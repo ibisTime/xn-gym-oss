@@ -2,13 +2,9 @@ $(function() {
     var code = getQueryString('code');
 
     var fields = [{
-        field: "kind",
-        value: "1",
-        type: "hidden",
-        required: true
-    }, {
         title: '参数键',
         field: 'ckey',
+        type: "hidden",
         required: true,
         readonly: true,
     }, {

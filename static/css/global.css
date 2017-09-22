@@ -1091,3 +1091,14 @@ li input[type="radio"] {
     width: 175px !important;
     background-position: 145px center !important;
 }
+
+
+/*.timer {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: inset 0 1px #fff, 0 1px #eee;
+    background-color: #eee;
+    background-image: -webkit-linear-gradient( #f0f0f0, #e6e6e6);
+    color: #666;
+    background-position: top left;
+}*/

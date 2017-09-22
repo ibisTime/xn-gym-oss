@@ -3,15 +3,10 @@ $(function() {
     var code = getQueryString('code');
 
     var fields = [{
-        field: "kind",
-        value: "1",
-        type: "hidden",
-        required: true
-    }, {
         title: '参数键',
         field: 'ckey',
         required: true,
-        readonly: true
+        type: "hidden"
     }, {
         title: '参数值',
         field: 'cvalue',

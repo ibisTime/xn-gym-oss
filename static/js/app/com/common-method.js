@@ -1112,10 +1112,21 @@ function buildDetail(options) {
                 }
                 html += '</li>';
             } else {
-                html += '<li class="clearfix" type="' + (item.amount ? 'amount' : '') + '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') + (item.hidden ? 'display: none;' : '') + '"><label>' + item.title + ':</label><span id="' + item.field + '" name="' + item.field + '"></span></li>';
+                html += '<li class="clearfix" type="' + ((item.amount || item.amount1) ? 'amount' : '') +
+                    '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') +
+                    (item.hidden ? 'display: none;' : '') + '"><label>' +
+                    (item.help ? '<i data-help="' + item.help + '" class="zmdi zmdi-help-outline field-help"></i>' : '') +
+                    item.title + ':</label><span id="' + item.field + '" name="' + item.field + '" class="' +
+                    (item.type + 'Cls' || '') + '"></span></li>';
             }
         } else {
-            html += '<li class="clearfix" type="' + (item.amount ? 'amount' : '') + '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') + (item.hidden ? 'display: none;' : '') + '"><label>' + (item.title ? ('<b>' + ((item.required && '*') || '') + '</b>' + item.title + imgLabel + ':') : '&nbsp;') + '</label>';
+            html += '<li class="clearfix" type="' + ((item.amount || item.amount1) ? 'amount' : '') +
+                '" style="' + (item.width ? ('width: ' + item.width + ';display:inline-block;') : '') +
+                (item.hidden ? 'display: none;' : '') + '"><label>' + (item.help ?
+                    '<i data-help="' + item.help + '" class="zmdi zmdi-help-outline field-help"></i>' : '') +
+                (item.title ?
+                    ('<b>' + ((item.required && '*') || '') + '</b>' + item.title + imgLabel + ':') :
+                    '&nbsp;') + '</label>';
             if (item.type == 'radio') {
                 for (var k = 0, len1 = item.items.length; k < len1; k++) {
                     var rd = item.items[k];
@@ -1160,7 +1171,15 @@ function buildDetail(options) {
             } else if (item.type == 'datetime' || item.type == 'date') {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '" name="' + item.field + '" class="lay-input"/></li>';
-            } else if (item.type == "o2m") {
+            } else if (item.type == 'time') {
+                // dateTimeList.push(item);
+                html += '<input id="' + item.field + '" name="' + item.field + '" class="layui-input"/></li>';
+            }
+            // else if (item.type == 'time') {
+            //     // dateTimeList.push(item);
+            //     html += '<input id="' + item.field + '" name="' + item.field + '" class="control-def timer" type="time"/></li>';
+            // } 
+            else if (item.type == "o2m") {
                 html += '<div id="' + item.field + '" style="display: inline-block;"></div>';
             } else {
                 html += '<input id="' + item.field + '" name="' + item.field + '" class="control-def" ' + (item.placeholder ? ('placeholder="' + item.placeholder + '"') : '') + '/></li>';

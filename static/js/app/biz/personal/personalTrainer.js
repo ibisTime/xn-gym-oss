@@ -119,11 +119,13 @@ $(function() {
             toastr.info("请选择记录");
             return;
         }
-        if (selRecords[0].status == 2) {
-            toastr.warning("审核不通过，不能进行热门设置");
+        if (selRecords[0].status == 1 || selRecords[0].status == 4) {
+            window.location.href = "personalTrainer_hot.html?code=" + selRecords[0].code;
+
+        } else {
+            toastr.warning("只有审批通过或者下架状态，才可以进行上架操作");
             return;
         }
-        window.location.href = "personalTrainer_hot.html?code=" + selRecords[0].code;
     });
     //激活
     $('#rockBtn').click(function() {

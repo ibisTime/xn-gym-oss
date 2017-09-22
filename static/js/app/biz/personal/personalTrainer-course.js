@@ -15,7 +15,7 @@ $(function() {
         title: '',
         checkbox: true
     }, {
-        title: "上课时间",
+        title: "上课周期",
         field: "skCycle",
         formatter: function(v, data) {
             return skCycleDict[v]
@@ -30,6 +30,12 @@ $(function() {
         formatter: function(v, data) {
             return v + "&nbsp;-&nbsp;" + data.skEndDatetime;
         }
+    }, {
+        title: "上课人数",
+        field: "totalNum"
+    }, {
+        title: "上课地址",
+        field: "address"
     }];
     buildList({
         columns: columns,
@@ -39,7 +45,7 @@ $(function() {
             companyCode: OSS.company
         }
     });
-    $('.tools .toolbar').html('<li style="display:block;" id="addCourseBtn"><span><img src="/static/images/t01.png"></span>新增</li><li style="display:block;" id="editCourseBtn"><span><img src="/static/images/t01.png"></span>修改</li><li style="display:block;" id="deleteCourseBtn"><span><img src="/static/images/t01.png"></span>删除</li><li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
+    $('.tools .toolbar').html('<li style="display:block;" id="addCourseBtn"><span><img src="/static/images/t01.png"></span>新增</li><li style="display:block;" id="editCourseBtn"><span><img src="/static/images/t01.png"></span>修改</li><li style="display:block;" id="deleteCourseBtn"><span><img src="/static/images/t01.png"></span>删除</li><li style="display:block;" id="detailCourseBtn"><span><img src="/static/images/t01.png"></span>详情</li><li style="display:block;" id="backBtn"><span><img src="/static/images/t01.png"></span>返回</li>');
     $('#backBtn').on('click', function() {
         if (kind == "B") {
             window.location.href = "./personalTrainer.html"
@@ -49,7 +55,7 @@ $(function() {
         }
     });
     $("#addCourseBtn").click(function() {
-        window.location.href = "personalTrainer_courseAddedit.html?coachCode=" + coachCode + "&code=" + selRecords[0].code;
+        window.location.href = "personalTrainer_courseAddedit.html?coachCode=" + coachCode;
     });
     $("#editCourseBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -82,5 +88,17 @@ $(function() {
             });
         });
 
+    });
+    $("#detailCourseBtn").click(function() {
+        var selRecords = $('#tableList').bootstrapTable('getSelections');
+        if (selRecords.length <= 0) {
+            toastr.info("请选择记录");
+            return;
+        } else if (selRecords.length >= 2) {
+            toastr.info("请选择一条记录");
+            return;
+        }
+
+        window.location.href = "personalTrainer_courseAddedit.html?&v=1&coachCode=" + coachCode + "&code=" + selRecords[0].code;
     });
 });

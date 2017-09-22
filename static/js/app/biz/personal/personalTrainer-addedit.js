@@ -83,15 +83,15 @@ $(function() {
         required: true,
         readonly: view,
     }, {
-        title: "工作地址",
-        field: "province1",
-        type: "citySelect",
-        required: true,
-        readonly: view
-    }, {
         field: "pdf",
         type: "img",
         title: "证件照",
+        required: true,
+        readonly: view
+    }, {
+        title: "工作地址",
+        field: "province1",
+        type: "citySelect",
         required: true,
         readonly: view
     }, {
