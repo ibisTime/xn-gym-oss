@@ -606,6 +606,7 @@ function buildList(options) {
     var urlParamsStr = '';
     var columns = options.columns;
     var dateTimeList = [];
+    var dateTimeList1 = [];
     if (urlParams) {
         for (var i in urlParams) {
             urlParamsStr += '&' + i + '=' + urlParams[i];
@@ -1012,6 +1013,7 @@ function buildDetail(options) {
         rules = {},
         textareaList = [];
     var dateTimeList = [],
+        dateTimeList1 = [],
         imgList = [];
     for (var i = 0, len = fields.length; i < len; i++) {
         var item = fields[i];
@@ -1172,8 +1174,8 @@ function buildDetail(options) {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '" name="' + item.field + '" class="lay-input"/></li>';
             } else if (item.type == 'time') {
-                // dateTimeList.push(item);
-                html += '<input id="' + item.field + '" name="' + item.field + '" class="layui-input"/></li>';
+                dateTimeList1.push(item);
+                html += '<input id="' + item.field + '" name="' + item.field + '" class="layui-input" style="width:320px;"/></li>';
             }
             // else if (item.type == 'time') {
             //     // dateTimeList.push(item);
@@ -1411,6 +1413,25 @@ function buildDetail(options) {
             });
         }
 
+    }
+    if (dateTimeList1.length) {
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            for (var i = 0, len = dateTimeList1.length; i < len; i++) {
+                var item = dateTimeList1[i];
+                //时间选择器
+                laydate.render({
+                    elem: '#' + item.field,
+                    type: 'time',
+                    done: function(value, date, endDate) {
+                        // console.log(value, date, endDate);
+                    },
+                    change: function(value, date, endDate) {
+                        //this.elem.val(value)
+                    }
+                });
+            }
+        });
     }
 
     $("#city-group").citySelect && $("#city-group").citySelect({
@@ -1819,6 +1840,9 @@ function buildDetail(options) {
                 } else {
                     if (item.type == 'img') {
                         var realValue = data[item['[value]']] || displayValue || '';
+                        if (item.getValue) {
+                            realValue = item.getValue(data);
+                        }
                         var sp = realValue && realValue.split('||') || [];
                         var imgsHtml = '';
                         var defaultFile = getDefaultFileIcon();
@@ -2622,6 +2646,9 @@ function buildDetail1(options) {
             } else if (item.type == 'datetime' || item.type == 'date') {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '-model" name="' + item.field + '" class="lay-input"/></li>';
+            } else if (item.type == 'time') {
+                dateTimeList1.push(item);
+                html += '<input id="' + item.field + '-model" name="' + item.field + '" class="layui-input"/></li>';
             } else if (item.type == "o2m") {
                 html += '<div id="' + item.field + '-model" name="' + item.field + '" style="display: inline-block;"></div>';
             } else {

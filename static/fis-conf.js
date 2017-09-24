@@ -16,6 +16,8 @@ fis.match('::package', {
 
 fis.match('*.{js,css}', {
     useHash: true
+}).match('js/lib/layui/**', {
+    useHash: false
 });
 
 fis.media("prod").match("**.js", {

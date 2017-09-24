@@ -2,7 +2,17 @@ $(function() {
     var code = getQueryString('code');
     var view = !!getQueryString('v');
     var kind = getQueryString('kind') || "";
-    // var labelDict = Dict.getNameForList("label_kind");
+    var descriptionData, arr;
+    reqApi({
+        code: '622096',
+        json: {
+            code
+        },
+        sync: true
+    }).then(function(data) {
+        descriptionData = data.description;
+        arr = descriptionData.split("<img");
+    });
     var labelDict = Dict.getName("label_kind"),
         items = [];
     for (var i = 0; i < labelDict.length; i++) {
@@ -35,72 +45,129 @@ $(function() {
         coachField = coachFieldB
     };
     var fields = [coachField, {
-        field: 'mobile',
-        title: '联系方式',
-        mobile: true,
-        required: true,
-        readonly: view,
-    }, {
-        field: 'age',
-        title: '年龄',
-        number: true,
-        required: true,
-        readonly: view,
-    }, {
-        title: "性别",
-        field: "gender",
-        type: "select",
-        data: {
-            "1": "男",
-            "0": "女"
+            field: 'mobile',
+            title: '联系方式',
+            mobile: true,
+            required: true,
+            readonly: view,
+        }, {
+            field: 'age',
+            title: '年龄',
+            number: true,
+            required: true,
+            readonly: view,
+        }, {
+            title: "性别",
+            field: "gender",
+            type: "select",
+            data: {
+                "1": "男",
+                "0": "女"
+            },
+            required: true,
+            readonly: view,
+        }, {
+            field: 'duration',
+            title: '工作年限',
+            number: true,
+            required: true,
+            readonly: view,
+        }, {
+            field: 'label',
+            title: '标签',
+            type: "checkbox",
+            items: items,
+            required: true,
+            readonly: view,
+        }, {
+            title: "缩略图",
+            field: 'pic',
+            type: "img",
+            single: true,
+            required: true,
+            readonly: view,
+        }, {
+            title: "健身照片",
+            field: 'advPic',
+            type: "img",
+            required: true,
+            readonly: view,
+        }, {
+            field: "pdf",
+            type: "img",
+            title: "证件照",
+            required: true,
+            readonly: view
+        }, {
+            title: "工作地址",
+            field: "province1",
+            type: "citySelect",
+            required: true,
+            readonly: view
+        }, {
+            type: 'textarea',
+            normalArea: true,
+            field: "description",
+            title: "图文详述"
         },
-        required: true,
-        readonly: view,
-    }, {
-        field: 'duration',
-        title: '工作年限',
-        number: true,
-        required: true,
-        readonly: view,
-    }, {
-        field: 'label',
-        title: '标签',
-        type: "checkbox",
-        items: items,
-        required: true,
-        readonly: view,
-    }, {
-        title: "缩略图",
-        field: 'pic',
-        type: "img",
-        single: true,
-        required: true,
-        readonly: view,
-    }, {
-        title: "健身照片",
-        field: 'advPic',
-        type: "img",
-        required: true,
-        readonly: view,
-    }, {
-        field: "pdf",
-        type: "img",
-        title: "证件照",
-        required: true,
-        readonly: view
-    }, {
-        title: "工作地址",
-        field: "province1",
-        type: "citySelect",
-        required: true,
-        readonly: view
-    }, {
-        title: "图文详述",
-        field: "description",
-        type: "textarea",
-        required: true,
-        readonly: view
-    }];
+        {
+            title: "图片描述",
+            field: "img",
+            type: "img",
+            required: true,
+            getValue: function(data) {
+                var pics = [];
+                if (data.description) {
+                    var description = data.description.replace(/<img\s+src="([^"]+)"\s*\/>/ig, function(img, pic) {
+                        pic = pic.substr(pic.lastIndexOf("/") + 1);
+                        pics.push(pic);
+                        return "";
+                    }).replace(/&nbsp;/ig, " ");
+                    description = decode(description);
+                    $("#description").val(description);
+                }
+                return pics.join('||');
+            },
+            readonly: view
+        }
+    ];
+
+    function decode(str) {
+        if (!str || str.length === 0) {
+            return '';
+        }
+        var s = '';
+        s = str.replace(/&lt;/g, "<");
+        s = s.replace(/&gt;/g, ">");
+        s = s.replace(/&quot;/g, "\"");
+        s = s.replace(/<br\/>/g, "\n");
+        return s;
+    }
+    // 根据文本和图片生成html
+    function getDescription(description, descPics) {
+        var pic_html = "";
+        descPics.forEach(function(pic) {
+            pic_html += '<img src="' + OSS.picBaseUrl + '/' + pic + '"/>';
+        });
+        description = encode(description);
+        description = description.replace(/\s/g, "&nbsp;");
+        description += pic_html;
+        return description;
+    }
+
+    function encode(str) {
+        if (!str || str.length === 0) {
+            return '';
+        }
+        var s = '';
+        s = str.replace(/&amp;/g, "&");
+        s = s.replace(/<(?=[^o][^)])/g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        s = s.replace(/\"/g, "&quot;");
+        s = s.replace(/\n/g, "<br/>");
+        return s;
+    }
+
 
     buildDetail({
         fields: fields,
@@ -113,6 +180,8 @@ $(function() {
             if (data.label) {
                 labelValue = data.label.join("||");
             }
+            var pics = data.img.split('||');
+            data.description = getDescription(data.description, pics);
             data.type = kind;
             data.label = labelValue;
             return data;
@@ -120,4 +189,6 @@ $(function() {
 
     });
 
+    // var textareaHtml = '<li class="clearfix" type="" style=""><label><b>*</b>自我介绍:</label><div style="width:400px;float:left;"><textarea style="height: 200px; width: 320px; border: 1px solid rgb(224, 224, 224); padding: 8px; margin: 0px;" id="zj" name="zj">' + arr[0] + '</textarea></div></li>'
+    // $("#form-info li:eq(10)").after(textareaHtml);
 });
