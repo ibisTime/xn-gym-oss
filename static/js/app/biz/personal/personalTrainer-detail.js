@@ -18,11 +18,25 @@ $(function() {
             return data.realName;
         },
         readonly: true
-    }
+    };
+    var pdfFieldD = {
+        field: "pdf",
+        type: "img",
+        title: "教练资格证",
+        readonly: true
+    };
+    var pdfFieldB = {
+        field: "pdf",
+        type: "img",
+        title: "证件照",
+        readonly: true
+    };
     if (kind == "D") {
-        coachField = coachFieldD
+        coachField = coachFieldD;
+        pdfField = pdfFieldD;
     } else {
-        coachField = coachFieldB
+        coachField = coachFieldB;
+        pdfField = pdfFieldB;
     };
     var fields = [coachField, {
         field: 'mobile',
@@ -109,14 +123,12 @@ $(function() {
         type: 'select',
         formatter: Dict.getNameForList('user_status', "807706"),
         readonly: true
-    }, {
-        field: "pdf",
-        type: "img",
-        title: "证件照",
-        single: true,
+    }, pdfField, {
+        title: "健身地址",
+        field: "address",
         readonly: true
     }, {
-        title: "工作地址",
+        title: "授课区域",
         field: "province1",
         type: "citySelect",
         readonly: true

@@ -1,7 +1,7 @@
 {
-    "name": "yaocheng-oss",
-    "version": "1.0.0",
-    "description": "xn-yc-oss",
+    "name": "xn-gym-oss",
+    "version": "1.0.2",
+    "description": "xn-gym-oss",
     "main": "fis-conf.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"

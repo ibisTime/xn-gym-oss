@@ -606,7 +606,6 @@ function buildList(options) {
     var urlParamsStr = '';
     var columns = options.columns;
     var dateTimeList = [];
-    var dateTimeList1 = [];
     if (urlParams) {
         for (var i in urlParams) {
             urlParamsStr += '&' + i + '=' + urlParams[i];
@@ -2646,9 +2645,6 @@ function buildDetail1(options) {
             } else if (item.type == 'datetime' || item.type == 'date') {
                 dateTimeList.push(item);
                 html += '<input id="' + item.field + '-model" name="' + item.field + '" class="lay-input"/></li>';
-            } else if (item.type == 'time') {
-                dateTimeList1.push(item);
-                html += '<input id="' + item.field + '-model" name="' + item.field + '" class="layui-input"/></li>';
             } else if (item.type == "o2m") {
                 html += '<div id="' + item.field + '-model" name="' + item.field + '" style="display: inline-block;"></div>';
             } else {

@@ -33,9 +33,6 @@ $(function() {
     }, {
         title: "上课人数",
         field: "totalNum"
-    }, {
-        title: "上课地址",
-        field: "address"
     }];
     buildList({
         columns: columns,
@@ -55,7 +52,7 @@ $(function() {
         }
     });
     $("#addCourseBtn").click(function() {
-        window.location.href = "personalTrainer_courseAddedit.html?coachCode=" + coachCode;
+        window.location.href = "personalTrainer_courseAddedit.html?&kind=" + kind + "&coachCode=" + coachCode;
     });
     $("#editCourseBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -67,7 +64,7 @@ $(function() {
             return;
         }
 
-        window.location.href = "personalTrainer_courseAddedit.html?coachCode=" + coachCode + "&code=" + selRecords[0].code;
+        window.location.href = "personalTrainer_courseAddedit.html?&kind=" + kind + "&coachCode=" + coachCode + "&code=" + selRecords[0].code;
     });
     $("#deleteCourseBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
@@ -99,6 +96,6 @@ $(function() {
             return;
         }
 
-        window.location.href = "personalTrainer_courseAddedit.html?&v=1&coachCode=" + coachCode + "&code=" + selRecords[0].code;
+        window.location.href = "personalTrainer_courseAddedit.html?&v=1&kind=" + kind + "&coachCode=" + coachCode + "&code=" + selRecords[0].code;
     });
 });

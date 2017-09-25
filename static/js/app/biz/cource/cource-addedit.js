@@ -112,7 +112,7 @@ $(function() {
         type: 'img',
         required: true,
         readonly: view,
-        single:true
+        single: true
     }, {
         title: "广告图",
         field: "advPic",
@@ -238,7 +238,7 @@ $(function() {
                 toastr.warning("上课时间必须是同一天");
                 return '';
             } else if (skStartDate[1] >= skEndDate[1]) {
-                toastr.warning("开始时间必须大于结束时间");
+                toastr.warning("开始时间必须小于结束时间");
                 return '';
             } else {
                 return data;

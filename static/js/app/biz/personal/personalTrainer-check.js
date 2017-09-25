@@ -51,7 +51,6 @@ $(function() {
             if (data) {
                 var arr = data.split('||'),
                     str = "";
-
                 for (var i = 0; i < arr.length; i++) {
                     str += labelDict(arr[i]) + "、";
                 }
@@ -84,8 +83,13 @@ $(function() {
         search: true,
         readonly: true
     }, {
-        title: "工作地址",
+        title: "健身地址",
         field: "address",
+        readonly: true
+    }, {
+        title: "授课区域",
+        field: "province1",
+        type: "citySelect",
         readonly: true
     }, {
         field: "pdf",

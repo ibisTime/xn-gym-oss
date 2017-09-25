@@ -114,7 +114,7 @@ $(function() {
         }
         window.location.href = "myOrder.html?kind=D&userId=" + selRecords[0].userId;
     });
-    //热门设置
+    //上架
     $('#hotBtn').click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {

@@ -1,5 +1,6 @@
 $(function() {
     var coachCode = getQueryString('coachCode');
+    var kind = getQueryString('kind');
     var code = getQueryString('code');
     var view = getQueryString('v');
     var skCycleDict = {
@@ -11,7 +12,6 @@ $(function() {
         "6": "星期五",
         "7": "星期六"
     };
-
 
     var fields = [{
         title: "上课周期",
@@ -49,26 +49,7 @@ $(function() {
         title: "上课地址",
         field: "address",
         required: true,
-        readonly: view
-    }, {
-        title: '缩略图',
-        field: 'pic',
-        type: 'img',
-        required: true,
         readonly: view,
-        single: true
-    }, {
-        title: "广告图",
-        field: "advPic",
-        type: 'img',
-        required: true,
-        readonly: view
-    }, {
-        title: '图文详述',
-        field: 'description',
-        required: true,
-        type: 'textarea',
-        readonly: view
     }];
 
     var options = {
@@ -89,5 +70,8 @@ $(function() {
         view: view
     };
     buildDetail(options);
+    if (kind == "B") {
+        $("#address").parent().css("display", "none")
+    }
 
 });
