@@ -4,9 +4,6 @@ $(function() {
     var view = 1;
 
     var fields = [{
-        field: 'loginName',
-        title: '登录名',
-    }, {
         field: 'nickname',
         title: '微信昵称',
     }, {

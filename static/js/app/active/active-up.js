@@ -13,9 +13,10 @@ $(function() {
         field: 'location',
         title: '位置',
         type: 'select',
+        value: "1",
         data: {
             "1": "热门",
-            "0": "普通"
+            // "0": "普通"
         },
         // key: "ui_location",
         required: true,

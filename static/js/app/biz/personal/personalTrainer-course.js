@@ -31,7 +31,7 @@ $(function() {
             return v + "&nbsp;-&nbsp;" + data.skEndDatetime;
         }
     }, {
-        title: "上课人数",
+        title: "最多上课人数",
         field: "totalNum"
     }];
     buildList({

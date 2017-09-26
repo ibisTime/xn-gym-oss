@@ -40,7 +40,7 @@ $(function() {
         required: true,
         readonly: view
     }, {
-        title: "上课人数",
+        title: "最多上课人数",
         field: "totalNum",
         number: true,
         required: true,

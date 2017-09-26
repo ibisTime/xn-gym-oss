@@ -27,11 +27,27 @@ $(function() {
         },
         required: true,
         readonly: view
-    }
+    };
+    var pdfFieldD = {
+        field: "pdf",
+        type: "img",
+        title: "证件照",
+        required: true,
+        readonly: view,
+    };
+    var pdfFieldB = {
+        field: "pdf",
+        type: "img",
+        title: "教练资格证",
+        required: true,
+        readonly: view,
+    };
     if (kind == "1") {
-        coachField = coachFieldD
+        coachField = coachFieldD;
+        pdfField = pdfFieldD;
     } else if (kind == "0") {
-        coachField = coachFieldB
+        coachField = coachFieldB;
+        pdfField = pdfFieldB;
     };
     var fields = [coachField, {
         field: 'mobile',
@@ -69,7 +85,7 @@ $(function() {
         required: true,
         readonly: view,
     }, {
-        title: "缩略图",
+        title: "头像",
         field: 'pic',
         type: "img",
         single: true,
@@ -81,13 +97,7 @@ $(function() {
         type: "img",
         required: true,
         readonly: view,
-    }, {
-        field: "pdf",
-        type: "img",
-        title: "证件照",
-        required: true,
-        readonly: view
-    }, {
+    }, pdfField, {
         title: "工作地址",
         field: "province1",
         type: "citySelect",
@@ -107,6 +117,8 @@ $(function() {
             var pics = [];
             if (data.description) {
                 var description = data.description.replace(/<img\s+src="([^"]+)"\s*\/>/ig, function(img, pic) {
+                    var index = pic.indexOf('?imageMogr2/auto-orient');
+                    if (~index) { pic = pic.substr(0, index); }
                     pic = pic.substr(pic.lastIndexOf("/") + 1);
                     pics.push(pic);
                     return "";
@@ -134,7 +146,7 @@ $(function() {
     function getDescription(description, descPics) {
         var pic_html = "";
         descPics.forEach(function(pic) {
-            pic_html += '<img src="' + OSS.picBaseUrl + '/' + pic + '"/>';
+            pic_html += '<img src="' + OSS.picBaseUrl + '/' + pic + '?imageMogr2/auto-orient"/>';
         });
         description = encode(description);
         description = description.replace(/\s/g, "&nbsp;");

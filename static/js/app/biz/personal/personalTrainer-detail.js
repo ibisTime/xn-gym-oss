@@ -22,13 +22,13 @@ $(function() {
     var pdfFieldD = {
         field: "pdf",
         type: "img",
-        title: "教练资格证",
+        title: "证件照",
         readonly: true
     };
     var pdfFieldB = {
         field: "pdf",
         type: "img",
-        title: "证件照",
+        title: "教练资格证",
         readonly: true
     };
     if (kind == "D") {
@@ -95,7 +95,7 @@ $(function() {
         title: "星星总数",
         field: "starNum"
     }, {
-        title: "缩略图",
+        title: "头像",
         field: 'pic',
         type: "img",
         readonly: true,

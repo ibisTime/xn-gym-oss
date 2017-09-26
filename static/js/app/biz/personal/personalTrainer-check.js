@@ -17,11 +17,25 @@ $(function() {
             return data.realName;
         },
         readonly: true
-    }
+    };
+    var pdfFieldD = {
+        field: "pdf",
+        type: "img",
+        title: "证件照",
+        readonly: true
+    };
+    var pdfFieldB = {
+        field: "pdf",
+        type: "img",
+        title: "教练资格证",
+        readonly: true
+    };
     if (kind == "D") {
-        coachField = coachFieldD
+        coachField = coachFieldD;
+        pdfField = pdfFieldD;
     } else {
-        coachField = coachFieldB
+        coachField = coachFieldB;
+        pdfField = pdfFieldB;
     };
     var fields = [coachField, {
         field: 'mobile',
@@ -59,7 +73,7 @@ $(function() {
         },
         readonly: true
     }, {
-        title: "缩略图",
+        title: "头像",
         field: 'pic',
         type: "img",
         readonly: true,
@@ -91,13 +105,7 @@ $(function() {
         field: "province1",
         type: "citySelect",
         readonly: true
-    }, {
-        field: "pdf",
-        type: "img",
-        title: "证件照",
-        single: true,
-        readonly: true
-    }, {
+    }, pdfField, {
         title: "图文详述",
         field: "description",
         type: "textarea",

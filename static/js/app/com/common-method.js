@@ -1900,13 +1900,15 @@ function buildDetail(options) {
                     } else if (item.type == 'radio') {
                         $('input[name=' + item.field + '][value=' + displayValue + ']').prop('checked', true);
                     } else if (item.type == "checkbox") {
-                        var checkData = displayValue.split('||');
-                        for (var h = 0; h < checkData.length; h++) {
-                            for (var k = 0, len1 = item.items.length; k < len1; k++) {
-                                var rd = item.items[k];
-                                if (rd.key == checkData[h]) {
-                                    $("#" + item.field + "_checkbox" + k).prop("checked", true);
-                                    break;
+                        if (displayValue) {
+                            var checkData = displayValue.split('||');
+                            for (var h = 0; h < checkData.length; h++) {
+                                for (var k = 0, len1 = item.items.length; k < len1; k++) {
+                                    var rd = item.items[k];
+                                    if (rd.key == checkData[h]) {
+                                        $("#" + item.field + "_checkbox" + k).prop("checked", true);
+                                        break;
+                                    }
                                 }
                             }
                         }

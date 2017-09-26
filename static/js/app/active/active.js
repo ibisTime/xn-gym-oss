@@ -41,7 +41,7 @@ $(function() {
             "1": "热门",
             "0": "普通"
         },
-        search: true
+        // search: true
     }, {
         field: 'orderNo',
         title: 'UI次序'
