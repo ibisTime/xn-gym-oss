@@ -149,6 +149,10 @@ $(function() {
         field: 'orderNo',
         title: 'UI次序'
     }, {
+        title: "信用额度（元）",
+        field: "creditAmount",
+        formatter: moneyFormat,
+    }, {
         title: "审核人",
         field: "approver"
     }, {

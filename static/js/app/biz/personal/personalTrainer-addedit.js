@@ -107,7 +107,8 @@ $(function() {
         type: 'textarea',
         normalArea: true,
         field: "description",
-        title: "文字描述"
+        title: "文字描述",
+        readonly: view
     }, {
         title: "图片描述",
         field: "img",
@@ -129,6 +130,18 @@ $(function() {
             return pics.join('||');
         },
         readonly: view
+    }, {
+        title: "信用额度（元）",
+        field: "creditAmount",
+        required: true,
+        amount: true,
+        formatter: moneyFormat,
+        readonly: view,
+        afterSet: function(v, data) {
+            if (v == undefined) {
+                $("#creditAmount").val("")
+            }
+        }
     }];
 
     function decode(str) {

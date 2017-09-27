@@ -3,6 +3,16 @@ $(function() {
     var kind = getQueryString('kind');
     var code = getQueryString('code');
     var view = getQueryString('v');
+    var maxPrice;
+    reqApi({
+        code: "622917",
+        json: {
+            ckey: "courseMaxPrice"
+        },
+        sync: true
+    }).then(function(data) {
+        maxPrice = data.cvalue;
+    });
     var skCycleDict = {
         "1": "星期日",
         "2": "星期一",
@@ -64,7 +74,12 @@ $(function() {
                 toastr.warning("开始时间必须小于结束时间");
                 return '';
             } else {
-                return data;
+                if ((data.price / 1000) > maxPrice) {
+                    toastr.warning('课程价格必须小于或者等于' + maxPrice + '');
+                    return '';
+                } else {
+                    return data
+                };
             }
         },
         view: view
@@ -72,6 +87,8 @@ $(function() {
     buildDetail(options);
     if (kind == "B") {
         $("#address").parent().css("display", "none")
-    }
+    };
+    var maxPriceHtml = '<span style="color:red">课程单价最高为' + maxPrice + '元,请不要输入大于' + maxPrice + '的课程价格</span>'
+    $("#price").after(maxPriceHtml)
 
 });

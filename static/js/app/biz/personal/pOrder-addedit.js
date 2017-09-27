@@ -6,7 +6,11 @@ $(function() {
         title: "私教名称",
         field: "coach",
         formatter: function(v, data) {
-            return data.realName;
+            if (data.coach.realName) {
+                return data.coach.realName;
+            } else if (data.coach.mobile) {
+                return data.coach.mobile;
+            }
         },
         readonly: true
     };
@@ -14,14 +18,42 @@ $(function() {
         title: "达人名称",
         field: "coach",
         formatter: function(v, data) {
-            return data.realName;
+            if (data.coach.realName) {
+                return data.coach.realName;
+            } else if (data.coach.mobile) {
+                return data.coach.mobile;
+            }
         },
         readonly: true
-    }
+    };
+    var statusDataB = {
+        "0": "未支付",
+        "1": "付款成功",
+        "2": "已接单",
+        "3": "上课",
+        "4": "待填表",
+        "5": "已下课",
+        "6": "用户取消",
+        "7": "私教取消",
+        "8": "已完成"
+    };
+    var statusDataD = {
+        "0": "未支付",
+        "1": "付款成功",
+        "2": "已接单",
+        "3": "上课",
+        "4": "待填表",
+        "5": "已下课",
+        "6": "用户取消",
+        "7": "达人取消",
+        "8": "已完成"
+    };
     if (kind == "D") {
-        coachField = coachFieldD
+        coachField = coachFieldD;
+        statusData = statusDataD;
     } else {
-        coachField = coachFieldB
+        coachField = coachFieldB;
+        statusData = statusDataB;
     };
     var sizeDataList;
     reqApi({
@@ -78,20 +110,20 @@ $(function() {
             }
         }
     }, {
+        title: "违约金",
+        field: 'coachPenalty',
+        formatter: function(v, data) {
+            if (v) {
+                return moneyFormat(v)
+            } else {
+                $("#coachPenalty").parent().css("display", "none");
+            }
+        }
+    }, {
         field: 'status',
         title: '状态',
         type: 'select',
-        data: {
-            "0": "未支付",
-            "1": "付款成功",
-            "2": "已接单",
-            "3": "上课",
-            "4": "待填表",
-            "5": "已下课",
-            "6": "用户取消",
-            "7": "B端取消",
-            "8": "已完成"
-        },
+        data: statusData,
         readonly: true
     }, {
         title: "下单时间",

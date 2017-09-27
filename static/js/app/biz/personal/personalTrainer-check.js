@@ -111,6 +111,23 @@ $(function() {
         type: "textarea",
         readonly: true
     }, {
+        title: "信用额度(元)",
+        field: "creditAmount",
+        // required: true,
+        mumber: true,
+        afterSet: function(v, data) {
+            if (v == undefined) {
+                $("#creditAmount").val("")
+            }
+        },
+        formatter: function(v, data) {
+            if (v) {
+                return moneyFormat(v);
+            }
+        },
+        help: "审核通过时，信用额度为必填项；<br>审核不通过时，不用填写。"
+            // readonly: false
+    }, {
         title: "审核说明",
         field: "remark",
         maxlength: 255
@@ -122,13 +139,23 @@ $(function() {
                 var data = $('#jsForm').serializeObject();
                 data.result = '1';
                 data.approver = getUserName();
-                data.code = code;
-                reqApi({
-                    code: '622092',
-                    json: data
-                }).done(function(data) {
-                    sucDetail();
-                });
+                if (data.creditAmount == "") {
+                    data.creditAmount == ""
+                } else {
+                    data.creditAmount = parseFloat(data.creditAmount).toFixed(2) * 1000;
+                };
+                if (data.creditAmount == "") {
+                    toastr.warning("审核通过时，信用额度必须填写");
+                    return "";
+                } else {
+                    reqApi({
+                        code: '622092',
+                        json: data
+                    }).done(function(data) {
+                        sucDetail();
+                    });
+                };
+
             }
         }
     }, {
