@@ -14,6 +14,11 @@ $(function() {
         mobile: true,
         search: true
     }, {
+        title: "信用额度（元）",
+        field: "creditAmount",
+        amount: true,
+        formatter: moneyFormat,
+    }, {
         field: 'age',
         title: '年龄'
     }, {

@@ -13,23 +13,42 @@ $(function() {
     }).then(function(data) {
         maxPrice = data.cvalue;
     });
-    var skCycleDict = {
-        "1": "星期日",
-        "2": "星期一",
-        "3": "星期二",
-        "4": "星期三",
-        "5": "星期四",
-        "6": "星期五",
-        "7": "星期六"
+    var start = {
+        elem: '#skStartDatetime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        istime: true,
+        istoday: false,
+        choose: function(datas) {
+            var d = new Date(datas);
+            d.setDate(d.getDate());
+            datas = dateTimeFormat(d);
+            end.min = datas;
+            end.start = datas;
+            end.max = datas;
+        }
+    };
+    var end = {
+        elem: '#skEndDatetime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        istime: true,
+        istoday: false,
+        choose: function(datas) {
+            var d = new Date(datas);
+            d.setDate(d.getDate());
+            datas = dateTimeFormat(d);
+            start.max = datas;
+            // start.min = min;
+        }
     };
 
     var fields = [{
-        title: "上课周期",
+        title: "上课日期",
         field: "skCycle",
-        type: "select",
-        data: skCycleDict,
+        hidden: true,
         required: true,
-        readonly: view
+        value: "0"
     }, {
         field: 'price',
         title: '课程价格',
@@ -39,16 +58,22 @@ $(function() {
         readonly: view
     }, {
         title: "上课时间",
-        type: "time",
+        type: "datetime",
         field: "skStartDatetime",
+        dateOption: start,
         required: true,
-        readonly: view
+        readonly: view,
+        formatter: dateTimeFormat,
+        help: '课程上课和下课日期必须是同一天'
     }, {
         title: "下课时间",
-        type: "time",
+        type: "datetime",
         field: "skEndDatetime",
+        dateOption: end,
         required: true,
-        readonly: view
+        readonly: view,
+        formatter: dateTimeFormat,
+        help: '课程上课和下课日期必须是同一天'
     }, {
         title: "最多上课人数",
         field: "totalNum",
@@ -70,8 +95,8 @@ $(function() {
         detailCode: '622111',
         beforeSubmit: function(data) {
             data.coachCode = coachCode;
-            if (data.skStartDatetime >= data.skEndDatetime) {
-                toastr.warning("开始时间必须小于结束时间");
+            if (data.skStartDatetime.split(" ")[1] >= data.skEndDatetime.split(" ")[1]) {
+                toastr.warning("上课时间必须小于下课时间");
                 return '';
             } else {
                 if ((data.price / 1000) > maxPrice) {

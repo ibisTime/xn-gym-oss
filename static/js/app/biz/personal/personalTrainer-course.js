@@ -1,25 +1,11 @@
 $(function() {
     var kind = getQueryString('kind') || "";
     var coachCode = getQueryString('code') || "";
-    var skCycleDict = {
-        "1": "星期日",
-        "2": "星期一",
-        "3": "星期二",
-        "4": "星期三",
-        "5": "星期四",
-        "6": "星期五",
-        "7": "星期六"
-    }
+
     var columns = [{
         field: '',
         title: '',
         checkbox: true
-    }, {
-        title: "上课周期",
-        field: "skCycle",
-        formatter: function(v, data) {
-            return skCycleDict[v]
-        }
     }, {
         field: 'price',
         title: '课程价格',
@@ -28,11 +14,20 @@ $(function() {
         field: 'skStartDatetime',
         title: '开课时间',
         formatter: function(v, data) {
-            return v + "&nbsp;-&nbsp;" + data.skEndDatetime;
+            return dateTimeFormat(v) + "~" + dateTimeFormat(data.skEndDatetime);
         }
     }, {
         title: "最多上课人数",
         field: "totalNum"
+    }, {
+        title: "状态",
+        field: "status",
+        type: 'select',
+        data: {
+            "1": "已预订",
+            "0": "未预订"
+        },
+        search: true
     }];
     buildList({
         columns: columns,
@@ -57,22 +52,25 @@ $(function() {
     $("#editCourseBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
+            toastr.error("请选择记录");
             return;
         } else if (selRecords.length >= 2) {
-            toastr.info("请选择一条记录");
+            toastr.error("请选择一条记录");
             return;
         }
-
+        if (selRecords[0].status == "1") {
+            toastr.error("只有未被预订的课程才可以修改");
+            return;
+        }
         window.location.href = "personalTrainer_courseAddedit.html?&kind=" + kind + "&coachCode=" + coachCode + "&code=" + selRecords[0].code;
     });
     $("#deleteCourseBtn").click(function() {
         var selRecords = $('#tableList').bootstrapTable('getSelections');
         if (selRecords.length <= 0) {
-            toastr.info("请选择记录");
+            toastr.error("请选择记录");
             return;
         } else if (selRecords.length >= 2) {
-            toastr.info("请选择一条记录");
+            toastr.error("请选择一条记录");
             return;
         }
         confirm("确认是否删除该记录？").then(function() {

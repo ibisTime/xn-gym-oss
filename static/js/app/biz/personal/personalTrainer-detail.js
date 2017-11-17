@@ -106,6 +106,18 @@ $(function() {
         type: "img",
         readonly: true
     }, {
+        field: "pdf",
+        type: "img",
+        title: kind == "D" ? "证件照" : "教练资格证",
+        required: true,
+        readonly: view,
+    }, {
+        field: "idPhoto",
+        type: "img",
+        title: "证件照",
+        required: true,
+        readonly: view,
+    }, {
         field: 'status',
         title: '资料状态',
         type: 'select',
@@ -123,7 +135,7 @@ $(function() {
         type: 'select',
         formatter: Dict.getNameForList('user_status', "807706"),
         readonly: true
-    }, pdfField, {
+    }, {
         title: "健身地址",
         field: "address",
         readonly: true
@@ -171,5 +183,7 @@ $(function() {
         detailCode: '622096',
         view: view
     });
-
+    if (kind == "D") {
+        $("#idPhoto").parent().css("display", "none");
+    }
 });

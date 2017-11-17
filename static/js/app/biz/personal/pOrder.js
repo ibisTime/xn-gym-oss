@@ -41,7 +41,7 @@ $(function() {
         field: 'skDatetime',
         title: '开课时间',
         formatter: function(v, data) {
-            return dateFormat(data.appointDatetime) + "&nbsp;&nbsp;" + data.skDatetime + "&nbsp;-&nbsp;" + data.xkDatetime;
+            return dateTimeFormat(data.skDatetime) + "~" + dateTimeFormat(data.xkDatetime)
         }
     }, {
         field: 'quantity',

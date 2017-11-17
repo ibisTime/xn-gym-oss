@@ -28,28 +28,21 @@ $(function() {
         required: true,
         readonly: view
     };
-    var pdfFieldD = {
-        field: "pdf",
-        type: "img",
-        title: "证件照",
-        required: true,
-        readonly: view,
-    };
-    var pdfFieldB = {
-        field: "pdf",
-        type: "img",
-        title: "教练资格证",
-        required: true,
-        readonly: view,
-    };
+
     if (kind == "1") {
         coachField = coachFieldD;
-        pdfField = pdfFieldD;
     } else if (kind == "0") {
         coachField = coachFieldB;
-        pdfField = pdfFieldB;
     };
-    var fields = [coachField, {
+    var fields = [{
+        title: kind == "1" ? "达人名称" : "教练名称",
+        field: "realName",
+        formatter: function(v, data) {
+            return data.realName;
+        },
+        required: true,
+        readonly: view
+    }, {
         field: 'mobile',
         title: '联系方式',
         mobile: true,
@@ -97,7 +90,19 @@ $(function() {
         type: "img",
         required: true,
         readonly: view,
-    }, pdfField, {
+    }, {
+        field: "pdf",
+        type: "img",
+        title: kind == "1" ? "证件照" : "教练资格证",
+        required: true,
+        readonly: view,
+    }, {
+        field: "idPhoto",
+        type: "img",
+        title: "证件照",
+        required: true,
+        readonly: view,
+    }, {
         title: "工作地址",
         field: "province1",
         type: "citySelect",
@@ -189,8 +194,10 @@ $(function() {
         view: view,
         beforeSubmit: function(data) {
             var labelValue;
-            if (data.label) {
+            if (Array.isArray(data.label)) {
                 labelValue = data.label.join("||");
+            } else {
+                labelValue = data.label;
             }
             var pics = data.img.split('||');
             data.description = getDescription(data.description, pics);
@@ -199,4 +206,7 @@ $(function() {
             return data;
         }
     });
+    if (kind == "1") {
+        $("#idPhoto").parent().css("display", "none");
+    }
 });
