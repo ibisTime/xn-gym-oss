@@ -136,7 +136,7 @@ $(function() {
         formatter: Dict.getNameForList('user_status', "807706"),
         readonly: true
     }, {
-        title: "健身地址",
+        title: kind == "D" ? "健身地址" : "工作地址",
         field: "address",
         readonly: true
     }, {

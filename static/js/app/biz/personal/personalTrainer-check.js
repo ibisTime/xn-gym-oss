@@ -18,24 +18,10 @@ $(function() {
         },
         readonly: true
     };
-    var pdfFieldD = {
-        field: "pdf",
-        type: "img",
-        title: "证件照",
-        readonly: true
-    };
-    var pdfFieldB = {
-        field: "pdf",
-        type: "img",
-        title: "教练资格证",
-        readonly: true
-    };
     if (kind == "D") {
         coachField = coachFieldD;
-        pdfField = pdfFieldD;
     } else {
         coachField = coachFieldB;
-        pdfField = pdfFieldB;
     };
     var fields = [coachField, {
         field: 'mobile',
@@ -97,7 +83,7 @@ $(function() {
         search: true,
         readonly: true
     }, {
-        title: "健身地址",
+        title: kind == "D" ? "健身地址" : "工作地址",
         field: "address",
         readonly: true
     }, {
@@ -105,7 +91,19 @@ $(function() {
         field: "province1",
         type: "citySelect",
         readonly: true
-    }, pdfField, {
+    }, {
+        field: "pdf",
+        type: "img",
+        title: kind == "D" ? "证件照" : "教练资格证",
+        required: true,
+        readonly: true,
+    }, {
+        field: "idPhoto",
+        type: "img",
+        title: "证件照",
+        required: true,
+        readonly: true,
+    }, {
         title: "图文详述",
         field: "description",
         type: "textarea",
@@ -187,4 +185,7 @@ $(function() {
         buttons: buttons
     }
     buildDetail(options);
+    if (kind == "D") {
+        $("#idPhoto").parent().css("display", "none");
+    }
 });

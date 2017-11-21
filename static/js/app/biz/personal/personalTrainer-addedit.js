@@ -103,11 +103,17 @@ $(function() {
         required: true,
         readonly: view,
     }, {
-        title: "工作地址",
+        title: "授课区域",
         field: "province1",
         type: "citySelect",
         required: true,
         readonly: view
+    }, {
+        title: kind == "1" ? "健身地址" : "工作地址",
+        field: "address",
+        // required: true,
+        readonly: view,
+        maxlength: 255
     }, {
         type: 'textarea',
         normalArea: true,
@@ -208,5 +214,5 @@ $(function() {
     });
     if (kind == "1") {
         $("#idPhoto").parent().css("display", "none");
-    }
+    };
 });
